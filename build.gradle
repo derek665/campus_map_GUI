@@ -1,0 +1,122 @@
+  // Students should not edit this file.
+
+plugins {
+  // id 'pmd'
+  // id "com.github.spotbugs" version "1.7.1"
+  // id "com.diffplug.gradle.spotless" version "3.21.1"
+}
+apply plugin: 'java'
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+repositories {
+  mavenCentral()
+  jcenter()
+}
+
+dependencies {
+  implementation group: 'asm', name: 'asm-all', version: '2.2.3' // for staff tools
+  // These should really be testImplementation, but put them in implementation so
+  // javadoc target works without change for test files.
+  implementation group: 'junit', name: 'junit', version: '4.12'
+  implementation group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3'
+  implementation group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+
+  implementation 'com.opencsv:opencsv:4.3.2'
+
+  compile 'org.ajoberstar:grgit:2.3.0'
+}
+
+javadoc {
+    options.tags = [ "spec.modifies", "spec.effects", "spec.requires", "specfield" ] 
+}
+
+///
+/// Testing
+///
+
+test {
+  // exclude 'setup/**'
+}
+
+tasks.withType(Test) {
+    enableAssertions = true
+}
+
+///
+/// Extra code quality checks
+///
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
+
+///
+/// Validation: Checking additional assignment requirements
+///
+
+task checkFiles {
+  description = 'Check that all files required in the assignment exist'
+  doLast {
+    def String[] homeworkProperties = homeworks.split(',')
+    homeworkProperties.each { requiredHwFiles ->
+      def String[] requiredFiles = getProperty(requiredHwFiles).split(',')
+      requiredFiles.each { fileName ->
+        fileName = fileName.trim()
+        if (! file("${fileName}").exists()) {
+	  throw new GradleException("File ${fileName} does not exist.")
+	}
+      }
+    }
+  }
+}
+
+task validate {
+    description = 'Validate the working copy.  Ensures that the project builds, that required files exist and a Javadoc is generated.'
+}
+
+validate.dependsOn clean
+validate.dependsOn build
+validate.dependsOn checkFiles
+validate.dependsOn javadoc
+
+///
+/// Run: running Java classes
+///
+
+task runHolaWorld(type:JavaExec) {
+   main = "setup/HolaWorld"
+   standardInput = System.in
+   classpath = sourceSets.main.runtimeClasspath
+}
+
+task runRandomHello(type:JavaExec) {
+   main = "setup/RandomHello"
+   standardInput = System.in
+   classpath = sourceSets.main.runtimeClasspath
+}
+
+///
+/// Other targets
+///
+
+task cleanByRenaming {
+  description = 'Use this when the "clean" target fails due to "unable to delete file" "device or resource busy".'
+  doLast {
+    File destinationDir = new File("${buildDir}", 'deleteme-' + new Random().nextInt(1000000))
+    mkdir destinationDir
+    println "destinationDir = " + destinationDir
+    buildDir.eachFile { f ->
+      println "Processing " + f
+      f.renameTo(new File(destinationDir, f.getName()))
+    }
+  }
+}

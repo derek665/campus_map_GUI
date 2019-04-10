@@ -1,0 +1,21 @@
+stages:
+  - build
+  - validation
+  - submission
+
+test:
+  stage: build
+  script: chmod +x gradlew && ./gradlew test --fail-fast
+
+check-files:
+  stage: validation
+  script: chmod +x gradlew && ./gradlew checkFiles
+
+javadoc:
+  stage: validation
+  script: chmod +x gradlew && ./gradlew javadoc
+
+submit-hw3:
+  stage: submission
+  script: git checkout hw3-final
+  allow_failure: true
