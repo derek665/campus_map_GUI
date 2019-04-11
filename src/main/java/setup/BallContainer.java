@@ -56,7 +56,7 @@ public class BallContainer implements Iterable<Ball> {
      */
     public boolean add(Ball b) {
         // Your code goes here.  Remove the exception after you're done.
-        throw new RuntimeException("Method not implemented");
+        return contents.add(b);
     }
 
     /**
@@ -73,7 +73,7 @@ public class BallContainer implements Iterable<Ball> {
      */
     public boolean remove(Ball b) {
         // Your code goes here.  Remove the exception after you're done.
-        throw new RuntimeException("Method not implemented");
+        return contents.remove(b);
     }
 
     /**
@@ -83,7 +83,11 @@ public class BallContainer implements Iterable<Ball> {
      */
     public double getVolume() {
         // Your code goes here.  Remove the exception after you're done.
-        throw new RuntimeException("Method not implemented");
+        int total = 0;
+        for (Ball b : contents) {
+            total += b.getVolume();
+        }
+        return total;
     }
 
     /**
@@ -92,7 +96,7 @@ public class BallContainer implements Iterable<Ball> {
      */
     public int size() {
         // Your code goes here.  Remove the exception after you're done.
-        throw new RuntimeException("Method not implemented");
+        return contents.size();
     }
 
     /**
@@ -100,7 +104,7 @@ public class BallContainer implements Iterable<Ball> {
      */
     public void clear() {
         // Your code goes here.  Remove the exception after you're done.
-        throw new RuntimeException("Method not implemented");
+        contents.clear();
     }
 
     /**
@@ -113,7 +117,7 @@ public class BallContainer implements Iterable<Ball> {
      */
     public boolean contains(Ball b) {
         // Your code goes here.  Remove the exception after you're done.
-        throw new RuntimeException("Method not implemented");
+        return contents.contains(b);
     }
 
 }
