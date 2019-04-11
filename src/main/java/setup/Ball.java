@@ -17,7 +17,7 @@ public class Ball {
      * @param volume Volume of the new object.
      */
     public Ball(double volume) {
-        volume = volume;
+        this.volume = volume;
     }
 
     /**
@@ -25,7 +25,7 @@ public class Ball {
      * @return the volume of the Ball.
      */
     public double getVolume() {
-        return 0;
+        return volume;
     }
 
 }
