@@ -20,4 +20,7 @@ Problem 6.
 
 Problem 7. 
 
-<replace this line with your answers>
+I changed the constructor to this.volume = volume,
+so the parameter is stored to the field of the class.
+I also changed the getVolume() method to return the volume field instead of 0
+
