@@ -1,17 +1,21 @@
 CSE 331 Homework 3.  Answers to Written questions.
 Edit this file to supply your answers.
 
-Name:  <replace this with your name>
+Name:  Derek Chan
 
 Problem 6.
 
-(a)
+(a) The original code had (n <= 0) for the test case,
+    so each time a 0 is passed, it causes an exception.
+    I fixed it by changing to (n < 0) since 0 is a legal argument for n
 
+(b) The original code had (n <= 2) to return 1 for a base case.
+    But for n == 2, the answer should be 1 + 1 instead of 1.
+    So I fixed it by changing the test to (n < 2)
 
-(b)
-
-
-(c)
+(c) The original code had getFibTerm(n - 1) - getFibTerm(n - 2),
+    which made the final result wrong. I changed the line to
+    getFibTerm(n - 1) + getFibTerm(n - 2) and the final result is correct
 
 
 Problem 7. 
