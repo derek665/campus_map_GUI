@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import org.junit.Test;
+import java.util.Scanner;
 
 /**
  * HolaWorldTest is a simple test of the HolaWorld class that you
@@ -41,9 +42,6 @@ public class HolaWorldTest {
     @Test
     public void testMainOutput() throws FileNotFoundException {
         
-        // Needed for windows line endings
-        System.setProperty("line.separator", "\n");
-        
         // Redirect System.out to an OutputStream
         PrintStream sysoutStream = System.out;
         ByteArrayOutputStream mainOutput = new ByteArrayOutputStream();
@@ -52,7 +50,8 @@ public class HolaWorldTest {
         HolaWorld.main(new String[0]);
         System.setOut(sysoutStream);
 
-        assertEquals(HelloWorld.GREETING + "\n" + HolaWorld.SPANISH_GREETING + "\n",
-                    mainOutput.toString());
+        Scanner scan = new Scanner(mainOutput.toString());
+        assertEquals(scan.nextLine(), HelloWorld.GREETING);
+        assertEquals(scan.nextLine(), HolaWorld.SPANISH_GREETING);
     }
 }
