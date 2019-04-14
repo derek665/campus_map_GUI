@@ -17,12 +17,14 @@ public class BallContainer implements Iterable<Ball> {
 
     /** Contents of the BallContainer. */
     private Set<Ball> contents;
+    private double volume;
 
     /**
      * Constructor that creates a new ballcontainer.
      */
     public BallContainer() {
         contents = new LinkedHashSet<Ball>();
+        volume = 0;
     }
 
     /**
@@ -56,7 +58,12 @@ public class BallContainer implements Iterable<Ball> {
      */
     public boolean add(Ball b) {
         // Your code goes here.  Remove the exception after you're done.
-        return contents.add(b);
+        if (contents.contains(b)) {
+            return false;
+        } else {
+            volume += b.getVolume();
+            return contents.add(b);
+        }
     }
 
     /**
@@ -73,7 +80,12 @@ public class BallContainer implements Iterable<Ball> {
      */
     public boolean remove(Ball b) {
         // Your code goes here.  Remove the exception after you're done.
-        return contents.remove(b);
+        if (contents.contains(b)) {
+            volume -= b.getVolume();
+            return contents.remove(b);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -83,11 +95,7 @@ public class BallContainer implements Iterable<Ball> {
      */
     public double getVolume() {
         // Your code goes here.  Remove the exception after you're done.
-        int total = 0;
-        for (Ball b : contents) {
-            total += b.getVolume();
-        }
-        return total;
+        return volume;
     }
 
     /**
@@ -105,6 +113,7 @@ public class BallContainer implements Iterable<Ball> {
     public void clear() {
         // Your code goes here.  Remove the exception after you're done.
         contents.clear();
+        volume = 0;
     }
 
     /**
