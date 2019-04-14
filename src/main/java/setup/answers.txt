@@ -31,5 +31,14 @@ I believe this is the better approach because even though there are a few extra 
 in the add & remove method, the volume method does not need to recompute the volume every time I call it
 
 Box.java
+a. My implementation returns a new iterator each time it is called, I also include an additional class for the treeSet to be sorted.
+It adds all the current balls in the ballcontainer to the comparator treeSet
+
+b. Another implementations that I came up with is add to the treeSet each time the ballcontainer has a new ball,
+remove a ball from the treeSet when remove is called. Then just return the treeSet's iterator when called, no extra codes are needed.
+
+There is only one aspect which I can think of when b is better than a, there is no need to go through the container each time.
+So maybe b is more efficient than a
+
 
 
