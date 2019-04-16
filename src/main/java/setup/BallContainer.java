@@ -15,7 +15,10 @@ import java.util.Collections;
  */
 public class BallContainer implements Iterable<Ball> {
 
-    /** Contents of the BallContainer. */
+    /**
+     * Contents of the BallContainer.
+     * volume keeps track of the current total volume of all the balls in the container
+     */
     private Set<Ball> contents;
     private double volume;
 

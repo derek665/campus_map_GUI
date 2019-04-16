@@ -22,6 +22,7 @@ public class Box implements Iterable<Ball> {
 
     /**
      * ballContainer is used to internally store balls for this Box
+     * maxVolume is used to store the maximum volume a box can hold
      */
     private BallContainer ballContainer;
     private double maxVolume;
