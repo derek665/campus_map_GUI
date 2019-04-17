@@ -23,9 +23,11 @@ public class Box implements Iterable<Ball> {
     /**
      * ballContainer is used to internally store balls for this Box
      * maxVolume is used to store the maximum volume a box can hold
+     * set is a sorted version of ballContainer
      */
     private BallContainer ballContainer;
     private double maxVolume;
+    private Set<Ball> set;
 
     /**
      * Constructor that creates a new box.
@@ -35,6 +37,7 @@ public class Box implements Iterable<Ball> {
         // Your code goes here.  Remove the exception after you're done.
         ballContainer = new BallContainer();
         this.maxVolume = maxVolume;
+        set = new TreeSet<Ball>(new boxSort());
     }
 
     /**
@@ -68,6 +71,7 @@ public class Box implements Iterable<Ball> {
             return false;
         }
         else {
+            set.add(b);
             return ballContainer.add(b);
         }
     }
@@ -81,11 +85,11 @@ public class Box implements Iterable<Ball> {
      */
     public Iterator<Ball> getBallsFromSmallest() {
         // Your code goes here.  Remove the exception after you're done.
-        Set<Ball> set = new TreeSet<Ball>(new boxSort());
-        Iterator<Ball> it = iterator();
-        while (it.hasNext()) {
-            set.add(it.next());
-        }
+       // Set<Ball> set = new TreeSet<Ball>(new boxSort());
+        //Iterator<Ball> it = iterator();
+        //while (it.hasNext()) {
+          //  set.add(it.next());
+        // }
         return set.iterator();
     }
 
@@ -102,6 +106,7 @@ public class Box implements Iterable<Ball> {
      * in the box.
      */
     public boolean remove(Ball b) {
+        set.remove(b);
         return ballContainer.remove(b);
     }
 
@@ -126,6 +131,7 @@ public class Box implements Iterable<Ball> {
      * Empties the box, i.e. removes all its contents.
      */
     public void clear() {
+        set.clear();
         ballContainer.clear();
     }
 
