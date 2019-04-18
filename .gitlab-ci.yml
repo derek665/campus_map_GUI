@@ -21,11 +21,4 @@ javadoc:
 submit-hw3:
   stage: submission
   script: git checkout hw3-final
-  allow_failure: true
-  only: ['tags']
-
-submit-hw4:
-  stage: submission
-  script: git checkout hw4-final
-  allow_failure: true
   only: ['tags']
