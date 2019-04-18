@@ -1,12 +1,21 @@
 CSE 331 Homework 4.  Answers to written questions.
 Edit this file to supply your answers.
 
-Name:  <replace this with your name>
+Name:  Derek Chan
 
 Problem 0.
 
-(a)
-
+(a) r = p * q :
+        set r = 0
+        {inv1 : r = p0 * q + p1 * q + .... + p(i - 1) * q, where pi is the i-th term of p}
+        foreach term, tp in p {
+            j = 0
+            {inv2 : j = tp * q1 + tp * q2 + ..... + tp * q(i - 1), where qi is the i-term of q}
+            foreach term, tq in q {
+                j = j + tp * tq (call the polynomial addition here with j and (tp * tq)
+            }
+            r = r + j (call the polynomial addition here with r and j)
+        }
 
 (b)
 
