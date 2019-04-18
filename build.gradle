@@ -29,7 +29,7 @@ dependencies {
 }
 
 javadoc {
-    options.tags = [ "spec.modifies", "spec.effects", "spec.requires", "specfield" ] 
+    options.tags = [ "spec.modifies", "spec.effects", "spec.requires" ] 
 }
 
 ///
@@ -38,6 +38,7 @@ javadoc {
 
 test {
   // exclude 'setup/**'
+  exclude 'poly/**'
 }
 
 tasks.withType(Test) {
@@ -55,7 +56,7 @@ compileJava {
 
 compileTestJava {
     options.encoding = 'UTF-8'
-    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    options.compilerArgs << "-Xlint:unchecked"
 }
 
 
@@ -72,8 +73,8 @@ task checkFiles {
       requiredFiles.each { fileName ->
         fileName = fileName.trim()
         if (! file("${fileName}").exists()) {
-	  throw new GradleException("File ${fileName} does not exist.")
-	}
+          throw new GradleException("File ${fileName} does not exist.")
+        }
       }
     }
   }
@@ -92,16 +93,22 @@ validate.dependsOn javadoc
 /// Run: running Java classes
 ///
 
-task runHolaWorld(type:JavaExec) {
+task runHolaWorld (type:JavaExec) {
    main = "setup/HolaWorld"
    standardInput = System.in
    classpath = sourceSets.main.runtimeClasspath
 }
 
-task runRandomHello(type:JavaExec) {
+task runRandomHello (type:JavaExec) {
    main = "setup/RandomHello"
    standardInput = System.in
    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runCalculator (type:JavaExec) {
+   main = "poly/CalculatorFrame"
+   standardInput = System.in
+   classpath = sourceSets.main.runtimeClasspath  
 }
 
 ///
@@ -120,3 +127,22 @@ task cleanByRenaming {
     }
   }
 }
+
+task specTests (type: Test) {
+    description = 'Runs the specification tests.'
+    group = 'verification'
+    filter {
+      setExcludePatterns "*.implTest.*", "setup.*"
+      setIncludePatterns "*.specTest.*"
+    }
+}
+
+task implTests (type: Test) {
+    description = 'Runs the implementation tests.'
+    group = 'verification'
+    filter {
+      setExcludePatterns "*.specTest.*", "setup.*"
+      setIncludePatterns "*.implTest.*"
+    }
+}
+
