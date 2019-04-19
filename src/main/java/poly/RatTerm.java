@@ -230,7 +230,7 @@ public final class RatTerm {
    */
   public RatTerm antiDifferentiate() {
     // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatTerm.antiDifferentiate() unimplemented!");
+
   }
 
   /**
