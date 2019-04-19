@@ -7,31 +7,76 @@ Problem 0.
 
 (a) r = p * q :
         set r = 0
-        {inv1 : r = p0 * q + p1 * q + .... + p(i - 1) * q, where pi is the i-th term of p}
-        foreach term, tp in p {
-            j = 0
-            {inv2 : j = tp * q1 + tp * q2 + ..... + tp * q(i - 1), where qi is the i-term of q}
-            foreach term, tq in q {
-                j = j + tp * tq (call the polynomial addition here with j and (tp * tq)
+        {inv1 : r = p_0 * q + p_1 * q + .... + p_(i - 1) * q, where p_i is the i-th term of p}
+        foreach term, t_p in p {
+            set j = 0
+            {inv2 : j = t_p * q_1 + t_p * q_2 + ..... + t_p * q_(i - 1), where q_i is the i-term of q}
+            foreach term, t_q in q {
+                update j = j + t_p * t_q (call the polynomial addition here with j and (t_p * t_q))
+                (t_p * t_q = coefficient of t_p * coefficient of t_q with degree of t_p + degree of t_q)
             }
             r = r + j (call the polynomial addition here with r and j)
         }
 
-(b)
+(b) r = p / q
+        set quotient = 0
+        set remainder = deep copy of p
+        {inv : quotient = quotient + (1st remainder coefficient divided by 1st q coefficient, with degree of 1st remainder degree - 1st q degree) ;
+               remainder = remainder - ((1st remainder coefficient divided by 1st q coefficient) * q) }
+        while (remainder > 0 && (1st remainder degree >= 1st q degree)) {
+             set factor = a term with (1st coefficient remainder / 1st coefficient q (this is integer division)) and (1st degree remainder - 1st degree q) as degree
+             update quotient = polyAddition(quotient, factor)
+             update remainder = polyAddition(remainder, negate (polyMultiplication(q, factor)))
+        }
 
 
-(c)
+(c) (x^3 + x - 1) / (x + 1) = x^2 - x + 2
+    p = (x^3 + x - 1)       q = (x + 1)
+    quotient = 0        remainder = copy of p : (x^3 + x - 1)
+    while (remainder > 0 && (1st remainder degree >= 1st q degree)) {
+        Iteration 1: quotient = 0 ; remainder = (x^3 + x - 1) ; q = (x + 1)
+                     [set factor = a term with (1st coefficient remainder / 1st coefficient q (this is integer division)) and (1st degree remainder - 1st degree q) as degree]
+                     factor = (1/1) * x^(3-1) = x^2
+                     [update quotient = polyAddition(quotient, factor)]
+                     quotient = 0 + x^2 = x^2
+                     [update remainder = polyAddition(remainder, negate (polyMultiplication(q, factor)))]
+                     remainder = (x^3 + x - 1) + (-(x + 1) * x^2) = (x^3 + x - 1) + (-x^3 - x^2) = -x^2 + x - 1
+
+        Iteration 2: quotient = (x^2) ; remainder = (-x^2 + x - 1) ; q = (x + 1)
+                     [set factor = a term with (1st coefficient remainder / 1st coefficient q (this is integer division)) and (1st degree remainder - 1st degree q) as degree]
+                     factor = (-1/1) * x^(2-1) = -x
+                     [update quotient = polyAddition(quotient, factor)]
+                     quotient = x^2 + -x = x^2 - x
+                     [update remainder = polyAddition(remainder, negate (polyMultiplication(q, factor)))]
+                     remainder = (-x^2 + x - 1) + (-(x + 1) * (-x)) = (-x^2 + x - 1) + (x^2 + x) = 2x - 1
+
+        Iteration 3: quotient = (x^2 - x) ; remainder = (2x - 1) ; q = (x + 1)
+                     [set factor = a term with (1st coefficient remainder / 1st coefficient q (this is integer division)) and (1st degree remainder - 1st degree q) as degree]
+                     factor = (2-1) * x^(1-1) = 2
+                     [update quotient = polyAddition(quotient, factor)]
+                     quotient = x^2 - x + 2
+                     [update remainder = polyAddition(remainder, negate (polyMultiplication(q, factor)))]
+                     remainder = (2x - 1) + (-(x + 1) * 2) = (2x - 1) + (-2x - 2) = -3
+
+        1st remainder degree < 1st q degree (0 < 1)
+        quotient = x^2 - x + 2
+    }
 
 
 Problem 1.
 
-(a)
+(a) toString(), it needs to manually compute the reduced form so find the gcd of both number and divide it by the gcd
+    compareTo(), we need to check if both RatNum is in reduced form, so find each gcd and convert both into reduced form
+    equals(), first convert both RatNum to reduced form if obj is an instance of RatNum and it is not NaN
+    2 argument constructor, we no longer need to return a RatNum in reduced form, take out the part where converting to reduced form to make code simpler
+    checkRep(), we only need to check denom >= 0, we can safely remove the part where it is checking gcd == 1
 
+(b) With the change, the datatype will no longer be immutable, simply because we are modifying an object's field,
+    rather than making a new one with our desired value. Also, we can easily break the rep invariant when we do not use checkRep()
+    for mul and div. Creating a new object will call checkRep() every time it is constructed, but no checkRep() will be called if we modify fields
 
-(b)
-
-
-(c)
+(c) Every method in RatNum is not a modifier, it is either an observer or creator. Once a RatNum() is constructed, it stays that way,
+    So having only call checkRep() once is sufficient for that reason.
 
 
 Problem 2.
