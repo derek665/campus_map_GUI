@@ -81,13 +81,17 @@ Problem 1.
 
 Problem 2.
 
-(a)
+(a) At the end of the constructor, because fields are not mutable so only need to check once.
+    and creator methods are returning a new RatTerm so it will have a checkRep() in the constructor
 
+(b) In the constructor, we can remove the if-branch that test coeff == ZERO
+    toString(), add an new if-branch to the top that checks for whether coeff is 0, then append 0 if it is then append 0.
+    checkRep() no longer needs to have the second assertion.
+    Overall the code is more efficient when running since we remove many codes that previously check for 0 expt with 0 coeff,
+    Aside toString() becomes slightly more complex and less efficient due to the extra if-branch
 
-(b)
-
-
-(c)
+(c) In the constructor, we can change the if test from (c.equals(RatNum.ZERO)) to (c.equals(RatNum.ZERO) || c.equals(RatNum.NaN)
+    I prefer having both because we don't have to worry about getting weird/ unexpected output when client passes in NaN/Zero coeff
 
 
 Problem 3.

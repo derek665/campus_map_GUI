@@ -68,8 +68,11 @@ public final class RatPoly {
    * @spec.effects Constructs a new Poly equal to "rt". If rt.isZero(), constructs a "0" polynomial.
    */
   public RatPoly(RatTerm rt) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly constructor is not yet implemented");
+    this();
+    if (!rt.isZero()) {
+      terms.add(rt);
+    }
+    checkRep();
   }
 
   /**
@@ -80,8 +83,7 @@ public final class RatPoly {
    *     polynomial.
    */
   public RatPoly(int c, int e) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly constructor is not yet implemented");
+    this(new RatTerm(new RatNum(c), e));
   }
 
   /**
@@ -104,7 +106,11 @@ public final class RatPoly {
    */
   public int degree() {
     // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.degree() is not yet implemented");
+    int n = 0;
+    for (RatTerm p : terms) {
+      n = Math.max(n, p.getExpt());
+    }
+    return n;
   }
 
   /**
