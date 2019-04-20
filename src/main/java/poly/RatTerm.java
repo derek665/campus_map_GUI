@@ -120,7 +120,6 @@ public final class RatTerm {
    * @return a RatTerm equals to (-this). If this is NaN, then returns NaN.
    */
   public RatTerm negate() {
-    // TODO: Fill in this method, then remove the RuntimeException
     if (isNaN()) {
       return NaN;
     } else {
@@ -229,8 +228,11 @@ public final class RatTerm {
    *     function, RatPoly, contains a rep. invariant stating that b is never less than 0.)
    */
   public RatTerm antiDifferentiate() {
-    // TODO: Fill in this method, then remove the RuntimeException
-
+    if (isNaN()) {
+        return NaN;
+    } else {
+        return new RatTerm(this.coeff.div(new RatNum(expt + 1)), expt + 1);
+    }
   }
 
   /**
