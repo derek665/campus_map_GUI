@@ -105,7 +105,6 @@ public final class RatPoly {
    * @return the largest exponent with a non-zero coefficient, or 0 if this is "0"
    */
   public int degree() {
-    // TODO: Fill in this method, then remove the RuntimeException
     int n = 0;
     for (RatTerm p : terms) {
       n = Math.max(n, p.getExpt());
@@ -122,8 +121,12 @@ public final class RatPoly {
    *     returns the zero RatTerm.
    */
   public RatTerm getTerm(int deg) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.getTerm() is not yet implemented");
+    for (RatTerm p : terms) {
+      if (p.getExpt() == deg) {
+        return p;
+      }
+    }
+    return RatTerm.ZERO;
   }
 
   /**
@@ -132,8 +135,12 @@ public final class RatPoly {
    * @return true if and only if this has some coefficient = "NaN"
    */
   public boolean isNaN() {
-    // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.isNaN() is not yet implemented");
+    for (RatTerm p : terms) {
+      if (p.isNaN()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
