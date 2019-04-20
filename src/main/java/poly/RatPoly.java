@@ -155,8 +155,10 @@ public final class RatPoly {
    * @see RatTerm regarding (C . E) notation
    */
   private static void scaleCoeff(List<RatTerm> lst, RatNum scalar) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.scaleCoeff() is not yet implemented");
+    for (int i = 0; i < lst.size(); i++) {
+      RatTerm p = lst.get(i);
+      lst.set(i, new RatTerm(p.getCoeff().mul(scalar), p.getExpt()));
+    }
   }
 
   /**
@@ -171,8 +173,10 @@ public final class RatPoly {
    * @see RatTerm regarding (C . E) notation
    */
   private static void incremExpt(List<RatTerm> lst, int degree) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.incremExpt() is not yet implemented");
+    for (int i = 0; i< lst.size(); i++) {
+      RatTerm p = lst.get(i);
+      lst.set(i, new RatTerm(p.getCoeff(), p.getExpt() + degree));
+    }
   }
 
   /**
@@ -196,8 +200,25 @@ public final class RatPoly {
    *     cofind(lst,newTerm.getExpt()) + newTerm.getCoeff())
    */
   private static void sortedInsert(List<RatTerm> lst, RatTerm newTerm) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.sortedInsert() is not yet implemented");
+    boolean found = false;
+    int i = 0;
+    if (lst.size() > 0) {
+      while (i < lst.size() - 1 && !found) {
+        RatTerm a = lst.get(i);
+        RatTerm b = lst.get(i + 1);
+        if (a.getExpt() == newTerm.getExpt()) {
+          lst.set(i, a.add(newTerm));
+          found = true;
+        } else if (a.getExpt() > newTerm.getExpt() && newTerm.getExpt() < b.getExpt()) {
+          lst.add(i + 1, newTerm);
+          found = true;
+        } else {
+          i++;
+        }
+      }
+    } else {
+      lst.add(newTerm);
+    }
   }
 
   /**
@@ -207,7 +228,7 @@ public final class RatPoly {
    */
   public RatPoly negate() {
     // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.negate() is not yet implemented");
+
   }
 
   /**
