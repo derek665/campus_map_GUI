@@ -10,7 +10,7 @@ Problem 0.
         {inv1 : r = p_0 * q + p_1 * q + .... + p_(i - 1) * q, where p_i is the i-th term of p}
         foreach term, t_p in p {
             set j = 0
-            {inv2 : j = t_p * q_1 + t_p * q_2 + ..... + t_p * q_(i - 1), where q_i is the i-term of q}
+            {inv2 : j = t_p * q_0 + t_p * q_1 + ..... + t_p * q_(i - 1), where q_i is the i-term of q}
             foreach term, t_q in q {
                 update j = j + t_p * t_q (call the polynomial addition here with j and (t_p * t_q))
                 (t_p * t_q = coefficient of t_p * coefficient of t_q with degree of t_p + degree of t_q)
@@ -66,10 +66,11 @@ Problem 0.
 Problem 1.
 
 (a) toString(), it needs to manually compute the reduced form so find the gcd of both number and divide it by the gcd
-    compareTo(), we need to check if both RatNum is in reduced form, so find each gcd and convert both into reduced form
-    equals(), first convert both RatNum to reduced form if obj is an instance of RatNum and it is not NaN
+    equals(), first convert both RatNum to reduced form if obj is an instance of RatNum and it is not NaN, then we can compare the two
     2 argument constructor, we no longer need to return a RatNum in reduced form, take out the part where converting to reduced form to make code simpler
-    checkRep(), we only need to check denom >= 0, we can safely remove the part where it is checking gcd == 1
+    checkRep(), we only need to check denom >= 0, we can safely remove the part where it is checking gcd == 1.
+
+    We have less code to run when constructing the object, but more code to run when comparing objects or doing toString
 
 (b) With the change, the datatype will no longer be immutable, simply because we are modifying an object's field,
     rather than making a new one with our desired value. Also, we can easily break the rep invariant when we do not use checkRep()
@@ -95,6 +96,12 @@ Problem 2.
 
 
 Problem 3.
+(a) At the end of each constructor, since the class is immutable, there is no need to have checkRep() elsewhere.
+    For method such as add, sub, mul, and div. The method every time returns a new RatPoly as a result, so it will run checkRep() when return.
+
+(b) We need more code to check both list that they don't violate the rep invariant, such as having 0 coeff. And when we change the list element,
+    we have to handle both list to get the result we want which can be really complex. The advantage of this implementation is doesn't have to
+    call RatTerm which call RatNum, which make it more efficient in that way.
 
 
 Problem 5.
