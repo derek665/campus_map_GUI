@@ -106,6 +106,7 @@ public final class RatPoly {
    */
   public int degree() {
     int n = 0;
+    // {inv : n = largest degree from n to p_n }
     for (RatTerm p : terms) {
       n = Math.max(n, p.getExpt());
     }
@@ -121,6 +122,7 @@ public final class RatPoly {
    *     returns the zero RatTerm.
    */
   public RatTerm getTerm(int deg) {
+    // {inv : deg != term_0 && term_1 && .... && term_(i-1) }
     for (RatTerm p : terms) {
       if (p.getExpt() == deg) {
         return p;
@@ -135,6 +137,7 @@ public final class RatPoly {
    * @return true if and only if this has some coefficient = "NaN"
    */
   public boolean isNaN() {
+    // {inv : terms_0 != NaN && term_1 != NaN && ... && term_(i - 1) != NaN }
     for (RatTerm p : terms) {
       if (p.isNaN()) {
         return true;
@@ -155,6 +158,7 @@ public final class RatPoly {
    * @see RatTerm regarding (C . E) notation
    */
   private static void scaleCoeff(List<RatTerm> lst, RatNum scalar) {
+    // {inv : lst = a list of [ lst_pre_i * scalar ] }
     for (int i = 0; i < lst.size(); i++) {
       RatTerm p = lst.get(i);
       lst.set(i, new RatTerm(p.getCoeff().mul(scalar), p.getExpt()));
@@ -173,6 +177,7 @@ public final class RatPoly {
    * @see RatTerm regarding (C . E) notation
    */
   private static void incremExpt(List<RatTerm> lst, int degree) {
+    // {inv : lst = a list of [ lst_pre_i with lst_degree + degree ] }
     for (int i = 0; i< lst.size(); i++) {
       RatTerm p = lst.get(i);
       lst.set(i, new RatTerm(p.getCoeff(), p.getExpt() + degree));
@@ -202,21 +207,25 @@ public final class RatPoly {
   private static void sortedInsert(List<RatTerm> lst, RatTerm newTerm) {
     boolean found = false;
     int i = 0;
-    if (lst.size() > 0) {
-      while (i < lst.size() - 1 && !found) {
-        RatTerm a = lst.get(i);
-        RatTerm b = lst.get(i + 1);
-        if (a.getExpt() == newTerm.getExpt()) {
-          lst.set(i, a.add(newTerm));
-          found = true;
-        } else if (a.getExpt() > newTerm.getExpt() && newTerm.getExpt() < b.getExpt()) {
-          lst.add(i + 1, newTerm);
-          found = true;
+    // {inv : if found then newTerm_degree >= lst_i_degree
+    //        else lst_i_degree >= newTerm_degree }
+    while (i < lst.size() - 1 && !found) {
+      RatTerm p = lst.get(i);
+      if (p.getExpt() == newTerm.getExpt()) {
+        RatTerm a = p.add(newTerm);
+        if (a.getCoeff().equals(RatNum.ZERO)) {
+          lst.remove(p);
         } else {
-          i++;
+          lst.set(i, a);
         }
+        found = true;
+      } else if (newTerm.getExpt() > p.getExpt()) {
+        lst.add(i, newTerm);
+        found = true;
       }
-    } else {
+      i++;
+    }
+    if (!found) {
       lst.add(newTerm);
     }
   }
@@ -227,8 +236,12 @@ public final class RatPoly {
    * @return a RatPoly equal to "0 - this"; if this.isNaN(), returns some r such that r.isNaN()
    */
   public RatPoly negate() {
-    // TODO: Fill in this method, then remove the RuntimeException
-
+      RatPoly rp = new RatPoly();
+      // {inv : rp = from 0 to p_i is (- terms), p_i to (size - 1) == terms }
+      for (RatTerm p : terms) {
+        rp.terms.add(rp.terms.size() - 1, p.negate());
+      }
+      return rp;
   }
 
   /**
@@ -240,8 +253,16 @@ public final class RatPoly {
    *     such that r.isNaN()
    */
   public RatPoly add(RatPoly p) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.add() is not yet implemented");
+    if (this.isNaN() || p.isNaN()) {
+      return new RatPoly(RatTerm.NaN);
+    } else {
+      List<RatTerm> result = copy(p.terms);
+      // {inv : result = p + this_0 + this_1 + .... + this_i }
+      for (RatTerm rp : this.terms) {
+        sortedInsert(result, rp);
+      }
+      return new RatPoly(result);
+    }
   }
 
   /**
@@ -253,8 +274,7 @@ public final class RatPoly {
    *     such that r.isNaN()
    */
   public RatPoly sub(RatPoly p) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.sub() is not yet implemented");
+    return this.add(p.negate());
   }
 
   /**
@@ -266,10 +286,34 @@ public final class RatPoly {
    *     such that r.isNaN()
    */
   public RatPoly mul(RatPoly p) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.mul() is not yet implemented");
+    if (this.isNaN() || p.isNaN()) {
+      return new RatPoly(RatTerm.NaN);
+    } else {
+      List<RatTerm> result = new ArrayList<RatTerm>();
+      // {inv : result = this_0 * p + this_1 * p +...+ this_i * p }
+      for (RatTerm rt : this.terms) {
+        List<RatTerm> copy = copy(p.terms);
+        // {inv2 : result = this_i * p_0 + this_i * p_1 + ... + this_i * p_n }
+        for (RatTerm rt2 : copy) {
+          sortedInsert(result, rt.mul(rt2));
+        }
+      }
+      return new RatPoly(result);
+    }
   }
 
+  /**
+   * Helper function : return a new copy of lst
+   * @param lst
+   * @return a copy of lst
+   */
+  private static List<RatTerm> copy(List<RatTerm> lst) {
+    List<RatTerm> result = new ArrayList<RatTerm>();
+    for (RatTerm p : lst) {
+      result.add(new RatTerm(p.getCoeff(), p.getExpt()));
+    }
+    return result;
+  }
   /**
    * Truncating division operation.
    *
@@ -305,7 +349,24 @@ public final class RatPoly {
    */
   public RatPoly div(RatPoly p) {
     // TODO: Fill in this method, then remove the RuntimeException
-    throw new RuntimeException("RatPoly.div() is not yet implemented");
+    if (this.isNaN() || p.isNaN() || p.terms.size() == 0) {
+      return new RatPoly(RatTerm.NaN);
+    } else {
+      RatPoly quotient = new RatPoly();
+      RatPoly remainder = new RatPoly(copy(this.terms));
+      int reDegree = remainder.degree();
+      int pDegree = p.degree();
+      RatTerm pTerm = p.getTerm(pDegree);
+      // {inv : quotient = quotient_pre + (coefficient with largest degree in remainder / coefficient with largest degree in q)^(largest degree in remainder - largest degree in q)
+      //        remainder = remainder_pre - (coefficient with largest degree in remainder / coefficient with largest degree in q) * q }
+      while (remainder.terms.size() > 0 && reDegree >= pDegree) {
+        RatPoly factor = new RatPoly(remainder.getTerm(reDegree).div(pTerm));
+        quotient.add(factor);
+        remainder.sub(p.mul(factor));
+        reDegree = remainder.degree();
+      }
+      return quotient;
+    }
   }
 
   /**
