@@ -244,9 +244,9 @@ public final class RatPoly {
     if (this.isNaN()) {
       return new RatPoly(RatTerm.NaN);
     } else {
-      List<RatTerm> rt = copy(terms);// {inv : rp = from 0 to p_i is (- terms), p_i to (size - 1) == terms }
-      scaleCoeff(rt, new RatNum(-1));
-      return new RatPoly(rt);
+      List<RatTerm> lst = duplicate(terms);
+      scaleCoeff(lst, new RatNum(-1));
+      return new RatPoly(lst);
     }
   }
 
@@ -262,7 +262,7 @@ public final class RatPoly {
     if (this.isNaN() || p.isNaN()) {
       return new RatPoly(RatTerm.NaN);
     } else {
-      List<RatTerm> result = copy(p.terms);
+      List<RatTerm> result = duplicate(p.terms);
       // {inv : result = p + this_0 + this_1 + .... + this_i }
       for (RatTerm rp : this.terms) {
         sortedInsert(result, rp);
@@ -295,7 +295,7 @@ public final class RatPoly {
     List<RatTerm> result = new ArrayList<RatTerm>();
     // {inv : result = this_0 * p + this_1 * p +...+ this_i * p }
     for (RatTerm rt : this.terms) {
-      List<RatTerm> copy = copy(p.terms);
+      List<RatTerm> copy = duplicate(p.terms);
       // {inv2 : result = this_i * p_0 + this_i * p_1 + ... + this_i * p_n }
       for (RatTerm rt2 : copy) {
         sortedInsert(result, rt.mul(rt2));
@@ -309,7 +309,7 @@ public final class RatPoly {
    * @param lst
    * @return a copy of lst
    */
-  private static List<RatTerm> copy(List<RatTerm> lst) {
+  private static List<RatTerm> duplicate(List<RatTerm> lst) {
     List<RatTerm> result = new ArrayList<RatTerm>();
     for (RatTerm p : lst) {
       result.add(new RatTerm(p.getCoeff(), p.getExpt()));
@@ -354,7 +354,7 @@ public final class RatPoly {
       return new RatPoly(RatTerm.NaN);
     } else {
       List<RatTerm> quotient = new ArrayList<>();
-      RatPoly remainder = new RatPoly(copy(this.terms));
+      RatPoly remainder = new RatPoly(duplicate(this.terms));
       int reDegree = remainder.degree();
       int pDegree = p.degree();
       RatTerm pTerm = p.getTerm(pDegree);
@@ -381,7 +381,7 @@ public final class RatPoly {
     if (isNaN()) {
       return new RatPoly(RatTerm.NaN);
     } else {
-      List<RatTerm> result = copy(terms);
+      List<RatTerm> result = duplicate(this.terms);
       int i = 0;
       // {inv : result = p_0 dy/dx , p_1 dy/dx, ... , p_(i - 1) dydx }
       while (i < result.size()) {
@@ -415,7 +415,7 @@ public final class RatPoly {
     if (integrationConstant.isNaN()) {
       return new RatPoly(RatTerm.NaN);
     } else {
-      List<RatTerm> result = copy(terms);
+      List<RatTerm> result = duplicate(this.terms);
       int i = 0;
       while (i < result.size()) {
         RatTerm rt = result.get(i);
