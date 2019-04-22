@@ -151,44 +151,6 @@ public final class RatPoly {
   }
 
   /**
-   * Scales coefficients within 'lst' by 'scalar' (helper procedure).
-   *
-   * @param lst the RatTerms to be scaled
-   * @param scalar the value by which to scale coefficients in lst
-   * @spec.requires lst, scalar != null
-   * @spec.modifies lst
-   * @spec.effects Forall i s.t. 0 <= i < lst.size(), if lst.get(i) = (C . E) then lst_post.get(i) =
-   *     (C*scalar . E)
-   * @see RatTerm regarding (C . E) notation
-   */
-  private static void scaleCoeff(List<RatTerm> lst, RatNum scalar) {
-    // {inv : lst = a list of [ lst_pre_i * scalar ] }
-    for (int i = 0; i < lst.size(); i++) {
-      RatTerm p = lst.get(i);
-      lst.set(i, new RatTerm(p.getCoeff().mul(scalar), p.getExpt()));
-    }
-  }
-
-  /**
-   * Increments exponents within 'lst' by 'degree' (helper procedure).
-   *
-   * @param lst the RatTerms whose exponents are to be incremented
-   * @param degree the value by which to increment exponents in lst
-   * @spec.requires lst != null
-   * @spec.modifies lst
-   * @spec.effects Forall i s.t. 0 <= i < lst.size(), if (C . E) = lst.get(i) then lst_post.get(i) =
-   *     (C . E+degree)
-   * @see RatTerm regarding (C . E) notation
-   */
-  private static void incremExpt(List<RatTerm> lst, int degree) {
-    // {inv : lst = a list of [ lst_pre_i with lst_degree + degree ] }
-    for (int i = 0; i< lst.size(); i++) {
-      RatTerm p = lst.get(i);
-      lst.set(i, new RatTerm(p.getCoeff(), p.getExpt() + degree));
-    }
-  }
-
-  /**
    * Helper procedure: Inserts a term into a sorted sequence of terms, preserving the sorted nature
    * of the sequence. If a term with the given degree already exists, adds their coefficients.
    *

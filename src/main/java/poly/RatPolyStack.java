@@ -68,7 +68,9 @@ public final class RatPolyStack implements Iterable<RatPoly> {
    */
   public RatPoly pop() {
     checkRep();
-    return polys.pop();
+    RatPoly rp = polys.pop();
+    checkRep();
+    return rp;
   }
 
   /**
@@ -81,8 +83,9 @@ public final class RatPolyStack implements Iterable<RatPoly> {
   public void dup() {
     checkRep();
     RatPoly p = polys.pop();
-    this.push(p);
-    this.push(p);
+    polys.push(p);
+    polys.push(p);
+    checkRep();
   }
 
   /**
@@ -112,6 +115,7 @@ public final class RatPolyStack implements Iterable<RatPoly> {
     while (!polys.isEmpty()) {
       polys.pop();
     }
+    checkRep();
   }
 
   /**
@@ -143,7 +147,8 @@ public final class RatPolyStack implements Iterable<RatPoly> {
     checkRep();
     RatPoly p1 = polys.pop();
     RatPoly p2 = polys.pop();
-    this.push(p1.add(p2));
+    polys.push(p1.add(p2));
+    checkRep();
   }
 
   /**
@@ -158,7 +163,8 @@ public final class RatPolyStack implements Iterable<RatPoly> {
     checkRep();
     RatPoly p1 = polys.pop();
     RatPoly p2 = polys.pop();
-    this.push(p2.sub(p1));
+    polys.push(p2.sub(p1));
+    checkRep();
   }
 
   /**
@@ -172,7 +178,8 @@ public final class RatPolyStack implements Iterable<RatPoly> {
     checkRep();
     RatPoly p1 = polys.pop();
     RatPoly p2 = polys.pop();
-    this.push(p1.mul(p2));
+    polys.push(p1.mul(p2));
+    checkRep();
   }
 
   /**
@@ -187,7 +194,8 @@ public final class RatPolyStack implements Iterable<RatPoly> {
     checkRep();
     RatPoly p1 = polys.pop();
     RatPoly p2 = polys.pop();
-    this.push(p2.div(p1));
+    polys.push(p2.div(p1));
+    checkRep();
   }
 
   /**
@@ -200,7 +208,8 @@ public final class RatPolyStack implements Iterable<RatPoly> {
    */
   public void differentiate() {
     checkRep();
-    this.push(polys.pop().differentiate());
+    polys.push(polys.pop().differentiate());
+    checkRep();
   }
 
   /**
@@ -215,7 +224,8 @@ public final class RatPolyStack implements Iterable<RatPoly> {
   public void integrate() {
     checkRep();
     RatPoly p1 = polys.pop();
-    this.push(p1.antiDifferentiate(RatNum.ZERO));
+    polys.push(p1.antiDifferentiate(RatNum.ZERO));
+    checkRep();
   }
 
   /**
