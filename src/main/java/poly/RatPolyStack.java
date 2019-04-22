@@ -41,11 +41,7 @@ public final class RatPolyStack implements Iterable<RatPoly> {
    */
   public int size() {
     checkRep();
-    int size = 0;
-    for (RatPoly rp : polys) {
-      size++;
-    }
-    return size;
+    return polys.size();
   }
 
   /**
@@ -100,8 +96,9 @@ public final class RatPolyStack implements Iterable<RatPoly> {
     checkRep();
     RatPoly p1 = polys.pop();
     RatPoly p2 = polys.pop();
-    this.push(p1);
-    this.push(p2);
+    polys.push(p1);
+    polys.push(p2);
+    checkRep();
   }
 
   /**
@@ -127,9 +124,10 @@ public final class RatPolyStack implements Iterable<RatPoly> {
   public RatPoly getNthFromTop(int index) {
     checkRep();
     Iterator<RatPoly> it = this.iterator();
-    while (index > 0) {
+    int i = 0;
+    while (polys.size() - 1 - index != i) {
       it.next();
-      index--;
+      i++;
     }
     return it.next();
   }
