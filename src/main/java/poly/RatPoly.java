@@ -245,7 +245,11 @@ public final class RatPoly {
       return new RatPoly(RatTerm.NaN);
     } else {
       List<RatTerm> lst = duplicate(terms);
-      scaleCoeff(lst, new RatNum(-1));
+      // {inv : lst = from 0 to lst_i is (0 - terms); from lst_i to (size - 1) == terms }
+      for (int i = 0; i < lst.size(); i++) {
+        RatTerm rt = lst.get(i);
+        lst.set(i, RatTerm.ZERO.sub(rt));
+      }
       return new RatPoly(lst);
     }
   }
