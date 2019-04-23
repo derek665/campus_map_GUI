@@ -383,6 +383,7 @@ public final class RatPoly {
     } else {
       List<RatTerm> result = duplicate(this.terms);
       int i = 0;
+      // {inv : result = from 0 to i - 1, result_(i - 1) is terms integrated ; from i to (n - 1), result == terms }
       while (i < result.size()) {
         RatTerm rt = result.get(i);
         result.set(i, rt.antiDifferentiate());
@@ -435,6 +436,7 @@ public final class RatPoly {
       return Double.NaN;
     } else {
       int n = 0;
+      // {inv : n = n + terms_(i-1)}
       for (RatTerm rt : terms) {
         n += rt.eval(d);
       }
