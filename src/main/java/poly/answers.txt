@@ -24,9 +24,9 @@ Problem 0.
         {inv : quotient = quotient + (1st remainder coefficient divided by 1st q coefficient, with degree of 1st remainder degree - 1st q degree) ;
                remainder = remainder - ((1st remainder coefficient divided by 1st q coefficient) * q) }
         while (remainder > 0 && (1st remainder degree >= 1st q degree)) {
-             set factor = a term with (1st coefficient remainder / 1st coefficient q (this is integer division)) and (1st degree remainder - 1st degree q) as degree
+             set factor = a term with (1st coefficient remainder / 1st coefficient q (this is integer division)) and (1st degree remainder - 1st degree q (integer sub)) as degree
              update quotient = polyAddition(quotient, factor)
-             update remainder = polyAddition(remainder, negate (polyMultiplication(q, factor)))
+             update remainder = polyAddition(remainder,  polyMultiplication(polyMultiplication(q, factor)), -1))
         }
 
 
