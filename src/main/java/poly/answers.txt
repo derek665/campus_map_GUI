@@ -103,7 +103,7 @@ Problem 2.
 
 Problem 3.
 (a) At the end of each constructor, since the class is immutable and there are no mutators, there is no need to have checkRep() elsewhere.
-    For method such as add, sub, mul, and div. The methods every time returns a new RatPoly as a result,
+    For method such as add, sub, mul, and div. The methods every time returns a new RatPoly from a list as a result,
     so it will run checkRep() when the new RatPoly is created right before it gets returned.
 
 (b) We need more code to check both list that they don't violate the rep invariant, such as having 0 coeff. And when we change the list element,
