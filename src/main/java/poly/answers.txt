@@ -70,7 +70,7 @@ Problem 1.
     2 argument constructor, we no longer need to return a RatNum in reduced form, take out the part where converting to reduced form to make code simpler
     checkRep(), we only need to check denom >= 0, we can safely remove the part where it is checking gcd == 1.
 
-    We have less code to run when constructing the object, but more code to run when comparing objects or doing toString
+    We have less code to run when constructing the object, but more code to run for converting to reduced form when comparing objects or doing toString
 
 (b) With the change, the datatype will no longer be immutable, simply because we are modifying an object's field,
     rather than making a new one with our desired value. Also, we can easily break the rep invariant when we do not use checkRep()
@@ -86,22 +86,29 @@ Problem 2.
     and creator methods are returning a new RatTerm so it will have a checkRep() in the constructor
 
 (b) In the constructor, we can remove the if-branch that test coeff == ZERO
-    toString(), add an new if-branch to the top that checks for whether coeff is 0, then append 0 if it is then append 0.
+    toString(), add an new if-branch to the top that checks for whether coeff is 0, append 0 if true
     checkRep() no longer needs to have the second assertion.
+
     Overall the code is more efficient when running since we remove many codes that previously check for 0 expt with 0 coeff,
     Aside toString() becomes slightly more complex and less efficient due to the extra if-branch
 
-(c) In the constructor, we can change the if test from (c.equals(RatNum.ZERO)) to (c.equals(RatNum.ZERO) || c.equals(RatNum.NaN)
-    I prefer having both because we don't have to worry about getting weird/ unexpected output when client passes in NaN/Zero coeff
+(c) In the constructor, we can change the if test from (c.equals(RatNum.ZERO)) to (c.equals(RatNum.ZERO) || c.equals(RatNum.NaN),
+    the code does not change much other than the if-branch in the constructor which is an inexpensive check.
+    So we don't a clear advantage or disadvantage on one over the other.
+
+    I prefer having {coeff.equals(RatNum.ZERO) ⇒ expt = 0}. Since all of the implementation of RatTerm specifically return NaN
+    when the coeff is NaN, it is more practical to have that as the rep invariant, where it actually affects the output.
 
 
 Problem 3.
 (a) At the end of each constructor, since the class is immutable, there is no need to have checkRep() elsewhere.
-    For method such as add, sub, mul, and div. The method every time returns a new RatPoly as a result, so it will run checkRep() when return.
+    For method such as add, sub, mul, and div. The method every time returns a new RatPoly as a result,
+    so it will run checkRep() when the new RatPoly is created right before it gets returned.
 
 (b) We need more code to check both list that they don't violate the rep invariant, such as having 0 coeff. And when we change the list element,
     we have to handle both list to get the result we want which can be really complex. The advantage of this implementation is doesn't have to
-    call RatTerm which call RatNum, which make it more efficient in that way.
+    call RatTerm which call RatNum, which make it more efficient in that way. I think using RatTerm is better than having 2 lists, just simply
+    because it is easier to implement than the other, there's only one field we need to handle which is the RatTerm
 
 
 Problem 5.
