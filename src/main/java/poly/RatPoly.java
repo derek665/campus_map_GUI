@@ -277,6 +277,7 @@ public final class RatPoly {
    */
   private static List<RatTerm> duplicate(List<RatTerm> lst) {
     List<RatTerm> result = new ArrayList<RatTerm>();
+    // {inv : result = lst from element 0 to (i - 1) }
     for (RatTerm p : lst) {
       result.add(new RatTerm(p.getCoeff(), p.getExpt()));
     }

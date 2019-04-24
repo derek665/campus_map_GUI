@@ -112,6 +112,7 @@ public final class RatPolyStack implements Iterable<RatPoly> {
    */
   public void clear() {
     checkRep();
+    // {inv : polys.size() = polys_pre . size() - i }
     while (!polys.isEmpty()) {
       polys.pop();
     }
@@ -129,6 +130,7 @@ public final class RatPolyStack implements Iterable<RatPoly> {
     checkRep();
     Iterator<RatPoly> it = this.iterator();
     int i = 0;
+    // {inv : i <= polys.size() - 1 - index}
     while (polys.size() - 1 - index != i) {
       it.next();
       i++;
@@ -223,8 +225,7 @@ public final class RatPolyStack implements Iterable<RatPoly> {
    */
   public void integrate() {
     checkRep();
-    RatPoly p1 = polys.pop();
-    polys.push(p1.antiDifferentiate(RatNum.ZERO));
+    polys.push(polys.pop().antiDifferentiate(RatNum.ZERO));
     checkRep();
   }
 
