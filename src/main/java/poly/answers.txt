@@ -83,7 +83,7 @@ Problem 1.
 
 Problem 2.
 
-(a) At the end of the constructor, because fields are not mutable so only need to check once.
+(a) At the end of the constructor, because fields are not mutable and there are no mutators so only need to check once.
     and creator methods are returning a new RatTerm so it will have a checkRep() in the constructor
 
 (b) In the constructor, we can remove the if-branch that test coeff == ZERO
@@ -102,7 +102,7 @@ Problem 2.
 
 
 Problem 3.
-(a) At the end of each constructor, since the class is immutable, there is no need to have checkRep() elsewhere.
+(a) At the end of each constructor, since the class is immutable and there are no mutators, there is no need to have checkRep() elsewhere.
     For method such as add, sub, mul, and div. The methods every time returns a new RatPoly as a result,
     so it will run checkRep() when the new RatPoly is created right before it gets returned.
 
