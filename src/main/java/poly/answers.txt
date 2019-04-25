@@ -108,11 +108,12 @@ Problem 3.
 (a) At the end of each constructor, beginning for RatPoly return type, beginning & end for other return types.
     For methods that return RatPoly, the return objects are construct right before it gets return, so the checkRep() in the constructor will be called last
     For other methods, we need to ensure the rep invariant holds on entry and on exit, since we do not construct any new RatPoly.
+    Even for observers, the implementations are slightly long and complex compared to RatTerm's observers, having a checkRep at the end here is to ensure.
 
-(b) We need more code to check both list that they don't violate the rep invariant, such as having 0 coeff. And when we change the list element,
-    we have to handle both list to get the result we want which can be really complex. The advantage of this implementation is doesn't have to
-    call RatTerm which call RatNum, which make it more efficient in that way. I think using RatTerm is better than having 2 lists, just simply
-    because it is easier to implement than the other, there's only one field we need to handle which is the RatTerm
+(b) We need more code to check both list that they don't violate the rep invariant, such as having 0 coeff, we cannot just call methods from RatTerm.
+    And when we change the list element, we have to handle both list to get the result we want which can be really complex.
+    The advantage of this implementation is doesn't have to call RatTerm which call RatNum, which make it more efficient in that way.
+    I think using RatTerm is better than having 2 lists, just simply because it is easier to implement than the other, there's only one field we need to handle which is the RatTerm
 
 
 Problem 5.
