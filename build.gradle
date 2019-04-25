@@ -29,7 +29,9 @@ dependencies {
 }
 
 javadoc {
-    options.tags = [ "spec.modifies", "spec.effects", "spec.requires" ] 
+    options.tags = [ "spec.modifies", "spec.effects", "spec.requires" ]
+    options.addBooleanOption "-no-module-directories", true
+
 }
 
 ///
@@ -38,12 +40,28 @@ javadoc {
 
 test {
   // exclude 'setup/**'
-   // exclude 'poly/**'
+  // exclude 'poly/**'
+  exclude 'graph/**'
+  exclude 'marvel/**'
 }
 
 tasks.withType(Test) {
     enableAssertions = true
 }
+
+task copyGraphTestScripts(type: Copy) {
+  from "src/test/java/graph/specTest"
+  include "*.test", "*.expected"
+  into "${buildDir}/classes/java/test/graph/specTest"
+}
+
+task copyMarvelTestScripts(type: Copy) {
+  from "src/test/java/marvel/specTest"
+  include "*.test", "*.expected"
+  into "${buildDir}/classes/java/test/marvel/specTest"
+}
+
+test.dependsOn copyGraphTestScripts
 
 ///
 /// Extra code quality checks
