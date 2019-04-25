@@ -19,6 +19,8 @@ Problem 0.
         }
 
 (b) r = p / q
+    1st coefficient : the coefficient of the term with highest degree
+    1st degree : the degree of the term with highest degree
         set quotient = 0
         set remainder = deep copy of p
         {inv : quotient = quotient + (1st remainder coefficient divided by 1st q coefficient, with degree of 1st remainder degree - 1st q degree) ;
