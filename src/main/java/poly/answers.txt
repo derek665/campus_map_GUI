@@ -67,12 +67,16 @@ Problem 0.
 
 Problem 1.
 
-(a) toString(), it needs to manually compute the reduced form so find the gcd of both number and divide it by the gcd. Added complexity to codes
-    equals(), first convert both RatNum to reduced form if obj is an instance of RatNum and it is not NaN, then we can compare the two. Which adds complexity to the code
-    2 argument constructor, we no longer need to return a RatNum in reduced form, take out the part where converting to reduced form to make code simpler
-    checkRep(), we only need to check denom >= 0, we can safely remove the part where it is checking gcd == 1, decreased the complexity of the code
+(a) toString(), it needs to manually compute the reduced form so find the gcd of both number and divide it by the gcd.
+    This added complexity to the codes.
+    equals(), first convert both RatNum to reduced form if obj is an instance of RatNum and it is not NaN, then we can compare the two.
+    This added complexity to the code.
+    2 argument constructor, we no longer need to return a RatNum in reduced form, take out the part where converting to reduced form
+    This decreased the amount of codes in the constructor which makes it more efficient, but now some other methods need to have some way to check for reduced form which is redundant
+    checkRep(), we only need to check denom >= 0, we can safely remove the part where it is checking gcd == 1,
+    This decreased the complexity of the code because every time checkRep() has lees codes to run.
 
-    We have less code to run when constructing the object, but more code to run for converting to reduced form when comparing objects or doing toString
+    Overall, We have less code to run when constructing the object, but more code to run for converting to reduced form when comparing objects or doing toString
     One clear disadvantage of the new invariant is that we have to check whether the object is in its lowest form each time which is very redundant.
 
 (b) With the change, the datatype will no longer be immutable, simply because we are modifying an object's field,
@@ -91,9 +95,12 @@ Problem 2.
     When a public creator method that returns RatTerm such as add, sub. When the return object is created, it has a checkRep in the constructor.
     As for observers, it never modified anything and it is simple computations. So only need a checkRep() on entry
 
-(b) In the constructor, we can remove the if-branch that test coeff == ZERO. Faster because of the removed if-branch
-    toString(), add an new if-branch to the top that checks for whether coeff is 0, append 0 if true. Slower because of the new branch
-    checkRep() no longer needs to have the second assertion. Shorten the amount of codes needs to execute
+(b) In the constructor, we can remove the if-branch that test coeff == ZERO.
+    This makes the method faster because of the removed if-branch.
+    toString(), add an new if-branch to the top that checks for whether coeff is 0, append 0 if true.
+    This makes things slower because of the new if-branch, but the codes become more clear since the old toString does explicitly have a branch for 0 coeff
+    checkRep() no longer needs to have the second assertion.
+    Shorten the amount of codes needs to execute.
 
     Overall the code is more efficient when running since we remove many codes that previously check for 0 expt with 0 coeff,
     Aside toString() becomes slightly more complex and less efficient due to the extra if-branch
