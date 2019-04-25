@@ -106,11 +106,11 @@ Problem 2.
     Aside toString() becomes slightly more complex and less efficient due to the extra if-branch
 
 (c) In the constructor, we can change the if test from (c.equals(RatNum.ZERO)) to (c.equals(RatNum.ZERO) || c.equals(RatNum.NaN),
-    the code does not change much other than the if-branch in the constructor which is an inexpensive check.
-    So we don't a clear advantage or disadvantage on one over the other.
+    And checkRep() needs to have a branch that checks if NaN then expt must be 0
+    So we don't a clear advantage or disadvantage on one over the other since the code does not change much other than a few more lines which decrease the efficiency slightly
 
     I prefer having {coeff.equals(RatNum.ZERO) ⇒ expt = 0}. Since all of the implementation of RatTerm specifically return NaN
-    when the coeff is NaN, it is more practical to have that as the rep invariant, where it actually affects the output.
+    when the coeff is NaN, it is more better to have that as the rep invariant, which affect output and calculations.
 
 
 Problem 3.
