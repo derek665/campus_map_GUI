@@ -135,7 +135,9 @@ public final class RatPolyStack implements Iterable<RatPoly> {
       it.next();
       i++;
     }
-    return it.next();
+    RatPoly rp = it.next();
+    checkRep();
+    return rp;
   }
 
   /**

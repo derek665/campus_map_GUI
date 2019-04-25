@@ -109,11 +109,13 @@ public final class RatPoly {
    * @return the largest exponent with a non-zero coefficient, or 0 if this is "0"
    */
   public int degree() {
+    checkRep();
     int n = 0;
     // {inv : n = largest degree from n to p_n }
     for (RatTerm p : terms) {
       n = Math.max(n, p.getExpt());
     }
+    checkRep();
     return n;
   }
 
@@ -126,12 +128,15 @@ public final class RatPoly {
    *     returns the zero RatTerm.
    */
   public RatTerm getTerm(int deg) {
+    checkRep();
     // {inv : deg != term_0 && term_1 && .... && term_(i-1) }
     for (RatTerm p : terms) {
       if (p.getExpt() == deg) {
+        checkRep();
         return p;
       }
     }
+    checkRep();
     return RatTerm.ZERO;
   }
 
@@ -141,12 +146,15 @@ public final class RatPoly {
    * @return true if and only if this has some coefficient = "NaN"
    */
   public boolean isNaN() {
+    checkRep();
     // {inv : terms_0 != NaN && term_1 != NaN && ... && term_(i - 1) != NaN }
     for (RatTerm p : terms) {
       if (p.isNaN()) {
+        checkRep();
         return true;
       }
     }
+    checkRep();
     return false;
   }
 
@@ -203,6 +211,7 @@ public final class RatPoly {
    * @return a RatPoly equal to "0 - this"; if this.isNaN(), returns some r such that r.isNaN()
    */
   public RatPoly negate() {
+    checkRep();
     if (this.isNaN()) {
       return new RatPoly(RatTerm.NaN);
     } else {
@@ -225,6 +234,7 @@ public final class RatPoly {
    *     such that r.isNaN()
    */
   public RatPoly add(RatPoly p) {
+    checkRep();
     if (this.isNaN() || p.isNaN()) {
       return new RatPoly(RatTerm.NaN);
     } else {
@@ -246,6 +256,7 @@ public final class RatPoly {
    *     such that r.isNaN()
    */
   public RatPoly sub(RatPoly p) {
+    checkRep();
     return this.add(p.negate());
   }
 
@@ -258,6 +269,7 @@ public final class RatPoly {
    *     such that r.isNaN()
    */
   public RatPoly mul(RatPoly p) {
+    checkRep();
     List<RatTerm> result = new ArrayList<RatTerm>();
     // {inv : result = this_0 * p + this_1 * p +...+ this_i * p }
     for (RatTerm rt : this.terms) {
@@ -317,6 +329,7 @@ public final class RatPoly {
    *     p.isNaN(), returns some q such that q.isNaN().
    */
   public RatPoly div(RatPoly p) {
+    checkRep();
     if (this.isNaN() || p.isNaN() || p.terms.size() == 0) {
       return new RatPoly(RatTerm.NaN);
     } else {
@@ -345,6 +358,7 @@ public final class RatPoly {
    *     <p>The derivative of a polynomial is the sum of the derivative of each term.
    */
   public RatPoly differentiate() {
+    checkRep();
     if (isNaN()) {
       return new RatPoly(RatTerm.NaN);
     } else {
@@ -379,6 +393,7 @@ public final class RatPoly {
    *     some constant.
    */
   public RatPoly antiDifferentiate(RatNum integrationConstant) {
+    checkRep();
     if (integrationConstant.isNaN()) {
       return new RatPoly(RatTerm.NaN);
     } else {
@@ -409,6 +424,7 @@ public final class RatPoly {
    *     Double.NaN, return Double.NaN.
    */
   public double integrate(double lowerBound, double upperBound) {
+    checkRep();
     if (isNaN() || lowerBound == Double.NaN || upperBound == Double.NaN) {
       return Double.NaN;
     } else {
@@ -421,6 +437,7 @@ public final class RatPoly {
         up += rt.eval(upperBound);
         low += rt.eval(lowerBound);
       }
+      checkRep();
       return up - low;
     }
   }
@@ -433,6 +450,7 @@ public final class RatPoly {
    *     is 5, and "x^2-x" evaluated at 3 is 6. If (this.isNaN() == true), return Double.NaN.
    */
   public double eval(double d) {
+    checkRep();
     if (isNaN()) {
       return Double.NaN;
     } else {
@@ -441,6 +459,7 @@ public final class RatPoly {
       for (RatTerm rt : terms) {
         n += rt.eval(d);
       }
+      checkRep();
       return n;
     }
   }

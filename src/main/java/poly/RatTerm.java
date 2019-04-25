@@ -67,7 +67,8 @@ public final class RatTerm {
    * @return the coefficient of this RatTerm
    */
   public RatNum getCoeff() {
-      return coeff;
+    checkRep();
+    return coeff;
   }
 
   /**
@@ -76,7 +77,8 @@ public final class RatTerm {
    * @return the exponent of this RatTerm
    */
   public int getExpt() {
-      return expt;
+    checkRep();
+    return expt;
   }
 
   /**
@@ -85,6 +87,7 @@ public final class RatTerm {
    * @return true if and only if this has NaN as a coefficient
    */
   public boolean isNaN() {
+    checkRep();
     return coeff.isNaN();
   }
 
@@ -94,6 +97,7 @@ public final class RatTerm {
    * @return true if and only if this has zero as a coefficient
    */
   public boolean isZero() {
+    checkRep();
     return coeff.equals(RatNum.ZERO);
   }
 
@@ -105,12 +109,12 @@ public final class RatTerm {
    *     is 12. if (this.isNaN() == true), return Double.NaN
    */
   public double eval(double d) {
+    checkRep();
     // Hint: You may find java.lang.Math's pow() method useful.
     if (isNaN()) {
       return Double.NaN;
     } else {
-      double x = Math.pow(d, expt);
-      return coeff.doubleValue() * x;
+      return coeff.doubleValue() * Math.pow(d, expt);
     }
   }
 
@@ -120,6 +124,7 @@ public final class RatTerm {
    * @return a RatTerm equals to (-this). If this is NaN, then returns NaN.
    */
   public RatTerm negate() {
+    checkRep();
     if (isNaN()) {
       return NaN;
     } else {
@@ -137,6 +142,7 @@ public final class RatTerm {
    *     NaN.
    */
   public RatTerm add(RatTerm arg) {
+    checkRep();
     if (this.isNaN() || arg.isNaN()) {
       return NaN;
     } else if (this.isZero()) {
@@ -160,17 +166,8 @@ public final class RatTerm {
    *     NaN.
    */
   public RatTerm sub(RatTerm arg) {
-    if (this.isZero()) {
-      return new RatTerm(arg.getCoeff().negate(), arg.getExpt());
-    } else if (arg.isZero()) {
-      return this;
-    } else if (this.isNaN() || arg.isNaN()) {
-      return NaN;
-    } else if (this.getExpt() != arg.getExpt()) {
-      throw new IllegalArgumentException();
-    } else {
-      return new RatTerm(this.getCoeff().sub(arg.getCoeff()), this.getExpt());
-    }
+    checkRep();
+    return this.add(arg.negate());
   }
 
   /**
@@ -181,6 +178,7 @@ public final class RatTerm {
    * @return a RatTerm equals to (this * arg). If either argument is NaN, then returns NaN.
    */
   public RatTerm mul(RatTerm arg) {
+    checkRep();
     if (this.isNaN() || arg.isNaN()) {
       return NaN;
     } else {
@@ -197,6 +195,7 @@ public final class RatTerm {
    *     returns NaN.
    */
   public RatTerm div(RatTerm arg) {
+    checkRep();
     if (arg.isZero() || arg.isNaN() || this.isNaN()) {
       return NaN;
     } else {
@@ -214,6 +213,7 @@ public final class RatTerm {
    *     RatPoly, contains a rep. invariant stating that b is never less than 0.)
    */
   public RatTerm differentiate() {
+    checkRep();
     if (isNaN()) {
       return NaN;
     } else if (expt == 0) {
@@ -234,6 +234,7 @@ public final class RatTerm {
    *     function, RatPoly, contains a rep. invariant stating that b is never less than 0.)
    */
   public RatTerm antiDifferentiate() {
+    checkRep();
     if (isNaN()) {
         return NaN;
     } else {
