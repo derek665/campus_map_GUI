@@ -88,7 +88,9 @@ public final class RatTerm {
    */
   public boolean isNaN() {
     checkRep();
-    return coeff.isNaN();
+    boolean x = coeff.isNaN();
+    checkRep();
+    return x;
   }
 
   /**
@@ -98,7 +100,9 @@ public final class RatTerm {
    */
   public boolean isZero() {
     checkRep();
-    return coeff.equals(RatNum.ZERO);
+    boolean x = coeff.equals(RatNum.ZERO);
+    checkRep();
+    return x;
   }
 
   /**
@@ -114,7 +118,9 @@ public final class RatTerm {
     if (isNaN()) {
       return Double.NaN;
     } else {
-      return coeff.doubleValue() * Math.pow(d, expt);
+      double x = coeff.doubleValue() * Math.pow(d, expt);
+      checkRep();
+      return x;
     }
   }
 

@@ -89,11 +89,11 @@ Problem 1.
 
 Problem 2.
 
-(a) At the end of the constructor, and the beginning of every public method.
+(a) At the end of the constructor, and the beginning of every public method with RatTerm return type, the beginning and end of every non RatTerm return type method.
     We want to ensure rep invariant holds when the object is constructed, so it is reasonable to check before it exit the constructor
     When a public method is called, we need to check at the beginning if rep invariant is satisfied to avoid weird/unexpected output.
     When a public creator method that returns RatTerm such as add, sub. When the return object is created, it has a checkRep in the constructor.
-    As for observers, it never modified anything and it is simple computations. So only need a checkRep() on entry
+    As for observers that don't call other methods, it will never modified anything and it is only returning the field. So only need a checkRep() on entry
 
 (b) In the constructor, we can remove the if-branch that test coeff == ZERO.
     This makes the method less complex
