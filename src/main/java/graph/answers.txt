@@ -1,17 +1,46 @@
 CSE 331 Homework.  Answers to written questions.
 Edit this file to supply your answers.
 
-Name:  <replace this with your name>
+Name:  Derek Chan
 
 Problem 1. (Written exercises)
 
-(a)
+(a) 1. Abstraction function: The Nth element from the front of the queue = entries.get(N)
+                             where the 1st element is the front
 
+       Rep invariant: For any index i such that 0 <= i < entries.size(), entries.get(i) != null
 
-(b)
+    2. Abstraction function: The Nth element from the front of the queue = entries[front + N],
+                             where front is the pointer to the first element of the queue.
 
+       Rep invariant: For any index i such that front <= i < size, entries.get(i) != null, and 0 <= front < size, size >= 0
 
-(c)
+(b) a = [1,2]
+    b = [2,3,4]
+    c = [1,2,3]
+    d = [1,2]
+    e = [1,2,3,4]
+    f = [1,2,3]
+    g = [1,2]
+    h = [2,3,4]
+
+    a, d, g are equivalent
+    b, h are equivalent
+    c, f are equivalent
+
+(c) 1. This won't create rep exposure because the return type is int, as well as ints as parameter
+
+    2. Array is mutable, so we can possibly have rep exposure since the return type is array of String
+
+    3. If the object Date is declared final, it is not mutable, and the returned Date does not create aliasing to the original Date object
+       then there will be no rep exposure
+
+    4. String is immutable object, so there won't be any rep exposure
+
+    5. Certain iterator supports remove(), if the returned iterator iterates over the original object and has the remove() feature
+       then it will have rep exposure
+    6. if the constructor creates a pointer to the list rather than make a new copy, then client can change the content of the list
+       and causes rep exposure
 
 
 Problem 2.  (Graph interface/operations)
