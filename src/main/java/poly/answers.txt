@@ -82,6 +82,7 @@ Problem 1.
 (b) With the change, the datatype will no longer be immutable, simply because we are modifying an object's field,
     rather than making a new one with our desired value. Also, we can easily break the rep invariant when we do not use checkRep()
     for mul and div. Creating a new object will call checkRep() every time it is constructed, but no checkRep() will be called if we modify fields
+    Also, the new value will not always be in the lowest form since we didn't check for it as we would have done in a constructor
 
 (c) Every method in RatNum is not a modifier, it is either an observer or creator. Once a RatNum() is constructed, it stays that way,
     So having only call checkRep() once is sufficient for that reason.
