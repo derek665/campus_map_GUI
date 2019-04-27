@@ -1,0 +1,10 @@
+# Tests that a graph can be created, a single node can be added, and can be printed out
+
+# Create a graph
+created g1
+
+# Add a single node
+add n1 to g1
+
+# Print node in graph
+g1 contains: n1

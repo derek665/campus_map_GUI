@@ -17,14 +17,6 @@ public class Graph {
     }
 
     /**
-     * @param name the name of the node
-     * @spec.effects create a graph with one node
-     */
-    public Graph(String name) {
-        throw new RuntimeException("constructor not yet implemented");
-    }
-
-    /**
      * add a new node to the graph
      * @param name a string of the name of the new node to be added
      * @spec.modifies this
@@ -56,6 +48,14 @@ public class Graph {
      * @return a map with child node as key, and mapped to all the labels in alphabetical order
      */
     public Map<String, Set<String>> getEdges(String parent) {
+        throw new RuntimeException("getEdges not yet implemented");
+    }
+
+    /**
+     * get all the nodes of the graph
+     * @return a set of all nodes in alphabetical order
+     */
+    public Set<String> getNodes() {
         throw new RuntimeException("getEdges not yet implemented");
     }
 

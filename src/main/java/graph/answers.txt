@@ -47,8 +47,7 @@ Problem 2.  (Graph interface/operations)
 I made a Graph class with a private edge class that stores the child note and the label between parent and child
 The reason why I made a private class is because it would be easier to implement to just connect the parent to all Edge object
 
-There are 2 constructors, the one with the string argument is to construct a new graph with just one node initially,
-then more nodes can be added via addNode(), we can also connect between nodes using addChild(). Calling getEdges()
+The graph starts off empty, then more nodes can be added via addNode(), we can also connect between nodes using addChild(). Calling getEdges()
 return all the children nodes with labels that are connected to the parent node, so client can see which nodes are linked to which
 
 I only include a method isChildOf rather than that plus a method to test parent relationship is because for node A to be

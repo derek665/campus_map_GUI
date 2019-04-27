@@ -1,0 +1,6 @@
+# Tests that a graph can be created, three nodes and
+# two edges from the same node, and the three nodes
+# and the two edges can be printed out.
+
+# Create a graph
+CreateGraph

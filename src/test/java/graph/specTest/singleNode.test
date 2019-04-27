@@ -1,0 +1,10 @@
+# Tests that a graph can be created, a single node can be added, and can be printed out
+
+# Create a graph
+CreateGraph g1
+
+# Add a single node
+AddNode g1 n1
+
+# Print node in graph
+ListNodes g1
