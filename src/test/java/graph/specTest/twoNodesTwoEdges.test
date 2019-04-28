@@ -3,19 +3,19 @@
 # and edges can be printed out.
 
 # Create a graph
-CreateGraph g1
+CreateGraph g4
 
 # Add pair of nodes
-AddNode g1 n1
-AddNode g1 n2
+AddNode g4 n1
+AddNode g4 n2
 
 # Add edges
-AddEdge g1 n1 n2 e1
-AddEdge g1 n2 n1 e2
+AddEdge g4 n1 n2 e1
+AddEdge g4 n2 n1 e2
 
 # Print nodes of graph
-ListNodes g1
+ListNodes g4
 
 # Print children of each node
-ListChildren g1 n1
-ListChildren g1 n2
+ListChildren g4 n1
+ListChildren g4 n2

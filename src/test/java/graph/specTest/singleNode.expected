@@ -1,10 +1,10 @@
 # Tests that a graph can be created, a single node can be added, and can be printed out
 
 # Create a graph
-created g1
+created graph g2
 
 # Add a single node
-add n1 to g1
+added node n1 to g2
 
 # Print node in graph
-g1 contains: n1
+g2 contains: n1

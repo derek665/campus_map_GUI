@@ -3,19 +3,19 @@
 # and edges can be printed out.
 
 # Create a graph
-created graph g1
+created graph g4
 
 # Add pair of nodes
-added node n1 to g1
-added node n2 to g1
+added node n1 to g4
+added node n2 to g4
 
 # Add edges
-added edge e1 from n1 to n2 in g1
-added edge e2 from n2 to n1 in g1
+added edge e1 from n1 to n2 in g4
+added edge e2 from n2 to n1 in g4
 
 # Print nodes of graph
-g1 contains: n1 n2
+g4 contains: n1 n2
 
 # Print edges of each node
-the children of n1 in g1 are: n2(e1)
-the children of n2 in g1 are: n1(e2)
+the children of n1 in g4 are: n2(e1)
+the children of n2 in g4 are: n1(e2)

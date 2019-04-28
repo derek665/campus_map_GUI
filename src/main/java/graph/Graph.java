@@ -3,8 +3,9 @@ package graph;
 import java.util.*;
 
 /**
- * Graph represent a mutable directed labeled graph, Graph is a collection of all the nodes and its neighbors
- *
+ * Graph represent a mutable directed labeled graph,
+ * Graph is a collection of all the nodes and its edges to its neighbors
+ * All edge labels from the same parent and child cannot be same
  */
 
 public class Graph {
@@ -17,10 +18,21 @@ public class Graph {
     }
 
     /**
+     * return true if there is a node with same name as 'name'
+     * @param name the String name of the node
+     * @spec.requires name != null
+     * @return true iff has a node in graph with the same name
+     */
+    public boolean hasNode(String name) {
+        throw new RuntimeException("hasNode not yet implemented");
+    }
+
+    /**
      * add a new node to the graph
-     * @param name a string of the name of the new node to be added
+     * @param name a string represents the node to be added
+     * @spec.requries name != null
      * @spec.modifies this
-     * @spec.effects new key for this
+     * @spec.effects new elemnent of this, no change if n already exists
      */
     public void addNode(String name) {
         throw new RuntimeException("addNode not yet implemented");
@@ -35,6 +47,7 @@ public class Graph {
      * @spec.requires parent != null ; destination != null ; label != null
      * @spec.modifies this
      * @spec.effects this.get(parent) = Edge(destination, label) :: this.get(parent)
+     *               no change if same label already exists
      */
     public void addChild(String parent, String destination, String label) {
         throw new RuntimeException("addChild not yet implemented");
@@ -49,6 +62,18 @@ public class Graph {
      */
     public Map<String, Set<String>> getEdges(String parent) {
         throw new RuntimeException("getEdges not yet implemented");
+    }
+
+    /**
+     * return all the labels the two nodes have
+     * @param parent the start node of the edge
+     * @param child the end node of the edge
+     * @spec.requires parent != null ; child != null
+     * @throws IllegalArgumentException if parent or child is not a key of this, or no edges are found from parent to child
+     * @return a set of all the labels between the two nodes
+     */
+    public Set<String> getLabels(String parent, String child) {
+        throw new RuntimeException("getLables not yet implemented");
     }
 
     /**
@@ -72,17 +97,11 @@ public class Graph {
     }
 }
 
-
-/**
- * Edge represents immutable information of a node, it includes an adjacent node, with a label on its path
- *
- */
-
 final class Edge implements Comparable<Edge> {
 
     /**
-     * @param destination
-     * @param label
+     * @param destination the adjacent node
+     * @param label the labe of the path
      * @spec.effects construct a new edge with adjacent node and a label
      */
     public Edge(String destination, String label) {
@@ -99,3 +118,5 @@ final class Edge implements Comparable<Edge> {
         throw new RuntimeException("compareTo not yet implemented");
     }
 }
+
+

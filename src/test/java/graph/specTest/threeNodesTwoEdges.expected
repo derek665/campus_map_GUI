@@ -2,4 +2,18 @@
 # two edges from the same node, and the three nodes
 # and the two edges can be printed out.
 
-# Create
+# Create a graph
+created graph g3
+
+# Add 3 nodes to graph
+added node n1 to g3
+added node n2 to g3
+added node n3 to g3
+
+# Add 2 edges from n1
+added edge e1 from n1 to n2 in g3
+added edge e2 from n1 to n3 in g3
+
+# Print nodes in graph and edges from n1
+g3 contains: n1 n2 n3
+the children of n1 in g3 are: n2(e1) n3(e2)

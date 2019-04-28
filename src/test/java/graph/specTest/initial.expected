@@ -1,7 +1,7 @@
 # Tests that a graph can be created and printed
 
 # Create a graph
-created graph1
+created graph g1
 
 # Print nodes in graph
-graph1 contains:
+g1 contains:

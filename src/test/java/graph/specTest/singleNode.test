@@ -1,10 +1,10 @@
 # Tests that a graph can be created, a single node can be added, and can be printed out
 
 # Create a graph
-CreateGraph g1
+CreateGraph g2
 
 # Add a single node
-AddNode g1 n1
+AddNode g2 n1
 
 # Print node in graph
-ListNodes g1
+ListNodes g2

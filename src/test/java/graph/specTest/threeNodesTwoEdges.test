@@ -3,4 +3,17 @@
 # and the two edges can be printed out.
 
 # Create a graph
-CreateGraph
+CreateGraph g1
+
+# Add 3 nodes to graph
+AddNode g3 n1
+AddNode g3 n2
+AddNode g3 n3
+
+# Add 2 edges from n1
+AddEdge g3 n1 n2 e1
+AddEdge g3 n1 n3 e2
+
+# Print nodes in graph and edges from n1
+ListNodes g3
+ListChildren g3 n1
