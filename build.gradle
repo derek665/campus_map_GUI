@@ -41,7 +41,7 @@ javadoc {
 test {
   // exclude 'setup/**'
   // exclude 'poly/**'
-  exclude 'graph/**'
+  // exclude 'graph/**'
   exclude 'marvel/**'
 }
 
