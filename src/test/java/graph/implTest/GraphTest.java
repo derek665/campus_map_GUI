@@ -86,7 +86,7 @@ public final class GraphTest {
     }
 
     @Test
-    public void testNodeSorted() {
+    public void testGetNodesSorted() {
         Set<String> s = graph3.getNodes();
         Iterator<String> it = s.iterator();
         String a = it.next();
@@ -98,7 +98,7 @@ public final class GraphTest {
     }
 
     @Test
-    public void testEdgeSorted() {
+    public void testGetEdgeSorted() {
         Map<String, Set<String>> m = graph3.getEdges("n1");
         Set<String> s = m.keySet();
         Iterator<String> it = s.iterator();
@@ -114,4 +114,31 @@ public final class GraphTest {
         String b = it.next();
         assertTrue(b.compareTo(a) >= 0);
     }
+
+    @Test
+    public void testRemoveNode() {
+        Graph g1 = new Graph();
+        g1.addNode("n1");
+        g1.addNode("n2");
+        g1.addChild("n1", "n2", "e1");
+        assertTrue(g1.getLabels("n1", "n2").contains("e1"));
+        g1.addChild("n2", "n1", "e2");
+        assertTrue(g1.getLabels("n2", "n1").contains("e2"));
+        g1.removeNode("n1");
+        assertFalse(g1.hasNode("n1"));
+        Map<String, Set<String>> m = g1.getEdges("n2");
+        assertTrue(m.isEmpty());
+    }
+
+    @Test
+    public void testRemoveEdge() {
+        Graph g1 = new Graph();
+        g1.addNode("n1");
+        g1.addNode("n2");
+        g1.addChild("n1", "n2", "e1");
+        assertTrue(g1.getLabels("n1", "n2").contains("e1"));
+        g1.removeEdgeFrom("n1", "n2", "e1");
+        assertTrue(g1.getLabels("n1", "n2").isEmpty());
+    }
+
 }

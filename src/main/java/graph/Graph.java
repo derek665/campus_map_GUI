@@ -30,7 +30,7 @@ public class Graph {
     /**
      * add a new node to the graph
      * @param name a string represents the node to be added
-     * @spec.requries name != null
+     * @spec.requires name != null
      * @spec.modifies this
      * @spec.effects new elemnent of this, no change if n already exists
      */
@@ -55,7 +55,7 @@ public class Graph {
 
     /**
      * remove a node from the graph and remove all edges that has 'name' as child
-     * @param name
+     * @param name the name of the node being removed
      * @spec.requires name != null
      * @throws IllegalArgumentException if 'name' is not a node
      * @spec.modifies this
@@ -76,7 +76,7 @@ public class Graph {
      * @throws IllegalArgumentException if 'parent' or 'child' is not a node, or there are no edges with the same label
      * @return a string of label of the edge from 'parent' to 'child'
      */
-    public String removeEdgeFrom(String parent, String child, String label) {
+    public void removeEdgeFrom(String parent, String child, String label) {
         throw new RuntimeException("removeEdgesFrom not yet implemented");
     }
 
@@ -122,28 +122,11 @@ public class Graph {
     public boolean isChildOf(String child, String parent) {
         throw new RuntimeException("isChildOf not yet implemented");
     }
-}
-
-final class Edge implements Comparable<Edge> {
 
     /**
-     * @param destination the adjacent node
-     * @param label the labe of the path
-     * @spec.effects construct a new edge with adjacent node and a label
+     * a private class that represents a child node and the label connecting from the parent
      */
-    public Edge(String destination, String label) {
-        throw new RuntimeException("Edge constructor not yet implemented");
-    }
-
-    /**
-     * compare this edge to another edge
-     * @param e the other edge this is comparing to
-     * @return 1 if this > e ; 0 if this == e ; -1 if this < e
-     */
-    @Override
-    public int compareTo(Edge e) {
-        throw new RuntimeException("compareTo not yet implemented");
-    }
+    private class Edge {}
 }
 
 
