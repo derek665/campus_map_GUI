@@ -74,7 +74,6 @@ public class Graph {
      * @spec.modifies this
      * @spec.effects this.getLabels('parent', 'child') = this.getLabels('parent', 'child') - label
      * @throws IllegalArgumentException if 'parent' or 'child' is not a node, or there are no edges with the same label
-     * @return a string of label of the edge from 'parent' to 'child'
      */
     public void removeEdgeFrom(String parent, String child, String label) {
         throw new RuntimeException("removeEdgesFrom not yet implemented");
