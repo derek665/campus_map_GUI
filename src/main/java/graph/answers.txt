@@ -56,7 +56,8 @@ a parent of node B. That means node B is the child of node A, so having another 
 
 
 Problem 3.  (Testing strategy)
-I used clear box testing strategy as I have tests for a lot of different possible combinations of graph,
+I used black box testing strategy since I do not know the implementation yet
+I have tests for a lot of different possible combinations of graph according to the specification
 such as empty graph, graph with nodes but without edges, graph with multiple nodes and some combinations of edges.
 Edge case such as having a circular edge (same parent and child) was also included in the test file.
 The implementation tests are slightly different from the spec test, since my Graph class included some method
