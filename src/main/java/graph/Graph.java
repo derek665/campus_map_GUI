@@ -121,11 +121,6 @@ public class Graph {
     public boolean isChildOf(String child, String parent) {
         throw new RuntimeException("isChildOf not yet implemented");
     }
-
-    /**
-     * an edge class that represents a child node and the label connecting from the parent
-     */
-    private class Edge {}
 }
 
 
