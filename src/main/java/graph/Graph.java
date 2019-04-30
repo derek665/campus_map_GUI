@@ -39,7 +39,7 @@ public class Graph {
     }
 
     /**
-     * add an edge going from the parent node
+     * add an edge going from the parent node, no change if 'label' already exists between 'parent' and 'child'
      * @param label a string represent the label of the edge
      * @param child a string represent the child node
      * @param parent a string represent the parent node
@@ -59,7 +59,7 @@ public class Graph {
      * @spec.requires name != null
      * @throws IllegalArgumentException if 'name' is not a node
      * @spec.modifies this
-     * @spec.effects this.hasNode('name') = false
+     * @spec.effects this will not have a node with 'name', and all other nodes will remove the edges with 'name' as child
      */
     public void removeNode(String name) {
         throw new RuntimeException("addChild not yet implemented");
@@ -124,7 +124,7 @@ public class Graph {
     }
 
     /**
-     * a private class that represents a child node and the label connecting from the parent
+     * an edge class that represents a child node and the label connecting from the parent
      */
     private class Edge {}
 }
