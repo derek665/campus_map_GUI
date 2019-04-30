@@ -1,0 +1,17 @@
+# test if edges are in order when printed
+
+# Create graph
+created graph alp2
+
+# Add nodes
+added node n1 to alp2
+added node n2 to alp2
+
+# Add edges
+added edge a1 from n1 to n2 in alp2
+added edge a2 from n1 to n2 in alp2
+added edge b2 from n1 to n2 in alp2
+added edge b1 from n1 to n2 in alp2
+
+# Print the edges
+the children of n1 in alp2 are: n2(a1) n2(a2) n2(b1) n2(b2)

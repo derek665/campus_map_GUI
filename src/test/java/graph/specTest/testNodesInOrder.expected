@@ -1,0 +1,13 @@
+# test if all the nodes are printed in alphabetical order
+
+# Create graph
+created graph alp
+
+# Add Nodes to graph
+added node a to alp
+added node c to alp
+added node d to alp
+added node b to alp
+
+# Print the nodes
+alp contains: a b c d

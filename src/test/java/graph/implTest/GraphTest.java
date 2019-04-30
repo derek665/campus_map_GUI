@@ -82,7 +82,8 @@ public final class GraphTest {
 
     @Test
     public void testIsChild() {
-        assertTrue(graph3.isChildOf("n1", "n2"));
+        assertTrue(graph3.isChildOf("n2", "n1"));
+        assertTrue(graph3.isChildOf("n3", "n1"));
     }
 
     @Test
@@ -119,6 +120,15 @@ public final class GraphTest {
     public void testRemoveNode() {
         Graph g1 = new Graph();
         g1.addNode("n1");
+        assertTrue(g1.hasNode("n1"));
+        g1.removeNode("n1");
+        assertFalse(g1.hasNode("n1"));
+    }
+
+    @Test
+    public void testRemoveNodeWithEdges() {
+        Graph g1 = new Graph();
+        g1.addNode("n1");
         g1.addNode("n2");
         g1.addChild("n1", "n2", "e1");
         assertTrue(g1.getLabels("n1", "n2").contains("e1"));
@@ -141,4 +151,53 @@ public final class GraphTest {
         assertTrue(g1.getLabels("n1", "n2").isEmpty());
     }
 
+    @Test
+    public void testCircularEdge() {
+        Graph g1 = new Graph();
+        g1.addNode("n1");
+        g1.addChild("n1", "n1", "e1");
+        Map<String, Set<String>> m = g1.getEdges("n1");
+        assertTrue(m.containsKey("n1"));
+        assertTrue(m.get("n1").contains("e1"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddEdgeToNonExistParent() {
+        graph1.addChild("n3", "n1", "e1");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddEdgeToNonExistChild() {
+        graph1.addChild("n1", "n3", "e1");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveNonExistNode() {
+        graph1.removeNode("n4");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetEdgeOnNonExistParent() {
+        graph3.getEdges("n5");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveEdgeOnNonExistParent() {
+        graph3.removeEdgeFrom("n5", "n1", "e1");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveEdgeOnNonExistChild() {
+        graph3.removeEdgeFrom("n1", "n5", "e1");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveEdgeOnNonExistLabel() {
+        graph3.removeEdgeFrom("n1", "n2", "e5");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsChildOfOnNonExistNode() {
+        graph1.isChildOf("n5", "n7");
+    }
 }

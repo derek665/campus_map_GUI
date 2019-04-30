@@ -1,0 +1,11 @@
+# test when graph is constructed and add two nodes to it, and print the nodes
+
+# Create a graph
+CreateGraph twoNodes
+
+# Add 2 nodes to graph
+AddNode twoNodes n1
+AddNode twoNodes n2
+
+# Print the nodes in graph
+ListNodes twoNodes

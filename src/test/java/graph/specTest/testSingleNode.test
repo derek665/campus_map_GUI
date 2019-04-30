@@ -8,3 +8,6 @@ AddNode g2 n1
 
 # Print node in graph
 ListNodes g2
+
+# Print edges in graph
+ListChildren g2 n1

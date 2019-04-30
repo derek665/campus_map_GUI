@@ -1,0 +1,11 @@
+# test when graph is constructed and add two nodes to it, and print the nodes
+
+# Create a graph
+created graph twoNodes
+
+# Add 2 nodes to graph
+added node n1 to twoNodes
+added node n2 to twoNodes
+
+# Print the nodes in graph
+twoNodes contains: n1 n2

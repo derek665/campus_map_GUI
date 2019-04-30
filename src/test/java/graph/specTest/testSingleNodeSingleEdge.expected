@@ -1,0 +1,16 @@
+# test when a single node has a circular edge (same node for parent and child)
+
+# Create a graph
+Created graph circular
+
+# Add single node
+added node n1 to circular
+
+# Add an edge to n1
+added edge e1 from n1 to n1 in circular
+
+# Print the nodes in graph
+circular contains: n1
+
+# Print the children in graph
+the children of n1 in circular are: n1(e1)

@@ -1,0 +1,20 @@
+# test when adding a node already exists, nothing should be changed
+
+# Create graph
+created graph dupl
+
+# Add two nodes
+added node n1 to dupl
+added node n2 to dupl
+
+# Add edge from n1
+added edge e1 from n1 to n2 in dupl
+
+# Print children of n1
+the children of n1 in dupl are: e1
+
+# Add node n1
+# No change since n1 already exists
+
+# Print children of n1
+the children of n1 in dupl are: e1

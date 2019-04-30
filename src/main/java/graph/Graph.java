@@ -28,11 +28,11 @@ public class Graph {
     }
 
     /**
-     * add a new node to the graph
+     * add a new node to the graph, no change if 'name' already exists
      * @param name a string represents the node to be added
      * @spec.requires name != null
      * @spec.modifies this
-     * @spec.effects new elemnent of this, no change if n already exists
+     * @spec.effects new elemnent of this, no change if 'name' already exists
      */
     public void addNode(String name) {
         throw new RuntimeException("addNode not yet implemented");

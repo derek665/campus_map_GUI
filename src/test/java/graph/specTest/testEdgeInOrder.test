@@ -1,0 +1,17 @@
+# test if edges are in order when printed
+
+# Create graph
+CreateGraph alp2
+
+# Add nodes
+AddNode alp2 n1
+AddNode alp2 n2
+
+# Add edges
+AddEdge alp2 n1 n2 a1
+AddEdge alp2 n1 n2 a2
+AddEdge alp2 n1 n2 b2
+AddEdge alp2 n1 n2 b1
+
+# Print the edges
+ListChildren alp2 n1
