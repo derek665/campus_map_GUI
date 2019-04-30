@@ -8,7 +8,7 @@ import java.util.*;
  * All edge labels from the same parent and child cannot be same
  */
 
-public final class Graph {
+public class Graph {
 
     /**
      * @spec.effects create an empty new graph
