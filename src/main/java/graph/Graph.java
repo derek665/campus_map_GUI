@@ -46,7 +46,7 @@ public class Graph {
      * @throws IllegalArgumentException if this does not have key 'parent' or 'child'
      * @spec.requires parent != null ; child != null ; label != null
      * @spec.modifies this
-     * @spec.effects this.get(parent) = Edge(child, label) :: this.get(parent)
+     * @spec.effects this.get(parent) = Edge(child, label) + this.get(parent)
      *               no change if same label already exists
      */
     public void addChild(String parent, String child, String label) {
