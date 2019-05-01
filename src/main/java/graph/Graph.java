@@ -8,7 +8,7 @@ import java.util.*;
  * All edge labels from the same parent and child cannot be same
  *
  * @spec.specfield node : String // The nodes of the graph
- * @spec.derivedfield edge : node //
+ * @spec.derivedfield edge : node // A connection from the parent node to the child node
  * @spec.derivedfield label : String // The label of an edge from parent node to child node
  */
 
