@@ -11,7 +11,9 @@ Problem 1. (Written exercises)
        Rep invariant: For any index i such that 0 <= i < entries.size()
                       entries.get(i) != null
 
-    2. Abstraction function: The front element of the queue = entries.get(front)
+    2. Abstraction function: if size == 0, then entries == []
+                             Otherwise,
+                             The front element of the queue = entries.get(front)
                              The second element of the queue = entries.get((front + 1) % entries.size())
                              ...
                              The last element of the queue = entries.get((front + (size - 1)) % entries.size())
