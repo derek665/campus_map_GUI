@@ -54,8 +54,12 @@ Problem 1. (Written exercises)
 
 Problem 2.  (Graph interface/operations)
 The graph starts off empty, then more nodes can be added via addNode(), we can also connect between nodes using addChild(). Calling getEdges()
-return all the children nodes with labels that are connected to the parent node, so client can see which nodes are linked to which.
-Client can also remove a specific edge from two nodes, also remove a node from the graph, the edges connected to that node
+returns all the children nodes with labels that are connected to the parent node, so client can see which nodes are linked to the parent node.
+Client can also remove a specific edge from two nodes, also remove a node from the graph, the edges connected to that node.
+
+I did not include any other additional classes other than Graph, since I believe adding another class will add complexity
+of the interface, and all the data in the graph are String, it is better to pass String into method than making another object
+then pass it to the method for the client.
 
 I include all the observer methods such as getNodes(), getEdges(), getLabels(), hasNode().
 So the client can view what is in the graph without changing the contents

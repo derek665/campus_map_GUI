@@ -44,20 +44,20 @@ public final class GraphTest {
     @Test
     public void testAddOne() {
         Graph g1 = new Graph();
-        g1.addNode("n1");
+        assertTrue(g1.addNode("n1"));
         Set<String> s = g1.getNodes();
         assertTrue(s.contains("n1"));
-        assertTrue(s.size() == 1);
+        assertEquals(1, s.size());
     }
 
     @Test
     public void testAddOneMore() {
         Graph g1 = new Graph();
-        g1.addNode("n1");
-        g1.addNode("n2");
+        assertTrue(g1.addNode("n1"));
+        assertTrue(g1.addNode("n2"));
         Set<String> s = g1.getNodes();
         assertTrue(s.contains("n1") && s.contains("n2"));
-        assertTrue(s.size() == 2);
+        assertEquals(2, s.size());
     }
 
     @Test
@@ -68,14 +68,14 @@ public final class GraphTest {
 
     @Test
     public void testAddDuplicateNode() {
-        graph3.addNode("n1");
+        assertFalse(graph3.addNode("n1"));
         Map<String, Set<String>> m = graph3.getEdges("n1");
         assertTrue(m.containsKey("n2"));
     }
 
     @Test
     public void testAddDuplicateLabel() {
-        graph3.addChild("n1", "n2", "e1");
+        assertFalse(graph3.addChild("n1", "n2", "e1"));
         Set<String> s = graph3.getLabels("n1", "n2");
         assertTrue(s.contains("e1"));
     }
@@ -128,7 +128,7 @@ public final class GraphTest {
         Graph g1 = new Graph();
         g1.addNode("n1");
         assertTrue(g1.hasNode("n1"));
-        g1.removeNode("n1");
+        assertTrue(g1.removeNode("n1"));
         assertFalse(g1.hasNode("n1"));
     }
 
@@ -141,7 +141,7 @@ public final class GraphTest {
         assertTrue(g1.getLabels("n1", "n2").contains("e1"));
         g1.addChild("n2", "n1", "e2");
         assertTrue(g1.getLabels("n2", "n1").contains("e2"));
-        g1.removeNode("n1");
+        assertTrue(g1.removeNode("n1"));
         assertFalse(g1.hasNode("n1"));
         Map<String, Set<String>> m = g1.getEdges("n2");
         assertTrue(m.isEmpty());

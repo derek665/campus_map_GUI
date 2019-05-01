@@ -32,18 +32,21 @@ public class Graph {
     }
 
     /**
-     * add a new node to the graph, no change if 'name' already exists
+     * add a new node to the graph and return true, false if 'name' already exists
      * @param name a string represents the node to be added
      * @spec.requires name != null
      * @spec.modifies this
      * @spec.effects new element of this, no change if 'name' already exists
+     * @return true iff 'name' has not previouslybeen added
      */
-    public void addNode(String name) {
+    public boolean addNode(String name) {
         throw new RuntimeException("addNode not yet implemented");
     }
 
     /**
-     * add an edge going from the parent node, no change if 'label' already exists between 'parent' and 'child'
+     * add an edge going from the parent node and return true,
+     * no change if 'label' already exists between 'parent' and 'child' and return false
+     *
      * @param label a string represent the label of the edge
      * @param child a string represent the child node
      * @param parent a string represent the parent node
@@ -52,25 +55,27 @@ public class Graph {
      * @spec.modifies this
      * @spec.effects this.get(parent) = Edge(child, label) + this.get(parent)
      *               no change if same label already exists
+     * @return true iff the same edge has not previously been added
      */
-    public void addChild(String parent, String child, String label) {
+    public boolean addChild(String parent, String child, String label) {
         throw new RuntimeException("addChild not yet implemented");
     }
 
     /**
-     * remove a node from the graph and remove all edges that has 'name' as child
+     * remove a node from the graph and remove all edges that has 'name' as child, and return true if successfuly removed
      * @param name the name of the node being removed
      * @spec.requires name != null
      * @throws IllegalArgumentException if 'name' is not a node
      * @spec.modifies this
      * @spec.effects this will not have a node with 'name', and all other nodes will remove the edges with 'name' as child
+     * @return true iff there exists a node 'name' in graph is removed, false if node 'name' does not exists
      */
-    public void removeNode(String name) {
+    public boolean removeNode(String name) {
         throw new RuntimeException("addChild not yet implemented");
     }
 
     /**
-     * remove an the edge with 'label' that connects from 'parent' to 'child' and return 'label'
+     * remove an the edge with 'label' that connects from 'parent' to 'child' and return true if successfully removed
      * @param parent the starting point of the edge
      * @param child the end point of the edge
      * @param label the label of the edge that is being removed
@@ -78,8 +83,9 @@ public class Graph {
      * @spec.modifies this
      * @spec.effects this.getLabels('parent', 'child') = this.getLabels('parent', 'child') - label
      * @throws IllegalArgumentException if 'parent' or 'child' is not a node, or there are no edges with the same label
+     * @return true iff the edge with 'label' is exists and it is removed
      */
-    public void removeEdgeFrom(String parent, String child, String label) {
+    public boolean removeEdgeFrom(String parent, String child, String label) {
         throw new RuntimeException("removeEdgesFrom not yet implemented");
     }
 
