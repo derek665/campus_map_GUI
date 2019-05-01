@@ -67,7 +67,7 @@ public final class GraphTest {
     }
 
     @Test
-    public void testAddDuplicate() {
+    public void testAddDuplicateNode() {
         graph3.addNode("n1");
         Map<String, Set<String>> m = graph3.getEdges("n1");
         assertTrue(m.containsKey("n2"));
