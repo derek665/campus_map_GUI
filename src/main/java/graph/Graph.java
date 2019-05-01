@@ -36,7 +36,7 @@ public class Graph {
      * @param name a string represents the node to be added
      * @spec.requires name != null
      * @spec.modifies this
-     * @spec.effects new elemnent of this, no change if 'name' already exists
+     * @spec.effects new element of this, no change if 'name' already exists
      */
     public void addNode(String name) {
         throw new RuntimeException("addNode not yet implemented");
