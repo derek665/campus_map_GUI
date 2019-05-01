@@ -121,6 +121,15 @@ public class Graph {
     public boolean isChildOf(String child, String parent) {
         throw new RuntimeException("isChildOf not yet implemented");
     }
+
+    /**
+     * return a String representation of this Graph
+     * @return a String representation of this, nodes and edges are printed in alphabetical order
+     */
+    @Override
+    public String toString() {
+        throw new RuntimeException("toString not yet implemented");
+    }
 }
 
 

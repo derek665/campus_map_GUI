@@ -43,14 +43,21 @@ public final class GraphTest {
 
     @Test
     public void testAddOne() {
-        graph1.addNode("n1");
-        assertTrue(graph1.getNodes().contains("n1"));
+        Graph g1 = new Graph();
+        g1.addNode("n1");
+        Set<String> s = g1.getNodes();
+        assertTrue(s.contains("n1"));
+        assertTrue(s.size() == 1);
     }
 
     @Test
     public void testAddOneMore() {
-        graph1.addNode("n2");
-        assertTrue(graph1.getNodes().contains("n2"));
+        Graph g1 = new Graph();
+        g1.addNode("n1");
+        g1.addNode("n2");
+        Set<String> s = g1.getNodes();
+        assertTrue(s.contains("n1") && s.contains("n2"));
+        assertTrue(s.size() == 2);
     }
 
     @Test
@@ -159,6 +166,21 @@ public final class GraphTest {
         Map<String, Set<String>> m = g1.getEdges("n1");
         assertTrue(m.containsKey("n1"));
         assertTrue(m.get("n1").contains("e1"));
+    }
+
+    @Test
+    public void testPrintEmpty() {
+        Graph g1 = new Graph();
+        assertEquals("{}", g1.toString());
+    }
+
+    @Test
+    public void testPrintTwoNodeOneEdge() {
+        Graph g1 = new Graph();
+        g1.addNode("n1");
+        g1.addNode("n2");
+        g1.addChild("n1", "n2", "e1");
+        assertEquals("{n1=n2(e1), n2=[]}", g1.toString());
     }
 
     @Test(expected = IllegalArgumentException.class)
