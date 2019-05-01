@@ -124,11 +124,20 @@ public final class GraphTest {
     }
 
     @Test
+    public void testGetLabelsSorted() {
+        Set<String> s = graph3.getLabels("n1", "n2");
+        Iterator<String> it = s.iterator();
+        String a = it.next();
+        String b = it.next();
+        assertTrue(b.compareTo(a) >= 0);
+    }
+
+    @Test
     public void testRemoveNode() {
         Graph g1 = new Graph();
         g1.addNode("n1");
         assertTrue(g1.hasNode("n1"));
-        assertTrue(g1.removeNode("n1"));
+        g1.removeNode("n1");
         assertFalse(g1.hasNode("n1"));
     }
 
@@ -141,10 +150,20 @@ public final class GraphTest {
         assertTrue(g1.getLabels("n1", "n2").contains("e1"));
         g1.addChild("n2", "n1", "e2");
         assertTrue(g1.getLabels("n2", "n1").contains("e2"));
-        assertTrue(g1.removeNode("n1"));
+        g1.removeNode("n1");
         assertFalse(g1.hasNode("n1"));
         Map<String, Set<String>> m = g1.getEdges("n2");
         assertTrue(m.isEmpty());
+    }
+
+    @Test
+    public void testRemoveEdgeFrom() {
+        Graph g1 = new Graph();
+        g1.addNode("n1");
+        g1.addNode("n2");
+        g1.addChild("n1", "n2", "e1");
+        g1.removeEdgeFrom("n1", "n2", "e1");
+        assertTrue(g1.getLabels("n1", "n2").isEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -165,6 +184,11 @@ public final class GraphTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetEdgeOnNonExistParent() {
         graph3.getEdges("n5");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetLabelOnNonExistNodes() {
+        graph3.getLabels("n5", "n6");
     }
 
     @Test(expected = IllegalArgumentException.class)

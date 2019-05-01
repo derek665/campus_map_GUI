@@ -1,15 +1,16 @@
 package graph;
 
+import jdk.jshell.spi.ExecutionControl;
+import org.apache.commons.lang3.NotImplementedException;
+
 import java.util.*;
 
 /**
- * Graph represent a mutable directed labeled graph,
- * Graph is a collection of all the nodes and its edges to its neighbors
+ * Graph represent a mutable directed labeled graph
+ *
+ * Graph is a collection of all the nodes mapped to its edges with labels to its neighbors
  * All edge labels from the same parent and child cannot be same
  *
- * @spec.specfield node : String // The nodes of the graph
- * @spec.derivedfield edge : node // A connection from the parent node to the child node
- * @spec.derivedfield label : String // The label of an edge from parent node to child node
  */
 
 public class Graph {
@@ -18,7 +19,7 @@ public class Graph {
      * @spec.effects create an empty new graph
      */
     public Graph() {
-        throw new RuntimeException("constructor not yet implemented");
+        throw new NotImplementedException("constructor not yet implemented");
     }
 
     /**
@@ -28,11 +29,11 @@ public class Graph {
      * @return true iff has a node in graph with the same name
      */
     public boolean hasNode(String name) {
-        throw new RuntimeException("hasNode not yet implemented");
+        throw new NotImplementedException("hasNode not yet implemented");
     }
 
     /**
-     * add a new node to the graph and return true, false if 'name' already exists
+     * add a new node to the graph and return true; false if 'name' already exists
      * @param name a string represents the node to be added
      * @spec.requires name != null
      * @spec.modifies this
@@ -40,7 +41,7 @@ public class Graph {
      * @return true iff 'name' has not previouslybeen added
      */
     public boolean addNode(String name) {
-        throw new RuntimeException("addNode not yet implemented");
+        throw new NotImplementedException("addNode not yet implemented");
     }
 
     /**
@@ -50,7 +51,7 @@ public class Graph {
      * @param label a string represent the label of the edge
      * @param child a string represent the child node
      * @param parent a string represent the parent node
-     * @throws IllegalArgumentException if this does not have key 'parent' or 'child'
+     * @throws IllegalArgumentException if graph does not have node 'parent' and 'child'
      * @spec.requires parent != null ; child != null ; label != null
      * @spec.modifies this
      * @spec.effects this.get(parent) = Edge(child, label) + this.get(parent)
@@ -58,35 +59,33 @@ public class Graph {
      * @return true iff the same edge has not previously been added
      */
     public boolean addChild(String parent, String child, String label) {
-        throw new RuntimeException("addChild not yet implemented");
+        throw new NotImplementedException("addChild not yet implemented");
     }
 
     /**
-     * remove a node from the graph and remove all edges that has 'name' as child, and return true if successfuly removed
+     * remove a node from the graph and remove all edges that has 'name' as child
      * @param name the name of the node being removed
      * @spec.requires name != null
-     * @throws IllegalArgumentException if 'name' is not a node
      * @spec.modifies this
      * @spec.effects this will not have a node with 'name', and all other nodes will remove the edges with 'name' as child
-     * @return true iff there exists a node 'name' in graph is removed, false if node 'name' does not exists
+     * @throws IllegalArgumentException if graph does not have node 'name'
      */
-    public boolean removeNode(String name) {
-        throw new RuntimeException("addChild not yet implemented");
+    public void removeNode(String name) {
+        throw new NotImplementedException("addChild not yet implemented");
     }
 
     /**
-     * remove an the edge with 'label' that connects from 'parent' to 'child' and return true if successfully removed
+     * remove an the edge with 'label' that connects from 'parent' to 'child'
      * @param parent the starting point of the edge
      * @param child the end point of the edge
      * @param label the label of the edge that is being removed
      * @spec.requires parent != null ; child != null ; label != null
      * @spec.modifies this
      * @spec.effects this.getLabels('parent', 'child') = this.getLabels('parent', 'child') - label
-     * @throws IllegalArgumentException if 'parent' or 'child' is not a node, or there are no edges with the same label
-     * @return true iff the edge with 'label' is exists and it is removed
+     * @throws IllegalArgumentException if graph does not have node 'parent' or 'child', or does not have an edge between with 'label'
      */
-    public boolean removeEdgeFrom(String parent, String child, String label) {
-        throw new RuntimeException("removeEdgesFrom not yet implemented");
+    public void removeEdgeFrom(String parent, String child, String label) {
+        throw new NotImplementedException("removeEdgesFrom not yet implemented");
     }
 
     /**
@@ -94,30 +93,31 @@ public class Graph {
      * @param parent a string represent the parent node
      * @spec.requires parent != null
      * @throws IllegalArgumentException if this does not have key 'parent'
-     * @return a map with child node as key, and mapped to all the labels in alphabetical order
+     * @return a map with child node as key in alphabetical order, and mapped to all the labels in alphabetical order
      */
     public Map<String, Set<String>> getEdges(String parent) {
-        throw new RuntimeException("getEdges not yet implemented");
+        throw new NotImplementedException("getEdges not yet implemented");
     }
 
     /**
-     * return all the labels the two nodes have
+     * return all the labels the two nodes have in alphabetical order
      * @param parent the start node of the edge
      * @param child the end node of the edge
      * @spec.requires parent != null ; child != null
      * @throws IllegalArgumentException if parent or child is not a key of this
-     * @return a set of all the labels between the two nodes, empty set if there are no edges from 'parent' to 'child'
+     * @return a set of all the labels between the two nodes in alphabetical order,
+     *          empty set if there are no edges from 'parent' to 'child'
      */
     public Set<String> getLabels(String parent, String child) {
-        throw new RuntimeException("getLables not yet implemented");
+        throw new NotImplementedException("getLables not yet implemented");
     }
 
     /**
-     * get all the nodes of the graph
+     * get all the nodes of the graph in alphabetical order
      * @return a set of all nodes in alphabetical order
      */
     public Set<String> getNodes() {
-        throw new RuntimeException("getEdges not yet implemented");
+        throw new NotImplementedException("getEdges not yet implemented");
     }
 
     /**
@@ -129,7 +129,7 @@ public class Graph {
      * @return true iff there is an edge from parent to child
      */
     public boolean isChildOf(String child, String parent) {
-        throw new RuntimeException("isChildOf not yet implemented");
+        throw new NotImplementedException("isChildOf not yet implemented");
     }
 }
 
