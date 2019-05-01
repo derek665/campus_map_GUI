@@ -13,9 +13,10 @@ compileTestJava:
   script: chmod +x gradlew && ./gradlew compileTestJava
   only: ['tags']
 
-check-files:
+test:
   stage: validation
-  script: chmod +x gradlew && ./gradlew checkFiles
+  script: chmod +x gradlew && ./gradlew test --fail-fast
+  allow_failure: true
   only: ['tags']
 
 javadoc:
