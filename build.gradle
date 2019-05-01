@@ -29,7 +29,7 @@ dependencies {
 }
 
 javadoc {
-    options.tags = [ "spec.modifies", "spec.effects", "spec.requires" ]
+    options.tags = [ "spec.modifies", "spec.effects", "spec.requires", "spec.specfield", "spec.derivedfield" ]
     options.addBooleanOption "-no-module-directories", true
 
 }
@@ -82,21 +82,21 @@ compileTestJava {
 /// Validation: Checking additional assignment requirements
 ///
 
-task checkFiles {
-  description = 'Check that all files required in the assignment exist'
-  doLast {
-    def String[] homeworkProperties = homeworks.split(',')
-    homeworkProperties.each { requiredHwFiles ->
-      def String[] requiredFiles = getProperty(requiredHwFiles).split(',')
-      requiredFiles.each { fileName ->
-        fileName = fileName.trim()
-        if (! file("${fileName}").exists()) {
-          throw new GradleException("File ${fileName} does not exist.")
-        }
-      }
-    }
-  }
-}
+// task checkFiles {
+//   description = 'Check that all files required in the assignment exist'
+//   doLast {
+//     def String[] homeworkProperties = homeworks.split(',')
+//     homeworkProperties.each { requiredHwFiles ->
+//       def String[] requiredFiles = getProperty(requiredHwFiles).split(',')
+//       requiredFiles.each { fileName ->
+//         fileName = fileName.trim()
+//         if (! file("${fileName}").exists()) {
+//           throw new GradleException("File ${fileName} does not exist.")
+//         }
+//       }
+//     }
+//   }
+// }
 
 task validate {
     description = 'Validate the working copy.  Ensures that the project builds, that required files exist and a Javadoc is generated.'
@@ -104,7 +104,7 @@ task validate {
 
 validate.dependsOn clean
 validate.dependsOn build
-validate.dependsOn checkFiles
+// validate.dependsOn checkFiles
 validate.dependsOn javadoc
 
 ///
