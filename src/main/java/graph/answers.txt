@@ -6,14 +6,21 @@ Name:  Derek Chan
 Problem 1. (Written exercises)
 
 (a) 1. Abstraction function: The Nth element from the front of the queue = entries.get(N)
-                             where the 1st element is the front
+                             where the oldest (least recent) element is the first element
 
-       Rep invariant: For any index i such that 0 <= i < entries.size(), entries.get(i) != null
+       Rep invariant: For any index i such that 0 <= i < entries.size()
+                      entries.get(i) != null
 
-    2. Abstraction function: The Nth element from the front of the queue = entries[front + N],
-                             where front is the pointer to the first element of the queue.
+    2. Abstraction function: The front element of the queue = entries.get(front)
+                             The second element of the queue = entries.get((front + 1) % entries.size())
+                             ...
+                             The last element of the queue = entries.get((front + (size - 1)) % entries.size())
+                             where front is the pointer to the oldest (least recent) element of the queue.
 
-       Rep invariant: For any index i such that front <= i < size, entries.get(i) != null, and 0 <= front < size, size >= 0
+       Rep invariant: For any index i such that 0 <= i < entries.size()
+                      entries.get(i) != null
+                      0 <= front < entries.size()
+                      size >= 0
 
 (b) a = [1,2]
     b = [2,3,4]
@@ -62,7 +69,7 @@ such as empty graph, graph with nodes but without edges, graph with multiple nod
 Edge case such as having a circular edge (same parent and child) was also included in the test file.
 The implementation tests are slightly different from the spec test, since my Graph class included some method
 like remove, some observers, and some methods throw exception when unwanted arguments are being passed.
-I have to include tests for those operations, which for spec test I only include the add & print feature of the class.
+I have to include tests for those operations, which for spec test I only include the addNode & addChild feature of the class.
 So the implementation test has more tests than the spec test.
 
 

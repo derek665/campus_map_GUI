@@ -6,6 +6,10 @@ import java.util.*;
  * Graph represent a mutable directed labeled graph,
  * Graph is a collection of all the nodes and its edges to its neighbors
  * All edge labels from the same parent and child cannot be same
+ *
+ * @spec.specfield node : String // The nodes of the graph
+ * @spec.derivedfield edge : node //
+ * @spec.derivedfield label : String // The label of an edge from parent node to child node
  */
 
 public class Graph {
@@ -120,15 +124,6 @@ public class Graph {
      */
     public boolean isChildOf(String child, String parent) {
         throw new RuntimeException("isChildOf not yet implemented");
-    }
-
-    /**
-     * return a String representation of this Graph
-     * @return a String representation of this, nodes and edges are printed in alphabetical order
-     */
-    @Override
-    public String toString() {
-        throw new RuntimeException("toString not yet implemented");
     }
 }
 

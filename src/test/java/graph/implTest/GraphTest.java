@@ -147,42 +147,6 @@ public final class GraphTest {
         assertTrue(m.isEmpty());
     }
 
-    @Test
-    public void testRemoveEdge() {
-        Graph g1 = new Graph();
-        g1.addNode("n1");
-        g1.addNode("n2");
-        g1.addChild("n1", "n2", "e1");
-        assertTrue(g1.getLabels("n1", "n2").contains("e1"));
-        g1.removeEdgeFrom("n1", "n2", "e1");
-        assertTrue(g1.getLabels("n1", "n2").isEmpty());
-    }
-
-    @Test
-    public void testCircularEdge() {
-        Graph g1 = new Graph();
-        g1.addNode("n1");
-        g1.addChild("n1", "n1", "e1");
-        Map<String, Set<String>> m = g1.getEdges("n1");
-        assertTrue(m.containsKey("n1"));
-        assertTrue(m.get("n1").contains("e1"));
-    }
-
-    @Test
-    public void testPrintEmpty() {
-        Graph g1 = new Graph();
-        assertEquals("{}", g1.toString());
-    }
-
-    @Test
-    public void testPrintTwoNodeOneEdge() {
-        Graph g1 = new Graph();
-        g1.addNode("n1");
-        g1.addNode("n2");
-        g1.addChild("n1", "n2", "e1");
-        assertEquals("{n1=n2(e1), n2=[]}", g1.toString());
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void testAddEdgeToNonExistParent() {
         graph1.addChild("n3", "n1", "e1");
