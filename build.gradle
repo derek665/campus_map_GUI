@@ -164,3 +164,6 @@ task implTests (type: Test) {
     }
 }
 
+specTests.dependsOn compileTestJava
+specTests.dependsOn copyGraphTestScripts
+implTests.dependsOn compileTestJava
