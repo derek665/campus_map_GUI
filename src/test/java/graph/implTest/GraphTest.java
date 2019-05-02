@@ -100,10 +100,22 @@ public final class GraphTest {
     }
 
     @Test
+    public void testGetNodesSize() {
+        Set<String> s = graph3.getNodes();
+        assertEquals(3, s.size());
+    }
+
+    @Test
     public void testGetEdgeSorted() {
         Map<String, Set<String>> m = graph3.getEdges("n1");
         Set<String> s = m.keySet();
         assertEquals("[n2, n3]", s.toString());
+    }
+
+    @Test
+    public void testGetEdgeSize() {
+        Map<String, Set<String>> m = graph3.getEdges("n1");
+        assertEquals(3, m.get("n2").size() + m.get("n3").size());
     }
 
     @Test
@@ -114,12 +126,9 @@ public final class GraphTest {
     }
 
     @Test
-    public void testGetLabelsSorted() {
+    public void testGetLabelsSize() {
         Set<String> s = graph3.getLabels("n1", "n2");
-        Iterator<String> it = s.iterator();
-        String a = it.next();
-        String b = it.next();
-        assertTrue(b.compareTo(a) >= 0);
+        assertEquals(2, s.size());
     }
 
     @Test
@@ -154,6 +163,25 @@ public final class GraphTest {
         g1.addChild("n1", "n2", "e1");
         g1.removeEdgeFrom("n1", "n2", "e1");
         assertTrue(g1.getLabels("n1", "n2").isEmpty());
+    }
+
+    @Test
+    public void testInsertNodeSorted() {
+        Graph g1 = new Graph();
+        g1.addNode("n1");
+        g1.addNode("n3");
+        assertEquals(2, g1.getNodes().size());
+        g1.addNode("n2");
+        assertEquals("[n1, n2, n3]", g1.toString());
+    }
+
+    @Test
+    public void testCircularEdge() {
+        Graph g1 = new Graph();
+        g1.addNode("n1");
+        assertTrue(g1.addChild("n1", "n1", "e1"));
+        assertTrue(g1.getLabels("n1", "n1").contains("e1"));
+        assertTrue(g1.getEdges("n1").containsKey("n1"));
     }
 
     @Test(expected = IllegalArgumentException.class)
