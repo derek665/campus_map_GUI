@@ -33,7 +33,7 @@ public class Graph {
     }
 
     /**
-     * add a new node to the graph and return true; false if 'name' already exists
+     * add a new node to the graph and return whether the node is successfully added to graph
      * @param name a string represents the node to be added
      * @spec.requires name != null
      * @spec.modifies this
@@ -45,9 +45,7 @@ public class Graph {
     }
 
     /**
-     * add an edge going from the parent node and return true,
-     * no change if 'label' already exists between 'parent' and 'child' and return false
-     *
+     * add an edge going from the parent node and whether the edge is successfully added
      * @param label a string represent the label of the edge
      * @param child a string represent the child node
      * @param parent a string represent the parent node
