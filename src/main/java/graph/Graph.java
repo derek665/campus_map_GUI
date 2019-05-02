@@ -45,7 +45,7 @@ public class Graph {
     }
 
     /**
-     * add an edge going from the parent node and whether the edge is successfully added
+     * add an edge going from the parent node and return whether the edge is successfully added
      * @param label a string represent the label of the edge
      * @param child a string represent the child node
      * @param parent a string represent the parent node
