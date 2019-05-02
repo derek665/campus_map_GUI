@@ -96,36 +96,21 @@ public final class GraphTest {
     @Test
     public void testGetNodesSorted() {
         Set<String> s = graph3.getNodes();
-        Iterator<String> it = s.iterator();
-        String a = it.next();
-        while (it.hasNext()) {
-            String b = it.next();
-            assertTrue(b.compareTo(a) >= 0);
-            a = b;
-        }
+        assertEquals("[n1, n2, n3]", s.toString());
     }
 
     @Test
     public void testGetEdgeSorted() {
         Map<String, Set<String>> m = graph3.getEdges("n1");
         Set<String> s = m.keySet();
-        Iterator<String> it = s.iterator();
-        String a = it.next();
-        while(it.hasNext()) {
-            String b = it.next();
-            assertTrue(b.compareTo(a) >= 0);
-            a = b;
-        }
+        assertEquals("[n2, n3]", s.toString());
     }
 
     @Test
     public void testLabelsInGetEdgeAreSorted() {
         Map<String, Set<String>> m = graph3.getEdges("n1");
         Set<String> s = m.get("n2");
-        Iterator<String> it = s.iterator();
-        String a = it.next();
-        String b = it.next();
-        assertTrue(b.compareTo(a) >= 0);
+        assertEquals("[e1, e2]", s.toString());
     }
 
     @Test
