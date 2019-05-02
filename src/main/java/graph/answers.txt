@@ -42,7 +42,7 @@ Problem 1. (Written exercises)
     2. Array is mutable, so we can possibly have rep exposure since the return type is array of String
 
     3. This is a private method, so the client would not be able to call this method. However, as long as there are no
-       other methods that return the result Date from myBirthday() rather than a copy, and Date are immutable.
+       other methods that return the Date returned from myBirthday() rather than a copy, and Date are immutable.
        Then there will not be any rep exposure
 
     4. String is immutable object, so there won't be any rep exposure
@@ -55,19 +55,22 @@ Problem 1. (Written exercises)
 
 
 Problem 2.  (Graph interface/operations)
-The graph starts off empty, then more nodes can be added via addNode(), we can also connect between nodes using addChild(). Calling getEdges()
-returns all the children nodes with labels that are connected to the parent node, so client can see which nodes are linked to the parent node.
-Client can also remove a specific edge from two nodes, also remove a node from the graph, and the edges that has that node as child.
+The graph starts off empty, then more nodes can be added via addNode that returns a boolean indicates if the node is successfully added,
+in another word no duplicate node. We can also connect between nodes using addChild to build a directed label graph.
+Calling getEdges returns all the children nodes with labels that are connected to the parent node,
+so client can see which nodes are linked to the parent node.
+Client can also remove a specific edge between two nodes, also remove a node from the graph, and the edges that has that node as child,
+so the graph can be more flexible.
 
 I did not include any other additional classes other than Graph, since I believe adding another class will add complexity
-of the interface, and all the data in the graph are String, it is better to pass String into method than making another object
-then pass it to the method for the client.
+to the graph interface, and all the data in the graph are String, it is better to pass String into method than making another object
+then pass it to the methods for the client.
 
-I include all the observer methods such as getNodes(), getEdges(), getLabels(), hasNode(), isChildOf.
+I include all the observer methods such as getNodes, getEdges, getLabels, hasNode, isChildOf.
 So the client can view what is in the graph without changing the contents.
 
-I only include a method isChildOf rather than isChildOf plus a method to test parent relationship is because for node A to be
-a parent of node B. That means node B is the child of node A, so having another boolean type method is redundant when we can just swap the param
+I only include a method isChildOf rather than isChildOf plus a method to test parent relationship such as isParentOf is because for node A to be
+a parent of node B. That means node B is the child of node A, so having another boolean type method is redundant when we can just swap the parameters
 
 
 Problem 3.  (Testing strategy)
