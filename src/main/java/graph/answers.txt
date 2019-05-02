@@ -79,8 +79,8 @@ I have tests for a lot of different possible combinations of graph according to 
 such as empty graph, graph with nodes but without edges, graph with multiple nodes and some combinations of edges.
 Edge case such as having a circular edge (same parent and child) was also included in the test file.
 The implementation tests are slightly different from the spec test, since my Graph class included some method
-like remove, some observers, and some methods throw exception when unwanted arguments are being passed.
-I have to include tests for those operations, which for spec test I only include the addNode & addChild feature of the class.
+like remove, some observers, and some methods that throw exception when unwanted arguments are being passed.
+I have to include tests for those operations, which for spec test I only include the addNode, addChild, and some observers feature of the class.
 So the implementation test has more tests than the spec test.
 
 
