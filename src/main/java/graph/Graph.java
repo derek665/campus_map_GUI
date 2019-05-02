@@ -26,7 +26,7 @@ public class Graph {
      * return true if there is a node with same name as 'name'
      * @param name the String name of the node
      * @spec.requires name != null
-     * @return true iff has a node in graph with the same name
+     * @return true iff this has a node in graph with the same name
      */
     public boolean hasNode(String name) {
         throw new NotImplementedException("hasNode not yet implemented");
@@ -38,7 +38,7 @@ public class Graph {
      * @spec.requires name != null
      * @spec.modifies this
      * @spec.effects new element of this, no change if 'name' already exists
-     * @return true iff 'name' has not previouslybeen added
+     * @return true iff 'name' has not previously been added
      */
     public boolean addNode(String name) {
         throw new NotImplementedException("addNode not yet implemented");
