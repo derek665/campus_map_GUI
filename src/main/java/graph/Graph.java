@@ -67,7 +67,7 @@ public class Graph {
      * @param name the name of the node being removed
      * @spec.requires name != null
      * @spec.modifies this
-     * @spec.effects this will not have a node with 'name', and all other nodes will remove the edges with 'name' as child
+     * @spec.effects this will not have a node with 'name', and all other nodes will remove their outgoing edges with 'name' as child
      * @throws IllegalArgumentException if graph does not have node 'name'
      */
     public void removeNode(String name) {

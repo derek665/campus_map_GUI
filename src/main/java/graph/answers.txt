@@ -37,16 +37,18 @@ Problem 1. (Written exercises)
     b, h are equivalent
     c, f are equivalent
 
-(c) 1. This won't create rep exposure because the return type is int, as well as ints as parameter
+(c) 1. This won't create rep exposure because the return type is int, changing the returned int value won't affect the class
 
     2. Array is mutable, so we can possibly have rep exposure since the return type is array of String
 
-    3. This is a private method, so the client would not be able to call this method. Thus, it will not create any rep exposure
+    3. This is a private method, so the client would not be able to call this method. However, as long as there are no
+       other methods that return the result Date from myBirthday() rather than a copy, and Date are immutable.
+       Then there will not be any rep exposure
 
     4. String is immutable object, so there won't be any rep exposure
 
     5. Certain iterator supports remove(), if the returned iterator iterates over the original object and has the remove() feature
-       then it will have rep exposure
+       then the client is able to remove elements from original object and cause rep exposure
 
     6. if the constructor creates a pointer to the list rather than make a new copy, then client can change the content of the list
        and causes rep exposure
