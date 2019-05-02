@@ -116,9 +116,14 @@ public final class GraphTest {
             assertTrue(b.compareTo(a) >= 0);
             a = b;
         }
-        Set<String> s1 = m.get("n2");
-        it = s1.iterator();
-        a = it.next();
+    }
+
+    @Test
+    public void testLabelsInGetEdgeAreSorted() {
+        Map<String, Set<String>> m = graph3.getEdges("n1");
+        Set<String> s = m.get("n2");
+        Iterator<String> it = s.iterator();
+        String a = it.next();
         String b = it.next();
         assertTrue(b.compareTo(a) >= 0);
     }
