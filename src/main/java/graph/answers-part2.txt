@@ -1,0 +1,3 @@
+Problem 1
+(a) Collection of edges: The advantage of this implementation is that it is much easier to find edges between nodes,
+                         calling get on the collection. The disadvantage of this can be the complexity to gather

@@ -63,7 +63,7 @@ public final class GraphTest {
     @Test
     public void testAddEdge() {
         graph2.addChild("n1", "n2", "e1");
-        assertTrue(graph2.getEdges("n1").containsValue("e1"));
+        assertTrue(graph2.getEdges("n1").get("n2").contains("e1"));
     }
 
     @Test

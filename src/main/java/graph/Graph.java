@@ -107,12 +107,20 @@ public class Graph {
         if (!graph.containsKey(name)) {
             throw new IllegalArgumentException("node does not exist");
         }
-        graph.remove(name);
         for (String node : graph.keySet()) {
             if (isChildOf(name, node)) {
-
+                Set<Edge> s = graph.get(node);
+                Iterator<Edge> it = s.iterator();
+                while (it.hasNext()) {
+                    Edge e = it.next();
+                    if (e.child.equals(name)) {
+                        it.remove();
+                    }
+                }
             }
         }
+        graph.remove(name);
+        checkRep();
     }
 
     /**
@@ -126,7 +134,16 @@ public class Graph {
      * @throws IllegalArgumentException if graph does not have node 'parent' or 'child', or does not have an edge between with 'label'
      */
     public void removeEdgeFrom(String parent, String child, String label) {
-        throw new NotImplementedException("removeEdgesFrom not yet implemented");
+        checkRep();
+        if (!graph.containsKey(parent) || !graph.containsKey(child)) {
+            throw new IllegalArgumentException("node does not exist");
+        }
+        Edge edge = new Edge(child, label);
+        boolean removed = graph.get(parent).remove(edge);
+        if (!removed) {
+            throw new IllegalArgumentException("label does not exist");
+        }
+        checkRep();
     }
 
     /**
@@ -137,7 +154,19 @@ public class Graph {
      * @return a map with child node as key, and mapped to all the labels
      */
     public Map<String, Set<String>> getEdges(String parent) {
-        throw new NotImplementedException("getEdges not yet implemented");
+        checkRep();
+        if (!graph.containsKey(parent)) {
+            throw new IllegalArgumentException("parent node does not exist");
+        }
+        Map<String, Set<String>> map = new HashMap<>();
+        for (Edge e : graph.get(parent)) {
+            if (!map.containsKey(e.child)) {
+                map.put(e.child, new HashSet<>());
+            }
+            map.get(e.child).add(e.label);
+        }
+        checkRep();
+        return map;
     }
 
     /**
@@ -150,7 +179,19 @@ public class Graph {
      *          empty set if there are no edges from 'parent' to 'child'
      */
     public Set<String> getLabels(String parent, String child) {
-        throw new NotImplementedException("getLables not yet implemented");
+        checkRep();
+        if (!graph.containsKey(parent) || !graph.containsKey(child)) {
+            throw new IllegalArgumentException("parent/child node does not exist");
+        }
+        Set<Edge> edges = graph.get(parent);
+        Set<String> result = new HashSet<>();
+        for (Edge e : edges) {
+            if (e.child.equals(child)) {
+                result.add(e.label);
+            }
+        }
+        checkRep();
+        return result;
     }
 
     /**
@@ -174,7 +215,21 @@ public class Graph {
      * @return true iff there is an edge from parent to child
      */
     public boolean isChildOf(String child, String parent) {
-        throw new NotImplementedException("isChildOf not yet implemented");
+        checkRep();
+        if (!graph.containsKey(child) || !graph.containsKey(parent)) {
+            throw new IllegalArgumentException("node does not exist");
+        }
+        boolean found = false;
+        Set<Edge> edges = graph.get(parent);
+        Iterator<Edge> it = edges.iterator();
+        while (it.hasNext()) {
+            Edge e = it.next();
+            if (e.child.equals(child)) {
+                found = true;
+            }
+        }
+        checkRep();
+        return found;
     }
 
     /**
