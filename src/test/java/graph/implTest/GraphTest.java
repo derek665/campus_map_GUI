@@ -94,35 +94,15 @@ public final class GraphTest {
     }
 
     @Test
-    public void testGetNodesSorted() {
-        Set<String> s = graph3.getNodes();
-        assertEquals("[n1, n2, n3]", s.toString());
-    }
-
-    @Test
     public void testGetNodesSize() {
         Set<String> s = graph3.getNodes();
         assertEquals(3, s.size());
     }
 
     @Test
-    public void testGetEdgeSorted() {
-        Map<String, Set<String>> m = graph3.getEdges("n1");
-        Set<String> s = m.keySet();
-        assertEquals("[n2, n3]", s.toString());
-    }
-
-    @Test
     public void testGetEdgeSize() {
         Map<String, Set<String>> m = graph3.getEdges("n1");
         assertEquals(3, m.get("n2").size() + m.get("n3").size());
-    }
-
-    @Test
-    public void testLabelsInGetEdgeAreSorted() {
-        Map<String, Set<String>> m = graph3.getEdges("n1");
-        Set<String> s = m.get("n2");
-        assertEquals("[e1, e2]", s.toString());
     }
 
     @Test
@@ -163,16 +143,6 @@ public final class GraphTest {
         g1.addChild("n1", "n2", "e1");
         g1.removeEdgeFrom("n1", "n2", "e1");
         assertTrue(g1.getLabels("n1", "n2").isEmpty());
-    }
-
-    @Test
-    public void testInsertNodeSorted() {
-        Graph g1 = new Graph();
-        g1.addNode("n1");
-        g1.addNode("n3");
-        assertEquals(2, g1.getNodes().size());
-        g1.addNode("n2");
-        assertEquals("[n1, n2, n3]", g1.toString());
     }
 
     @Test

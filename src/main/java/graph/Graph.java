@@ -91,7 +91,7 @@ public class Graph {
      * @param parent a string represent the parent node
      * @spec.requires parent != null
      * @throws IllegalArgumentException if this does not have key 'parent'
-     * @return a map with child node as key in alphabetical order, and mapped to all the labels in alphabetical order
+     * @return a map with child node as key, and mapped to all the labels in alphabetical order
      */
     public Map<String, Set<String>> getEdges(String parent) {
         throw new NotImplementedException("getEdges not yet implemented");
@@ -103,7 +103,7 @@ public class Graph {
      * @param child the end node of the edge
      * @spec.requires parent != null ; child != null
      * @throws IllegalArgumentException if parent or child is not a key of this
-     * @return a set of all the labels between the two nodes in alphabetical order,
+     * @return a set of all the labels between the two nodes,
      *          empty set if there are no edges from 'parent' to 'child'
      */
     public Set<String> getLabels(String parent, String child) {
@@ -111,8 +111,8 @@ public class Graph {
     }
 
     /**
-     * get all the nodes of the graph in alphabetical order
-     * @return a set of all nodes in alphabetical order
+     * get all the nodes of the graph
+     * @return a set of all nodes in this
      */
     public Set<String> getNodes() {
         throw new NotImplementedException("getEdges not yet implemented");
