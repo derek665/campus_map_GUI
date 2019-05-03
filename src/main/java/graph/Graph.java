@@ -14,12 +14,24 @@ import java.util.*;
  */
 
 public class Graph {
+    private static final boolean RUN_CHECK_REP = false; // indicate whether checkRep() is enabled
+
+    private final Map<String, Set<Edge>> graph;
+
+    // Representation Invariant for every Graph g:
+    // graph != null, all nodes and edges of g != null
+    // Every child node of an edge must be a node (key) of g
+    //
+    // Abstraction Function:
+    // Each node in the graph is mapped to a collection of its outgoing labelled edges
+    //
 
     /**
      * @spec.effects create an empty new graph
      */
     public Graph() {
-        throw new NotImplementedException("constructor not yet implemented");
+        graph = new HashMap<>();
+        checkRep();
     }
 
     /**
@@ -29,7 +41,10 @@ public class Graph {
      * @return true iff this has a node in graph with the same name
      */
     public boolean hasNode(String name) {
-        throw new NotImplementedException("hasNode not yet implemented");
+        checkRep();
+        boolean a = graph.containsKey(name);
+        checkRep();
+        return a;
     }
 
     /**
@@ -41,7 +56,14 @@ public class Graph {
      * @return true iff 'name' has not previously been added
      */
     public boolean addNode(String name) {
-        throw new NotImplementedException("addNode not yet implemented");
+        checkRep();
+        boolean added = false;
+        if (!graph.containsKey(name)) {
+            added = true;
+            graph.put(name, new HashSet<>());
+        }
+        checkRep();
+        return added;
     }
 
     /**
@@ -57,7 +79,19 @@ public class Graph {
      * @return true iff the same edge has not previously been added
      */
     public boolean addChild(String parent, String child, String label) {
-        throw new NotImplementedException("addChild not yet implemented");
+        checkRep();
+        if (!graph.containsKey(parent) || !graph.containsKey(child)) {
+            throw new IllegalArgumentException("parent/child node does not exist");
+        }
+        Set<Edge> edges = graph.get(parent);
+        Edge newEdge = new Edge(child, label);
+        boolean added = false;
+        if (!edges.contains(newEdge)) {
+            added = true;
+            edges.add(newEdge);
+        }
+        checkRep();
+        return added;
     }
 
     /**
@@ -69,7 +103,16 @@ public class Graph {
      * @throws IllegalArgumentException if graph does not have node 'name'
      */
     public void removeNode(String name) {
-        throw new NotImplementedException("addChild not yet implemented");
+        checkRep();
+        if (!graph.containsKey(name)) {
+            throw new IllegalArgumentException("node does not exist");
+        }
+        graph.remove(name);
+        for (String node : graph.keySet()) {
+            if (isChildOf(name, node)) {
+
+            }
+        }
     }
 
     /**
@@ -115,7 +158,11 @@ public class Graph {
      * @return a set of all nodes in this
      */
     public Set<String> getNodes() {
-        throw new NotImplementedException("getEdges not yet implemented");
+        checkRep();
+        Set<String> s = new HashSet<>();
+        s.addAll(graph.keySet());
+        checkRep();
+        return s;
     }
 
     /**
@@ -128,6 +175,63 @@ public class Graph {
      */
     public boolean isChildOf(String child, String parent) {
         throw new NotImplementedException("isChildOf not yet implemented");
+    }
+
+    /**
+     * throws exception if representation invariant is violate
+     */
+    private void checkRep() {
+        if (RUN_CHECK_REP) {
+            assert (graph != null) : "graph cannot be null";
+
+            Set<String> nodes = graph.keySet();
+            for (String s : nodes) {
+                assert (nodes != null) : "nodes cannot be null";
+                Set<Edge> edges = graph.get(s);
+                for (Edge e : edges) {
+                    assert (e.child != null) : "child node cannot be null";
+                    assert (nodes.contains(e.child)) : "child node must be a node of grap";
+                    assert (e.label != null) : "edge label cannot be null";
+                }
+            }
+        }
+    }
+
+    private class Edge {
+        private String child;
+        private String label;
+
+        public Edge(String child, String label) {
+            this.child = child;
+            this.label = label;
+        }
+
+        /**
+         * Standard equality operation.
+         *
+         * @param o the object to be compared for equality
+         * @return true if and only if 'obj' is an instance of a Edge and 'this' and 'obj' represent
+         *     the same child and same label
+         */
+        @Override
+        public boolean equals(Object o) {
+            if (! (o instanceof Edge)) {
+                return false;
+            } else {
+                Edge e = (Edge) o;
+                return this.child.equals(e.child) && this.label.equals(e.label);
+            }
+        }
+
+        /**
+         * Standard hashCode function.
+         *
+         * @return an int that all objects equal to this will also return
+         */
+        @Override
+        public int hashCode() {
+            return child.hashCode() + label.hashCode();
+        }
     }
 }
 
