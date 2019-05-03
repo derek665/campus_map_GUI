@@ -91,14 +91,14 @@ public class Graph {
      * @param parent a string represent the parent node
      * @spec.requires parent != null
      * @throws IllegalArgumentException if this does not have key 'parent'
-     * @return a map with child node as key, and mapped to all the labels in alphabetical order
+     * @return a map with child node as key, and mapped to all the labels
      */
     public Map<String, Set<String>> getEdges(String parent) {
         throw new NotImplementedException("getEdges not yet implemented");
     }
 
     /**
-     * return all the labels the two nodes have in alphabetical order
+     * return all the labels the two nodes have
      * @param parent the start node of the edge
      * @param child the end node of the edge
      * @spec.requires parent != null ; child != null
