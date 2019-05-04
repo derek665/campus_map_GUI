@@ -11,11 +11,13 @@ Problem 1
 
     Adjacency list: The advantages are it is easier to add new note because it is simple to add a new key to a map,
                     getting nodes are also less complex as we can just return all the key
-                    The disadvantages are it is more complex to remove nodes with this style, because it needs to go in depth to
+                    The disadvantages are it is more complex to remove nodes, because it needs to go in depth to
                     find which nodes are adjacent to another, when removing a node we also need to dive into other nodes' neighbors
                     to see if the node we are removing is one of the child. Which can be really long in terms of run time
 
-    Adjacency matrix:
+    Adjacency matrix: Advantage of adjaency matrix is that it is has the less run time when modifying the edges between nodes
+                      Disadvantage is that it is significant longer in run time when modifying nodes in the graph
+                      because the size also needs to be modify, but size stays the same when modifying edges
 
 (b) I chose the adjacency list because I feel like this specific implementation is the most intuitive to my when it comes to
     designing the class, and all the methods have pretty similar run time.
