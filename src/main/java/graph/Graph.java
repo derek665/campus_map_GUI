@@ -221,9 +221,7 @@ public class Graph {
         }
         boolean found = false;
         Set<Edge> edges = graph.get(parent);
-        Iterator<Edge> it = edges.iterator();
-        while (it.hasNext()) {
-            Edge e = it.next();
+        for (Edge e : edges) {
             if (e.child.equals(child)) {
                 found = true;
             }
@@ -245,7 +243,7 @@ public class Graph {
                 Set<Edge> edges = graph.get(s);
                 for (Edge e : edges) {
                     assert (e.child != null) : "child node cannot be null";
-                    assert (nodes.contains(e.child)) : "child node must be a node of grap";
+                    assert (nodes.contains(e.child)) : "child node must be a node of graph";
                     assert (e.label != null) : "edge label cannot be null";
                 }
             }
