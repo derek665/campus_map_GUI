@@ -3,7 +3,7 @@
 # and the two edges can be printed out.
 
 # Create a graph
-CreateGraph g1
+CreateGraph g3
 
 # Add 3 nodes to graph
 AddNode g3 n1

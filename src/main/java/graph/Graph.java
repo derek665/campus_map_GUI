@@ -254,7 +254,7 @@ public class Graph {
         private String child;
         private String label;
 
-        public Edge(String child, String label) {
+        private Edge(String child, String label) {
             this.child = child;
             this.label = label;
         }

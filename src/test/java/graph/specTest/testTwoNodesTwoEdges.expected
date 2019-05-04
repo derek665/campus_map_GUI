@@ -16,6 +16,6 @@ added edge e2 from n2 to n1 in g4
 # Print nodes of graph
 g4 contains: n1 n2
 
-# Print edges of each node
+# Print children of each node
 the children of n1 in g4 are: n2(e1)
 the children of n2 in g4 are: n1(e2)

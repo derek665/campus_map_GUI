@@ -10,4 +10,4 @@ AddNode alp d
 AddNode alp b
 
 # Print the nodes
-ListNode alp
+ListNodes alp

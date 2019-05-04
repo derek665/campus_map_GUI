@@ -1,3 +1,29 @@
+CSE 331 Homework.  Answers to written questions.
+
+Name:  Derek Chan
+
 Problem 1
+
 (a) Collection of edges: The advantage of this implementation is that it is much easier to find edges between nodes,
-                         calling get on the collection. The disadvantage of this can be the complexity to gather
+                         calling get on the collection, and to modify note just simply add it to the collection or remove it
+                         The disadvantage of this can be the complexity to gather up
+                         the nodes of the graph, we have to analyze all the edge to find the nodes of the class
+
+    Adjacency list: The advantages are it is easier to add new note because it is simple to add a new key to a map,
+                    getting nodes are also less complex as we can just return all the key
+                    The disadvantages are it is more complex to remove nodes with this style, because it needs to go in depth to
+                    find which nodes are adjacent to another, when removing a node we also need to dive into other nodes' neighbors
+                    to see if the node we are removing is one of the child. Which can be really long in terms of run time
+
+    Adjacency matrix:
+
+(b) I chose the adjacency list because I feel like this specific implementation is the most intuitive to my when it comes to
+    designing the class, and all the methods have pretty similar run time.
+
+Problem 4
+
+I did not make any change to my Graph specification
+
+I believed my test unit is sufficient enough because it has tests for many different cases of the graph,
+it covers all operations of the graph. However, I made one small change to my test because I realised I made a small mistake in the
+test file that causes one specific test to fail. It was in testAddEdge, I forgot to add a get command for the returned map
