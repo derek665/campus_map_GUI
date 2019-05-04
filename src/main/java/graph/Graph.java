@@ -75,7 +75,7 @@ public class Graph {
      *               no change if same label already exists
      * @return true iff the same edge has not previously been added
      */
-    public boolean addChild(String parent, String child, String label) {
+    public boolean addChild(String parent, String child, String label) throws IllegalArgumentException {
         checkRep();
         if (!graph.containsKey(parent) || !graph.containsKey(child)) {
             throw new IllegalArgumentException("parent/child node does not exist");
@@ -99,7 +99,7 @@ public class Graph {
      * @spec.effects this will not have a node with 'name', and all other nodes will remove their outgoing edges with 'name' as child
      * @throws IllegalArgumentException if graph does not have node 'name'
      */
-    public void removeNode(String name) {
+    public void removeNode(String name) throws IllegalArgumentException {
         checkRep();
         if (!graph.containsKey(name)) {
             throw new IllegalArgumentException("node does not exist");
@@ -130,7 +130,7 @@ public class Graph {
      * @spec.effects this.getLabels('parent', 'child') = this.getLabels('parent', 'child') - label
      * @throws IllegalArgumentException if graph does not have node 'parent' or 'child', or does not have an edge between with 'label'
      */
-    public void removeEdgeFrom(String parent, String child, String label) {
+    public void removeEdgeFrom(String parent, String child, String label) throws IllegalArgumentException {
         checkRep();
         if (!graph.containsKey(parent) || !graph.containsKey(child)) {
             throw new IllegalArgumentException("node does not exist");
@@ -150,7 +150,7 @@ public class Graph {
      * @throws IllegalArgumentException if this does not have key 'parent'
      * @return a map with child node as key, and mapped to all the labels
      */
-    public Map<String, Set<String>> getEdges(String parent) {
+    public Map<String, Set<String>> getEdges(String parent) throws IllegalArgumentException {
         checkRep();
         if (!graph.containsKey(parent)) {
             throw new IllegalArgumentException("parent node does not exist");
@@ -175,7 +175,7 @@ public class Graph {
      * @return a set of all the labels between the two nodes,
      *          empty set if there are no edges from 'parent' to 'child'
      */
-    public Set<String> getLabels(String parent, String child) {
+    public Set<String> getLabels(String parent, String child) throws IllegalArgumentException {
         checkRep();
         if (!graph.containsKey(parent) || !graph.containsKey(child)) {
             throw new IllegalArgumentException("parent/child node does not exist");
@@ -211,7 +211,7 @@ public class Graph {
      * @spec.requires child != null ; parent != null
      * @return true iff there is an edge from parent to child
      */
-    public boolean isChildOf(String child, String parent) {
+    public boolean isChildOf(String child, String parent) throws IllegalArgumentException {
         checkRep();
         if (!graph.containsKey(child) || !graph.containsKey(parent)) {
             throw new IllegalArgumentException("node does not exist");
