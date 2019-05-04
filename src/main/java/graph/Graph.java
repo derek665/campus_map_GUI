@@ -1,8 +1,5 @@
 package graph;
 
-import jdk.jshell.spi.ExecutionControl;
-import org.apache.commons.lang3.NotImplementedException;
-
 import java.util.*;
 
 /**
@@ -250,10 +247,18 @@ public class Graph {
         }
     }
 
+    /**
+     * A class representing the edge, with child node and label
+     */
     private class Edge {
         private String child;
         private String label;
 
+        /**
+         * @spec.effects create a new edge
+         * @param child the child node of the edge
+         * @param label the label between the nodes
+         */
         private Edge(String child, String label) {
             this.child = child;
             this.label = label;

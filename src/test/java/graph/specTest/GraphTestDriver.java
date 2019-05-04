@@ -54,7 +54,6 @@ public class GraphTestDriver {
     }
 
     /** String -> Graph: maps the names of graphs to the actual graph **/
-    //TODO for the student: Parameterize the next line correctly.
     private final Map<String, Graph> graphs = new HashMap<>();
     private final PrintWriter output;
     private final BufferedReader input;
