@@ -22,7 +22,9 @@ Problem 1
 
 Problem 4
 
-I did not make any change to my Graph specification
+I added the exceptions that might be thrown in the method to their headers with the throws command, I also added a private Edge class
+to the graph, the reason I am making it private is because the Edge class only consist of a child node and a label, no parent node.
+So even if client is able to access it, the edge object doesn't make much sense without the parent node.
 
 I believed my test unit is sufficient enough because it has tests for many different cases of the graph,
 it covers all operations of the graph. However, I made one small change to my test because I realised I made a small mistake in the
