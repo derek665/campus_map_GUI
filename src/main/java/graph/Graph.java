@@ -71,7 +71,7 @@ public class Graph {
      * @throws IllegalArgumentException if graph does not have node 'parent' and 'child'
      * @spec.requires parent != null ; child != null ; label != null
      * @spec.modifies this
-     * @spec.effects this.get(parent) = Edge(child, label) + this.get(parent)
+     * @spec.effects a new outgoing edge for 'parent' with a child node and a label
      *               no change if same label already exists
      * @return true iff the same edge has not previously been added
      */
