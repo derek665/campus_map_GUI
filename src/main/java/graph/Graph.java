@@ -16,7 +16,7 @@ public class Graph {
     private final Map<String, Set<Edge>> graph;
 
     // Representation Invariant for every Graph g:
-    // graph != null, all nodes and edges of g != null
+    // g != null, all nodes, edges and labels of g != null
     // Every child node of an edge must be a node (key) of g
     //
     // Abstraction Function:
