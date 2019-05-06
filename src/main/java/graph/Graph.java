@@ -20,7 +20,8 @@ public class Graph {
     // Every child node of an edge must be a node (key) of g
     //
     // Abstraction Function:
-    // Each node in the graph is mapped to a collection of its outgoing labelled edges
+    // Each node in the graph is mapped to a collection of its outgoing labelled edges,
+    // each edge consists of a child node and a label
     //
 
     /**
