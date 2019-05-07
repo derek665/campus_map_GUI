@@ -230,16 +230,6 @@ public class Graph {
     }
 
     /**
-     * A string representation of graph
-     *
-     * @return a string representation of the graph
-     */
-    @Override
-    public String toString() {
-        return graph.toString();
-    }
-
-    /**
      * throws exception if representation invariant is violate
      */
     private void checkRep() {
@@ -306,16 +296,6 @@ public class Graph {
         @Override
         public int hashCode() {
             return child.hashCode() + label.hashCode();
-        }
-
-        /**
-         * A string representation of edge
-         *
-         * @return a string representation in the form of "child(label)" of edge
-         */
-        @Override
-        public String toString() {
-            return child + "(" + label + ")";
         }
 
         /**

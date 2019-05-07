@@ -25,7 +25,6 @@ Problem 1
 Problem 4
 
 I changed one line of Javadoc in addChild @spec.effects because I think the old one has exposure to private field
-I also added a toString method to both Edge and Graph so the graph can be returned in a string format
 
-I added one more test for the toString method, otherwise I believed my test unit is sufficient enough
-because it has tests for many different cases of the graph, it covers all operations of the graph.
+I believed my test unit is sufficient enough so I didn't add tests to the test suit
+because it has tests for many different cases of the graph, it covers pretty much all operations of the graph.
