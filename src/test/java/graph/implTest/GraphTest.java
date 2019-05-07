@@ -154,6 +154,11 @@ public final class GraphTest {
         assertTrue(g1.getEdges("n1").containsKey("n1"));
     }
 
+    @Test
+    public void testToString() {
+        assertEquals("{n1=[n2(e1), n2(e2), n3(e1)], n2=[], n3=[]}", graph3.toString());
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testAddEdgeToNonExistParent() {
         graph1.addChild("n3", "n1", "e1");
