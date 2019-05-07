@@ -82,29 +82,12 @@ compileTestJava {
 /// Validation: Checking additional assignment requirements
 ///
 
-// task checkFiles {
-//   description = 'Check that all files required in the assignment exist'
-//   doLast {
-//     def String[] homeworkProperties = homeworks.split(',')
-//     homeworkProperties.each { requiredHwFiles ->
-//       def String[] requiredFiles = getProperty(requiredHwFiles).split(',')
-//       requiredFiles.each { fileName ->
-//         fileName = fileName.trim()
-//         if (! file("${fileName}").exists()) {
-//           throw new GradleException("File ${fileName} does not exist.")
-//         }
-//       }
-//     }
-//   }
-// }
-
 task validate {
     description = 'Validate the working copy.  Ensures that the project builds, that required files exist and a Javadoc is generated.'
 }
 
 validate.dependsOn clean
 validate.dependsOn build
-// validate.dependsOn checkFiles
 validate.dependsOn javadoc
 
 ///
