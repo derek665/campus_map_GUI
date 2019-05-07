@@ -13,6 +13,7 @@ import java.util.*;
 public class Graph {
     private static final boolean RUN_CHECK_REP = false; // indicate whether checkRep() is enabled
 
+    /** A graph holding all the nodes */
     private final Map<String, Set<Edge>> graph;
 
     // Representation Invariant for every Graph g:
@@ -254,6 +255,10 @@ public class Graph {
     private class Edge {
         private String child;
         private String label;
+
+        // Representation Invariant for every Edge e is child != null and label != null
+        //
+        // Abstraction Function: Each edge consist of a child node and a label that is linked to the parent node
 
         /**
          * @spec.effects create a new edge
