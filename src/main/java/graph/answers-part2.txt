@@ -28,6 +28,4 @@ I changed one line of Javadoc in addChild @spec.effects because I think the old 
 I also added a toString method to both Edge and Graph so the graph can be returned in a string format
 
 I added one more test for the toString method, otherwise I believed my test unit is sufficient enough
-because it has tests for many different cases of the graph,
-it covers all operations of the graph. However, I made one small change to my test because I realised I made a small mistake in the
-test file that causes one specific test to fail. It was in testAddEdge, I forgot to add a get command for the returned map
+because it has tests for many different cases of the graph, it covers all operations of the graph.

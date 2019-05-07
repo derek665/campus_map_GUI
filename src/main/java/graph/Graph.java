@@ -230,6 +230,16 @@ public class Graph {
     }
 
     /**
+     * A string representation of graph
+     *
+     * @return a string representation of the graph
+     */
+    @Override
+    public String toString() {
+        return graph.toString();
+    }
+
+    /**
      * throws exception if representation invariant is violate
      */
     private void checkRep() {
@@ -247,16 +257,6 @@ public class Graph {
                 }
             }
         }
-    }
-
-    /**
-     * A string representation of graph
-     *
-     * @return a string representation of the graph
-     */
-    @Override
-    public String toString() {
-        return graph.toString();
     }
 
     /**
@@ -278,6 +278,7 @@ public class Graph {
         private Edge(String child, String label) {
             this.child = child;
             this.label = label;
+            checkRep();
         }
 
         /**
@@ -315,6 +316,14 @@ public class Graph {
         @Override
         public String toString() {
             return child + "(" + label + ")";
+        }
+
+        /**
+         * throws exception if rep invariant is violated
+         */
+        private void checkRep() {
+            assert child != null : "child cannot be null";
+            assert label != null : "label cannot be null";
         }
     }
 }
