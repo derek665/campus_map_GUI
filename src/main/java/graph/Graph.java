@@ -310,7 +310,7 @@ public class Graph {
         /**
          * A string representation of edge
          *
-         * @return a string representation of edge
+         * @return a string representation in the form of "child(label)" of edge
          */
         @Override
         public String toString() {
