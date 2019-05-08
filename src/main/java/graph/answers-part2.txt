@@ -15,7 +15,7 @@ Problem 1
                     find which nodes are adjacent to another, when removing a node we also need to dive into other nodes' neighbors
                     to see if the node we are removing is one of the child. Which can be really long in terms of run time
 
-    Adjacency matrix: Advantage of adjaency matrix is that it is has the less run time when modifying the edges between nodes
+    Adjacency matrix: Advantage of adjacency matrix is that it is has the less run time when modifying the edges between nodes
                       Disadvantage is that it is significant longer in run time when modifying nodes in the graph
                       because the size also needs to be modify, but size stays the same when modifying edges
 
@@ -27,4 +27,5 @@ Problem 4
 I changed one line of Javadoc in addChild @spec.effects because I think the old one has exposure to private field
 
 I believed my test unit is sufficient enough so I didn't add tests to the test suit
-because it has tests for many different cases of the graph, it covers pretty much all operations of the graph.
+because it has tests for many different cases of the graph, it covers pretty much all operations of the graph
+including edge cases such as an edge that has same node as parent and child.
