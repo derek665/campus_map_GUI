@@ -41,7 +41,7 @@ test {
   // exclude 'setup/**'
   // exclude 'poly/**'
   // exclude 'graph/**'
-  // exclude 'marvel/**'
+  exclude 'marvel/**'
 }
 
 tasks.withType(Test) {
