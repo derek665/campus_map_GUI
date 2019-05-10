@@ -31,7 +31,6 @@ dependencies {
 javadoc {
     options.tags = [ "spec.modifies", "spec.effects", "spec.requires", "spec.specfield", "spec.derivedfield" ]
     options.addBooleanOption "-no-module-directories", true
-
 }
 
 ///
@@ -42,7 +41,7 @@ test {
   // exclude 'setup/**'
   // exclude 'poly/**'
   // exclude 'graph/**'
-  exclude 'marvel/**'
+  // exclude 'marvel/**'
 }
 
 tasks.withType(Test) {
@@ -62,6 +61,7 @@ task copyMarvelTestScripts(type: Copy) {
 }
 
 test.dependsOn copyGraphTestScripts
+test.dependsOn copyMarvelTestScripts
 
 ///
 /// Extra code quality checks
@@ -112,6 +112,12 @@ task runCalculator (type:JavaExec) {
    classpath = sourceSets.main.runtimeClasspath  
 }
 
+task runMarvel (type:JavaExec) {
+   main = "graph/MarvelPaths"
+   standardInput = System.in
+   classpath = sourceSets.main.runtimeClasspath  
+}
+
 ///
 /// Other targets
 ///
@@ -149,4 +155,5 @@ task implTests (type: Test) {
 
 specTests.dependsOn compileTestJava
 specTests.dependsOn copyGraphTestScripts
+specTests.dependsOn copyMarvelTestScripts
 implTests.dependsOn compileTestJava
