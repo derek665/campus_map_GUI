@@ -13,7 +13,6 @@ package marvel;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -38,6 +37,7 @@ public class MarvelParser {
 
       CsvToBean<MarvelData> csvToBean = new CsvToBeanBuilder(reader)
               .withType(MarvelData.class)
+              .withSeparator('\t')
               .withIgnoreLeadingWhiteSpace(true)
               .build();
 
@@ -48,7 +48,9 @@ public class MarvelParser {
         if (!booksAndCharacters.containsKey(csvMarvel.getBook())) {
           booksAndCharacters.put(csvMarvel.getBook(), new TreeSet<>());
         }
-        booksAndCharacters.get(csvMarvel.getBook()).add(csvMarvel.getName());
+        System.out.println(csvMarvel.getName());
+        System.out.println(csvMarvel.getBook());
+        System.out.println("+++++++++++");
       }
     }
     catch (FileNotFoundException e) {
