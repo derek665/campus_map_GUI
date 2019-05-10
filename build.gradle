@@ -38,8 +38,8 @@ javadoc {
 ///
 
 test {
-  // exclude 'setup/**'
-  // exclude 'poly/**'
+  exclude 'setup/**'
+  exclude 'poly/**'
   // exclude 'graph/**'
   exclude 'marvel/**'
 }
@@ -113,7 +113,7 @@ task runCalculator (type:JavaExec) {
 }
 
 task runMarvel (type:JavaExec) {
-   main = "graph/MarvelPaths"
+   main = "marvel/MarvelPaths"
    standardInput = System.in
    classpath = sourceSets.main.runtimeClasspath  
 }
