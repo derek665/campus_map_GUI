@@ -4,15 +4,70 @@ import graph.Graph;
 
 import java.util.*;
 
+/** find the shortest path between 2 characters */
 public class MarvelPath {
 
+
+    /**
+     * get inputs from user and output the result
+     * @param args
+     */
     public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
         Map<String, Set<String>> bookData =
                 MarvelParser.parseData("/Users/derekchan/cse331-19sp-derek665/src/main/resources/marvel/data/staffSuperheroes.tsv");
         Graph graph = buildGraph(bookData);
-        System.out.println(bookData.size());
+        System.out.println("Search path between 2 characters");
+        System.out.print("from: ");
+        String start = input.nextLine();
+        while (!graph.hasNode(start)) {
+            System.out.println(start + " is not a character of marvel");
+            System.out.print("from: ");
+            start = input.nextLine();
+        }
+        System.out.print("to: ");
+        String end = input.nextLine();
+        while (!graph.hasNode(end)) {
+            System.out.println(end + " is not a character of marvel");
+            System.out.print("to: ");
+            end = input.nextLine();
+        }
+        findPath(start, end, graph);
     }
 
+    /**
+     * Compute the shortest path between the 2 characters
+     *
+     * @param start the start of the character search
+     * @param end the end of the character search
+     * @param graph the graph that we are searching in
+     */
+    private static void findPath(String start, String end, Graph graph) {
+        Queue<String> q = new LinkedList<>();
+        Map<String, List<String>> visited = new HashMap<>();
+        q.add(start);
+        visited.put(start, new ArrayList<>());
+        while (!q.isEmpty()) {
+            String node = q.remove();
+            if (node.equals(end)) {
+
+            } else {
+                for (String child : visited.get(node)) {
+                    if (!visited.containsKey(child)) {
+                        q.add(child);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * create a graph of all the label and nodes in map
+     *
+     * @spec.requires map != null
+     * @param map the label mapped to all nodes
+     * @return A graph with all the data from the file
+     */
     private static Graph buildGraph(Map<String, Set<String>> map) {
         Graph graph = new Graph();
         for (String book : map.keySet()) {

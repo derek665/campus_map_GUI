@@ -29,7 +29,6 @@ public class MarvelParser {
    * @param filename the file that will be read
    * @return a map of book to all characters in the book
    */
-  // TODO: Pick your return type and document it
   public static Map<String, Set<String>> parseData(String filename) {
     // Hint: You might want to create a new class to use with the CSV Parser
     Map<String, Set<String>> booksAndCharacters = new HashMap<>();
