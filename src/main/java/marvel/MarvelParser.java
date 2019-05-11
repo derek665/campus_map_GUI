@@ -14,6 +14,7 @@ package marvel;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.*;
+import java.nio.Buffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -31,7 +32,7 @@ public class MarvelParser {
   // TODO: Pick your return type and document it
   public static Map<String, Set<String>> parseData(String filename) {
     // Hint: You might want to create a new class to use with the CSV Parser
-    Map<String, Set<String>> booksAndCharacters = new TreeMap<>();
+    Map<String, Set<String>> booksAndCharacters = new HashMap<>();
     try {
       Reader reader = Files.newBufferedReader(Paths.get(filename));
 
@@ -46,11 +47,9 @@ public class MarvelParser {
       while (csvMarvelIterator.hasNext()) {
         MarvelData csvMarvel = csvMarvelIterator.next();
         if (!booksAndCharacters.containsKey(csvMarvel.getBook())) {
-          booksAndCharacters.put(csvMarvel.getBook(), new TreeSet<>());
+          booksAndCharacters.put(csvMarvel.getBook(), new HashSet<>());
         }
-        System.out.println(csvMarvel.getName());
-        System.out.println(csvMarvel.getBook());
-        System.out.println("+++++++++++");
+        booksAndCharacters.get(csvMarvel.getBook()).add(csvMarvel.getHero());
       }
     }
     catch (FileNotFoundException e) {

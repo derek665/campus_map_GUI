@@ -47,6 +47,21 @@ public class Graph {
     }
 
     /**
+     * return true if there is an edge with same label between parent and child
+     * @param parent the parent node of the edge
+     * @param child the child node of the edge
+     * @param label the label of the edge between parent and child
+     * @spec.requires parent and child are a node of the graph
+     * @return true iff parent and child has an edge with the label
+     */
+    public boolean hasLabel(String parent, String child, String label) {
+        checkRep();
+        boolean a = getLabels(parent, child).contains(label);
+        checkRep();
+        return a;
+    }
+
+    /**
      * add a new node to the graph and return whether the node is successfully added to graph
      * @param name a string represents the node to be added
      * @spec.requires name != null

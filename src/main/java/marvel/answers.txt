@@ -6,3 +6,4 @@ Name:  <replace this with your name>
 Briefly describe any changes made to your Graph ADT from HW 3-4 and why
 those changes were made below.  (See the HW6 assignment for details.)
 
+I added a public method to check if specific label exists between parent node and child node

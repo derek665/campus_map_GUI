@@ -7,7 +7,7 @@ public class MarvelData {
      * the name of the character
      */
     @CsvBindByName
-    private String name;
+    private String hero;
 
     /**
      * the book they show up in
@@ -20,8 +20,8 @@ public class MarvelData {
      *
      * @return the name of the character
      */
-    public String getName() {
-        return name;
+    public String getHero() {
+        return hero;
     }
 
     /**
@@ -35,10 +35,10 @@ public class MarvelData {
 
     /**
      * set the name of the character
-     * @param name the name of the character
+     * @param hero the name of the character
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String hero) {
+        this.hero = hero;
     }
 
     /**
