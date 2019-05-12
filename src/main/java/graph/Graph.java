@@ -13,7 +13,9 @@ import java.util.*;
 public class Graph {
     private static final boolean RUN_CHECK_REP = false; // indicate whether checkRep() is enabled
 
-    /** A graph holding all the nodes */
+    /**
+     * A graph holding all the nodes
+     */
     private final Map<String, Set<Edge>> graph;
 
     // Representation Invariant for every Graph g:
@@ -35,9 +37,10 @@ public class Graph {
 
     /**
      * return true if there is a node with same name as 'name'
+     *
      * @param name the String name of the node
-     * @spec.requires name != null
      * @return true iff this has a node in graph with the same name
+     * @spec.requires name != null
      */
     public boolean hasNode(String name) {
         checkRep();
@@ -48,11 +51,12 @@ public class Graph {
 
     /**
      * return true if there is an edge with same label between parent and child
+     *
      * @param parent the parent node of the edge
-     * @param child the child node of the edge
-     * @param label the label of the edge between parent and child
-     * @spec.requires parent and child are a node of the graph
+     * @param child  the child node of the edge
+     * @param label  the label of the edge between parent and child
      * @return true iff parent and child has an edge with the label
+     * @spec.requires parent and child are a node of the graph
      */
     public boolean hasLabel(String parent, String child, String label) {
         checkRep();
@@ -63,11 +67,12 @@ public class Graph {
 
     /**
      * add a new node to the graph and return whether the node is successfully added to graph
+     *
      * @param name a string represents the node to be added
+     * @return true iff 'name' has not previously been added
      * @spec.requires name != null
      * @spec.modifies this
      * @spec.effects new element of this, no change if 'name' already exists
-     * @return true iff 'name' has not previously been added
      */
     public boolean addNode(String name) {
         checkRep();
@@ -82,15 +87,16 @@ public class Graph {
 
     /**
      * add an edge going from the parent node and return whether the edge is successfully added
-     * @param label a string represent the label of the edge
-     * @param child a string represent the child node
+     *
+     * @param label  a string represent the label of the edge
+     * @param child  a string represent the child node
      * @param parent a string represent the parent node
+     * @return true iff the same edge has not previously been added
      * @throws IllegalArgumentException if graph does not have node 'parent' and 'child'
      * @spec.requires parent != null ; child != null ; label != null
      * @spec.modifies this
      * @spec.effects a new outgoing edge for 'parent' with a child node and a label
-     *               no change if same label already exists
-     * @return true iff the same edge has not previously been added
+     * no change if same label already exists
      */
     public boolean addChild(String parent, String child, String label) {
         checkRep();
@@ -110,11 +116,12 @@ public class Graph {
 
     /**
      * remove a node from the graph and remove all edges that has 'name' as child
+     *
      * @param name the name of the node being removed
+     * @throws IllegalArgumentException if graph does not have node 'name'
      * @spec.requires name != null
      * @spec.modifies this
      * @spec.effects this will not have a node with 'name', and all other nodes will remove their outgoing edges with 'name' as child
-     * @throws IllegalArgumentException if graph does not have node 'name'
      */
     public void removeNode(String name) {
         checkRep();
@@ -127,7 +134,7 @@ public class Graph {
                 Iterator<Edge> it = s.iterator();
                 while (it.hasNext()) {
                     Edge e = it.next();
-                    if (e.child.equals(name)) {
+                    if (e.getChild().equals(name)) {
                         it.remove();
                     }
                 }
@@ -139,13 +146,14 @@ public class Graph {
 
     /**
      * remove an the edge with 'label' that connects from 'parent' to 'child'
+     *
      * @param parent the starting point of the edge
-     * @param child the end point of the edge
-     * @param label the label of the edge that is being removed
+     * @param child  the end point of the edge
+     * @param label  the label of the edge that is being removed
+     * @throws IllegalArgumentException if graph does not have node 'parent' or 'child', or does not have an edge between with 'label'
      * @spec.requires parent != null ; child != null ; label != null
      * @spec.modifies this
-     * @spec.effects this.getLabels('parent', 'child') = this.getLabels('parent', 'child') - label
-     * @throws IllegalArgumentException if graph does not have node 'parent' or 'child', or does not have an edge between with 'label'
+     * @spec.effects this.getLabels(' parent ', ' child ') = this.getLabels('parent', 'child') - label
      */
     public void removeEdgeFrom(String parent, String child, String label) {
         checkRep();
@@ -162,10 +170,11 @@ public class Graph {
 
     /**
      * get all the edges going from the parent node
+     *
      * @param parent a string represent the parent node
-     * @spec.requires parent != null
-     * @throws IllegalArgumentException if this does not have key 'parent'
      * @return a map with child node as key, and mapped to all the labels
+     * @throws IllegalArgumentException if this does not have key 'parent'
+     * @spec.requires parent != null
      */
     public Map<String, Set<String>> getEdges(String parent) {
         checkRep();
@@ -174,10 +183,10 @@ public class Graph {
         }
         Map<String, Set<String>> map = new HashMap<>();
         for (Edge e : graph.get(parent)) {
-            if (!map.containsKey(e.child)) {
-                map.put(e.child, new HashSet<>());
+            if (!map.containsKey(e.getChild())) {
+                map.put(e.getChild(), new HashSet<>());
             }
-            map.get(e.child).add(e.label);
+            map.get(e.getChild()).add(e.getLabel());
         }
         checkRep();
         return map;
@@ -185,12 +194,13 @@ public class Graph {
 
     /**
      * return all the labels the two nodes have
+     *
      * @param parent the start node of the edge
-     * @param child the end node of the edge
-     * @spec.requires parent != null ; child != null
-     * @throws IllegalArgumentException if parent or child is not a key of this
+     * @param child  the end node of the edge
      * @return a set of all the labels between the two nodes,
-     *          empty set if there are no edges from 'parent' to 'child'
+     * empty set if there are no edges from 'parent' to 'child'
+     * @throws IllegalArgumentException if parent or child is not a key of this
+     * @spec.requires parent != null ; child != null
      */
     public Set<String> getLabels(String parent, String child) {
         checkRep();
@@ -200,8 +210,8 @@ public class Graph {
         Set<Edge> edges = graph.get(parent);
         Set<String> result = new HashSet<>();
         for (Edge e : edges) {
-            if (e.child.equals(child)) {
-                result.add(e.label);
+            if (e.getChild().equals(child)) {
+                result.add(e.getLabel());
             }
         }
         checkRep();
@@ -210,6 +220,7 @@ public class Graph {
 
     /**
      * get all the nodes of the graph
+     *
      * @return a set of all nodes in this
      */
     public Set<String> getNodes() {
@@ -222,11 +233,12 @@ public class Graph {
 
     /**
      * return if 'child' node has an edge going from the parent to child
-     * @param child a string represent the child node
+     *
+     * @param child  a string represent the child node
      * @param parent a string represent the parent node
+     * @return true iff there is an edge from parent to child
      * @throws IllegalArgumentException if this does not have key 'child' or 'parent'
      * @spec.requires child != null ; parent != null
-     * @return true iff there is an edge from parent to child
      */
     public boolean isChildOf(String child, String parent) {
         checkRep();
@@ -236,7 +248,7 @@ public class Graph {
         boolean found = false;
         Set<Edge> edges = graph.get(parent);
         for (Edge e : edges) {
-            if (e.child.equals(child)) {
+            if (e.getChild().equals(child)) {
                 found = true;
             }
         }
@@ -255,71 +267,12 @@ public class Graph {
                 assert (nodes != null) : "nodes cannot be null";
                 Set<Edge> edges = graph.get(s);
                 for (Edge e : edges) {
-                    assert (e.child != null) : "child node cannot be null";
-                    assert (nodes.contains(e.child)) : "child node must be a node of graph";
-                    assert (e.label != null) : "edge label cannot be null";
+                    assert (e.getChild() != null) : "child node cannot be null";
+                    assert (nodes.contains(e.getChild())) : "child node must be a node of graph";
+                    assert (e.getLabel() != null) : "edge label cannot be null";
                 }
             }
         }
     }
-
-    /**
-     * A class representing the edge, with child node and label
-     */
-    private class Edge {
-        private String child;
-        private String label;
-
-        // Representation Invariant for every Edge e is child != null and label != null
-        //
-        // Abstraction Function: Each edge consist of a child node and a label that is linked to the parent node
-
-        /**
-         * @spec.effects create a new edge
-         * @param child the child node of the edge
-         * @param label the label between the nodes
-         */
-        private Edge(String child, String label) {
-            this.child = child;
-            this.label = label;
-            checkRep();
-        }
-
-        /**
-         * Standard equality operation.
-         *
-         * @param o the object to be compared for equality
-         * @return true if and only if 'obj' is an instance of a Edge and 'this' and 'obj' represent
-         *     the same child and same label
-         */
-        @Override
-        public boolean equals(Object o) {
-            if (! (o instanceof Edge)) {
-                return false;
-            } else {
-                Edge e = (Edge) o;
-                return this.child.equals(e.child) && this.label.equals(e.label);
-            }
-        }
-
-        /**
-         * Standard hashCode function.
-         *
-         * @return an int that all objects equal to this will also return
-         */
-        @Override
-        public int hashCode() {
-            return child.hashCode() + label.hashCode();
-        }
-
-        /**
-         * throws exception if rep invariant is violated
-         */
-        private void checkRep() {
-            assert child != null : "child cannot be null";
-            assert label != null : "label cannot be null";
-        }
-    }
 }
-
 
