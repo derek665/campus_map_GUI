@@ -41,19 +41,20 @@ public class MarvelPath {
      * @param start the start of the character search
      * @param end the end of the character search
      * @param graph the graph that we are searching in
+     * @spec.requires start != null ; end != null ; graph != null
      * @return the path between the 2 characters
      */
     private static List<String> findPath(String start, String end, Graph graph) {
-        Queue<String> q = new LinkedList<>();
-        Map<String, List<String>> m = new HashMap<>();
+        Queue<String> q = new LinkedList<>(); // nodes to visit
+        Map<String, List<String>> m = new HashMap<>(); // each key in m is a visited node, mapped to a path
         q.add(start);
         m.put(start, new ArrayList<>());
         while (!q.isEmpty()) {
             String node = q.remove();
             if (node.equals(end)) {
-                return m.get(node);
+                return new ArrayList<>(m.get(node));
             } else {
-                Map<String, Set<String>> edges = graph.getEdges(node);
+                Map<String, Set<String>> edges = new TreeMap<>(graph.getEdges(node));
                 for (String child : edges.keySet()) {
                     if (!m.containsKey(child)) {
                         List<String> p = m.get(node);
