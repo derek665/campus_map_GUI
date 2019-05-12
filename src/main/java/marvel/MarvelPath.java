@@ -15,7 +15,7 @@ public class MarvelPath {
     public static void main(String args[]) {
         Scanner input = new Scanner(System.in);
         Map<String, Set<String>> bookData =
-                MarvelParser.parseData("/Users/derekchan/cse331-19sp-derek665/src/main/resources/marvel/data/staffSuperheroes.tsv");
+                MarvelParser.parseData("/Users/derekchan/cse331-19sp-derek665/src/main/resources/marvel/data/marvel.tsv");
         Graph graph = buildGraph(bookData);
         System.out.println("Search path between 2 characters");
         System.out.print("from: ");
@@ -32,7 +32,7 @@ public class MarvelPath {
             System.out.print("to: ");
             end = input.nextLine();
         }
-        findPath(start, end, graph);
+        System.out.println(findPath(start, end, graph));
     }
 
     /**
@@ -41,24 +41,34 @@ public class MarvelPath {
      * @param start the start of the character search
      * @param end the end of the character search
      * @param graph the graph that we are searching in
+     * @return the path between the 2 characters
      */
-    private static void findPath(String start, String end, Graph graph) {
+    private static List<String> findPath(String start, String end, Graph graph) {
         Queue<String> q = new LinkedList<>();
-        Map<String, List<String>> visited = new HashMap<>();
+        Map<String, List<String>> m = new HashMap<>();
         q.add(start);
-        visited.put(start, new ArrayList<>());
+        m.put(start, new ArrayList<>());
         while (!q.isEmpty()) {
             String node = q.remove();
             if (node.equals(end)) {
-
+                return m.get(node);
             } else {
-                for (String child : visited.get(node)) {
-                    if (!visited.containsKey(child)) {
+                Map<String, Set<String>> edges = graph.getEdges(node);
+                for (String child : edges.keySet()) {
+                    if (!m.containsKey(child)) {
+                        List<String> p = m.get(node);
+                        List<String> p2 = new ArrayList<>();
+                        if (p != null) {
+                            p2.addAll(p);
+                        }
+                        p2.add(child);
+                        m.put(child, p2);
                         q.add(child);
                     }
                 }
             }
         }
+        return new ArrayList<>();
     }
 
     /**
