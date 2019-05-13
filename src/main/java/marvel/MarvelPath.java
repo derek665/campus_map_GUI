@@ -32,7 +32,17 @@ public class MarvelPath {
             System.out.print("to: ");
             end = input.nextLine();
         }
-        System.out.println(findPath(start, end, graph));
+        List<Edge> result = findPath(start, end, graph);
+        if (result.isEmpty()) {
+            System.out.println();
+            System.out.println(start + " has no connection to " + end + " at all");
+        } else {
+            System.out.println("the connections from " + start + " to " + end + " are:");
+            for (Edge e : result) {
+                System.out.println(start + " is in " + e.getLabel() + " with " + e.getChild());
+                start = e.getChild();
+            }
+        }
     }
 
     /**
