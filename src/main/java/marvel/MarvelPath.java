@@ -33,8 +33,8 @@ public class MarvelPath {
             end = input.nextLine();
         }
         List<Edge> result = findPath(start, end, graph);
+        System.out.println();
         if (result.isEmpty()) {
-            System.out.println();
             System.out.println(start + " has no connection to " + end + " at all");
         } else {
             System.out.println("the connections from " + start + " to " + end + " are:");
