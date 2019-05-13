@@ -10,7 +10,7 @@ public class MarvelPath {
 
     /**
      * get inputs from user and output the result
-     * @param args
+     * @param args command line
      */
     public static void main(String args[]) {
         Scanner input = new Scanner(System.in);
