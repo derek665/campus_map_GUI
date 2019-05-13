@@ -201,22 +201,12 @@ public class GraphTestDriver {
     }
 
     private void listChildren(String graphName, String parentName) {
-        Set<Edge> child = new TreeMap<>();
         Set<Edge> unsorted = graphs.get(graphName).getEdges(parentName);
-        for (Edge edge : unsorted) {
-            if (!child.containsKey(childName)) {
-                child.put(childName, new TreeSet<>());
-            }
-            for (String label : unsorted.get(childName)) {
-                child.get(childName).add(label);
-            }
-        }
+        Set<Edge> child = new TreeSet<>(unsorted);
         StringBuilder result = new StringBuilder();
         result.append("the children of " + parentName + " in " + graphName + " are:");
-        for (String c : child.keySet()) {
-            for (String l : child.get(c)) {
-                result.append(" " + c + "(" + l + ")");
-            }
+        for (Edge edge : child) {
+            result.append(" " + edge.getChild() + "(" + edge.getLabel() + ")");
         }
         output.println(result);
     }
