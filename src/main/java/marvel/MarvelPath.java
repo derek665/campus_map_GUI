@@ -1,6 +1,6 @@
 package marvel;
 
-import graph.Graph;
+import graph.*;
 
 import java.util.*;
 
@@ -44,9 +44,9 @@ public class MarvelPath {
      * @spec.requires start != null ; end != null ; graph != null
      * @return the path between the 2 characters
      */
-    private static List<String> findPath(String start, String end, Graph graph) {
+    private static List<Edge> findPath(String start, String end, Graph graph) {
         Queue<String> q = new LinkedList<>(); // nodes to visit
-        Map<String, List<String>> m = new HashMap<>(); // each key in m is a visited node, mapped to a path
+        Map<String, List<Edge>> m = new HashMap<>(); // each key in m is a visited node, mapped to a path
         q.add(start);
         m.put(start, new ArrayList<>());
         while (!q.isEmpty()) {
@@ -57,8 +57,8 @@ public class MarvelPath {
                 Map<String, Set<String>> edges = new TreeMap<>(graph.getEdges(node));
                 for (String child : edges.keySet()) {
                     if (!m.containsKey(child)) {
-                        List<String> p = m.get(node);
-                        List<String> p2 = new ArrayList<>();
+                        List<Edge> p = m.get(node);
+                        List<Edge> p2 = new ArrayList<>();
                         if (p != null) {
                             p2.addAll(p);
                         }

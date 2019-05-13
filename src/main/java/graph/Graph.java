@@ -176,20 +176,14 @@ public class Graph {
      * @throws IllegalArgumentException if this does not have key 'parent'
      * @spec.requires parent != null
      */
-    public Map<String, Set<String>> getEdges(String parent) {
+    public Set<Edge> getEdges(String parent) {
         checkRep();
         if (!graph.containsKey(parent)) {
             throw new IllegalArgumentException("parent node does not exist");
         }
-        Map<String, Set<String>> map = new HashMap<>();
-        for (Edge e : graph.get(parent)) {
-            if (!map.containsKey(e.getChild())) {
-                map.put(e.getChild(), new HashSet<>());
-            }
-            map.get(e.getChild()).add(e.getLabel());
-        }
+        Set<Edge> set = new HashSet<>(graph.get(parent));
         checkRep();
-        return map;
+        return set;
     }
 
     /**
