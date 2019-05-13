@@ -41,7 +41,7 @@ test {
   exclude 'setup/**'
   exclude 'poly/**'
   // exclude 'graph/**'
-  exclude 'marvel/**'
+  // exclude 'marvel/**'
 }
 
 tasks.withType(Test) {
@@ -58,6 +58,12 @@ task copyMarvelTestScripts(type: Copy) {
   from "src/test/java/marvel/specTest"
   include "*.test", "*.expected"
   into "${buildDir}/classes/java/test/marvel/specTest"
+}
+
+task copyPathFinderTestScripts(type: Copy) {
+  from "src/test/java/pathfinder/specTest"
+  include "*.test", "*.expected"
+  into "${buildDir}/classes/java/test/pathfinder/specTest"
 }
 
 test.dependsOn copyGraphTestScripts
@@ -118,6 +124,12 @@ task runMarvel (type:JavaExec) {
    classpath = sourceSets.main.runtimeClasspath  
 }
 
+task runPathfinder (type:JavaExec) {
+   main = "pathfinder/textInterface/Pathfinder"
+   standardInput = System.in
+   classpath = sourceSets.main.runtimeClasspath
+}
+
 ///
 /// Other targets
 ///
@@ -139,7 +151,7 @@ task specTests (type: Test) {
     description = 'Runs the specification tests.'
     group = 'verification'
     filter {
-      setExcludePatterns "*.implTest.*", "setup.*"
+      setExcludePatterns "*.implTest.*"
       setIncludePatterns "*.specTest.*"
     }
 }
@@ -148,7 +160,7 @@ task implTests (type: Test) {
     description = 'Runs the implementation tests.'
     group = 'verification'
     filter {
-      setExcludePatterns "*.specTest.*", "setup.*"
+      setExcludePatterns "*.specTest.*"
       setIncludePatterns "*.implTest.*"
     }
 }
