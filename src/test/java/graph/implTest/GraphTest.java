@@ -109,7 +109,7 @@ public final class GraphTest {
     @Test
     public void testGetEdgeSize() {
         Set<Edge> s = graph3.getEdges("n1");
-        assertEquals(5, s.size());
+        assertEquals(3, s.size());
     }
 
     @Test
@@ -159,7 +159,7 @@ public final class GraphTest {
         assertTrue(g1.addChild("n1", "n1", "e1"));
         assertTrue(g1.getLabels("n1", "n1").contains("e1"));
         Edge e = new Edge("n1", "e1");
-        assertTrue(g1.getEdges("n1").contains("n1"));
+        assertTrue(g1.getEdges("n1").contains(e));
     }
 
     @Test(expected = IllegalArgumentException.class)
