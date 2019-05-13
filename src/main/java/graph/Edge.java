@@ -3,7 +3,7 @@ package graph;
 /**
  * A class representing the edge, with child node and label
  */
-public class Edge {
+public class Edge implements Comparable<Edge> {
     private String child;
     private String label;
 
@@ -40,6 +40,23 @@ public class Edge {
         return label;
     }
 
+
+    /**
+     * Standard comparable operations
+     *
+     * @param other the other edge that is being compared to this
+     * @return 1 if this is greater than other, -1 if this is smaller than other, 0 if equal
+     */
+    @Override
+    public int compareTo(Edge other) {
+        if (this.child.compareTo(other.child) > 0) {
+            return 1;
+        } else if (this.child.compareTo(other.child) < 0) {
+            return -1;
+        } else {
+            return this.label.compareTo(other.label);
+        }
+    }
 
     /**
      * Standard equality operation.

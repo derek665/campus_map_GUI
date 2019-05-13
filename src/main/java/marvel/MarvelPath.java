@@ -54,17 +54,17 @@ public class MarvelPath {
             if (node.equals(end)) {
                 return new ArrayList<>(m.get(node));
             } else {
-                Map<String, Set<String>> edges = new TreeMap<>(graph.getEdges(node));
-                for (String child : edges.keySet()) {
-                    if (!m.containsKey(child)) {
+                Set<Edge> edges = new TreeSet<>(graph.getEdges(node));
+                for (Edge edge : edges) {
+                    if (!m.containsKey(edge.getChild())) {
                         List<Edge> p = m.get(node);
                         List<Edge> p2 = new ArrayList<>();
                         if (p != null) {
                             p2.addAll(p);
                         }
-                        p2.add(child);
-                        m.put(child, p2);
-                        q.add(child);
+                        p2.add(edge);
+                        m.put(edge.getChild(), p2);
+                        q.add(edge.getChild());
                     }
                 }
             }

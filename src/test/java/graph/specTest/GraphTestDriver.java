@@ -1,6 +1,6 @@
 package graph.specTest;
 
-import graph.Graph;
+import graph.*;
 import org.apache.commons.collections.map.HashedMap;
 
 import java.io.*;
@@ -201,9 +201,9 @@ public class GraphTestDriver {
     }
 
     private void listChildren(String graphName, String parentName) {
-        Map<String, Set<String>> child = new TreeMap<>();
-        Map<String, Set<String>> unsorted = graphs.get(graphName).getEdges(parentName);
-        for (String childName : unsorted.keySet()) {
+        Set<Edge> child = new TreeMap<>();
+        Set<Edge> unsorted = graphs.get(graphName).getEdges(parentName);
+        for (Edge edge : unsorted) {
             if (!child.containsKey(childName)) {
                 child.put(childName, new TreeSet<>());
             }

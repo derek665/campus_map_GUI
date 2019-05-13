@@ -63,14 +63,21 @@ public final class GraphTest {
     @Test
     public void testAddEdge() {
         graph2.addChild("n1", "n2", "e1");
-        assertTrue(graph2.getEdges("n1").get("n2").contains("e1"));
+        Edge e = new Edge("n2", "e1");
+        assertTrue(graph2.getEdges("n1").contains(e));
     }
 
     @Test
     public void testAddDuplicateNode() {
         assertFalse(graph3.addNode("n1"));
-        Map<String, Set<String>> m = graph3.getEdges("n1");
-        assertTrue(m.containsKey("n2"));
+        Set<Edge> s = graph3.getEdges("n1");
+        boolean found = false;
+        for (Edge e : s) {
+            if (e.getChild().equals("n2")) {
+                found = true;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
@@ -101,8 +108,8 @@ public final class GraphTest {
 
     @Test
     public void testGetEdgeSize() {
-        Map<String, Set<String>> m = graph3.getEdges("n1");
-        assertEquals(3, m.get("n2").size() + m.get("n3").size());
+        Set<Edge> s = graph3.getEdges("n1");
+        assertEquals(5, s.size());
     }
 
     @Test
@@ -131,8 +138,8 @@ public final class GraphTest {
         assertTrue(g1.getLabels("n2", "n1").contains("e2"));
         g1.removeNode("n1");
         assertFalse(g1.hasNode("n1"));
-        Map<String, Set<String>> m = g1.getEdges("n2");
-        assertTrue(m.isEmpty());
+        Set<Edge> s = g1.getEdges("n2");
+        assertTrue(s.isEmpty());
     }
 
     @Test
@@ -151,7 +158,8 @@ public final class GraphTest {
         g1.addNode("n1");
         assertTrue(g1.addChild("n1", "n1", "e1"));
         assertTrue(g1.getLabels("n1", "n1").contains("e1"));
-        assertTrue(g1.getEdges("n1").containsKey("n1"));
+        Edge e = new Edge("n1", "e1");
+        assertTrue(g1.getEdges("n1").contains("n1"));
     }
 
     @Test(expected = IllegalArgumentException.class)
