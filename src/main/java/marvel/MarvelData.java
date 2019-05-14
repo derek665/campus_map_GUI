@@ -1,6 +1,9 @@
 package marvel;
 import com.opencsv.bean.CsvBindByName;
 
+/**
+ * This represents a marvel character
+ */
 public class MarvelData {
 
     /**
