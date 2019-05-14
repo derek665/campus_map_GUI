@@ -5,7 +5,7 @@ import graph.*;
 import java.util.*;
 
 /** find the shortest path between 2 characters */
-public class MarvelPath {
+public class MarvelPaths {
 
 
     /**
@@ -18,18 +18,18 @@ public class MarvelPath {
 //                MarvelParser.parseData("src/test/resources/marvel/data/marvel.tsv");
         Graph graph = MarvelParser.parseData("src/test/resources/marvel/data/marvel.tsv");
         System.out.println("Search path between 2 characters");
-        System.out.print("from: ");
+        System.out.println("from: ");
         String start = input.nextLine();
         while (!graph.hasNode(start)) {
             System.out.println(start + " is not a character of marvel");
-            System.out.print("from: ");
+            System.out.println("from: ");
             start = input.nextLine();
         }
-        System.out.print("to: ");
+        System.out.println("to: ");
         String end = input.nextLine();
         while (!graph.hasNode(end)) {
             System.out.println(end + " is not a character of marvel");
-            System.out.print("to: ");
+            System.out.println("to: ");
             end = input.nextLine();
         }
         List<Edge> result = findPath(start, end, graph);

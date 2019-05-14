@@ -13,7 +13,7 @@ package marvel.specTest;
 
 import graph.*;
 import marvel.MarvelParser;
-import marvel.MarvelPath;
+import marvel.MarvelPaths;
 
 import java.io.*;
 import java.util.*;
@@ -162,7 +162,7 @@ public class MarvelTestDriver {
       output.println("unknown character " + end);
     }
     if (graphName.hasNode(start) && graphName.hasNode((end))) {
-      List<Edge> result = MarvelPath.findPath(start, end, graphName);
+      List<Edge> result = MarvelPaths.findPath(start, end, graphName);
       output.println("path from " + start + " to " + end + ":");
       if (result.isEmpty() && !start.equals(end)) {
         output.println("no path found");

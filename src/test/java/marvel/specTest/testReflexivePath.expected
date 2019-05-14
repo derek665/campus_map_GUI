@@ -1,0 +1,5 @@
+# test same node on findPath
+
+loaded graph testReflexive
+
+path from Arsenal to Arsenal:
