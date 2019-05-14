@@ -75,7 +75,7 @@ test.dependsOn copyMarvelTestScripts
 
 compileJava {
     options.encoding = 'UTF-8'
-    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Werror"
 }
 
 compileTestJava {
