@@ -60,7 +60,7 @@ public class Graph {
      */
     public boolean hasLabel(String parent, String child, String label) {
         checkRep();
-        boolean a = getLabels(parent, child).contains(label);
+        boolean a = graph.get(parent).contains(new Edge(child, label));
         checkRep();
         return a;
     }

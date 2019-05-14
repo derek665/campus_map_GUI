@@ -60,7 +60,9 @@ public class MarvelParser {
         int i = 0;
         while (i < heroes.size()) {
           String parent = heroes.get(i);
-          graph.addNode(parent);
+          if (!graph.hasNode(parent)) {
+            graph.addNode(parent);
+          }
           int j = i + 1;
           while (j < heroes.size()) {
             String child = heroes.get(j);
