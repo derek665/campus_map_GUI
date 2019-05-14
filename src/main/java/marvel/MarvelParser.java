@@ -13,6 +13,8 @@ package marvel;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import graph.*;
+
 import java.io.*;
 import java.nio.Buffer;
 import java.nio.file.Files;
@@ -29,9 +31,9 @@ public class MarvelParser {
    * @param filename the file that will be read
    * @return a map of book to all characters in the book
    */
-  public static Map<String, Set<String>> parseData(String filename) {
+  public static Graph parseData(String filename) {
     // Hint: You might want to create a new class to use with the CSV Parser
-    Map<String, Set<String>> booksAndCharacters = new HashMap<>();
+    Graph graph = new Graph();
     try {
       Reader reader = Files.newBufferedReader(Paths.get(filename));
 
@@ -43,6 +45,7 @@ public class MarvelParser {
 
       Iterator<MarvelData> csvMarvelIterator = csvToBean.iterator();
 
+      Map<String, Set<String>> booksAndCharacters = new HashMap<>();
       while (csvMarvelIterator.hasNext()) {
         MarvelData csvMarvel = csvMarvelIterator.next();
         if (!booksAndCharacters.containsKey(csvMarvel.getBook())) {
@@ -50,6 +53,29 @@ public class MarvelParser {
         }
         booksAndCharacters.get(csvMarvel.getBook()).add(csvMarvel.getHero());
       }
+
+      for (String book : booksAndCharacters.keySet()) {
+        List<String> heroes = new ArrayList<>(booksAndCharacters.get(book));
+        int i = 0;
+        while (i < heroes.size()) {
+          String parent = heroes.get(i);
+          graph.addNode(parent);
+          int j = i + 1;
+          while (j < heroes.size()) {
+            String child = heroes.get(j);
+            if (!graph.hasNode(child)) {
+              graph.addNode(child);
+            }
+            if (!child.equals(parent) && !graph.hasLabel(parent, child, book)) {
+              graph.addChild(parent, child, book);
+              graph.addChild(child, parent, book);
+            }
+            j += 1;
+          }
+          i += 1;
+        }
+      }
+
     }
     catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -60,6 +86,6 @@ public class MarvelParser {
       e.printStackTrace();
       System.exit(1);
     }
-    return booksAndCharacters;
+    return graph;
   }
 }

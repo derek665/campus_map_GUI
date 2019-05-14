@@ -14,9 +14,9 @@ public class MarvelPath {
      */
     public static void main(String args[]) {
         Scanner input = new Scanner(System.in);
-        Map<String, Set<String>> bookData =
-                MarvelParser.parseData("/Users/derekchan/cse331-19sp-derek665/src/main/resources/marvel/data/marvel.tsv");
-        Graph graph = buildGraph(bookData);
+//        Map<String, Set<String>> bookData =
+//                MarvelParser.parseData("src/test/resources/marvel/data/marvel.tsv");
+        Graph graph = MarvelParser.parseData("src/test/resources/marvel/data/marvel.tsv");
         System.out.println("Search path between 2 characters");
         System.out.print("from: ");
         String start = input.nextLine();
@@ -34,7 +34,7 @@ public class MarvelPath {
         }
         List<Edge> result = findPath(start, end, graph);
         System.out.println();
-        if (result.isEmpty()) {
+        if (result.isEmpty() && !start.equals(end)) {
             System.out.println(start + " has no connection to " + end + " at all");
         } else {
             System.out.println("the connections from " + start + " to " + end + " are:");
@@ -54,7 +54,7 @@ public class MarvelPath {
      * @spec.requires start != null ; end != null ; graph != null
      * @return the path between the 2 characters
      */
-    private static List<Edge> findPath(String start, String end, Graph graph) {
+    public static List<Edge> findPath(String start, String end, Graph graph) {
         Queue<String> q = new LinkedList<>(); // nodes to visit
         Map<String, List<Edge>> m = new HashMap<>(); // each key in m is a visited node, mapped to a path
         q.add(start);
@@ -81,40 +81,4 @@ public class MarvelPath {
         }
         return new ArrayList<>();
     }
-
-    /**
-     * create a graph of all the label and nodes in map
-     *
-     * @spec.requires map != null
-     * @param map the label mapped to all nodes
-     * @return A graph with all the data from the file
-     */
-    private static Graph buildGraph(Map<String, Set<String>> map) {
-        Graph graph = new Graph();
-        for (String book : map.keySet()) {
-            List<String> arr = new ArrayList<>(map.get(book));
-            int i = 0;
-            while (i < arr.size()) {
-                String hero = arr.get(i);
-                if (!graph.hasNode(hero)) {
-                    graph.addNode(hero);
-                }
-                int j = i + 1;
-                while (j < arr.size()) {
-                    String child = arr.get(j);
-                    if (!graph.hasNode(child)) {
-                        graph.addNode(child);
-                    }
-                    if (!graph.hasLabel(hero, child, book) && !hero.equals(child)) {
-                        graph.addChild(hero, child, book);
-                        graph.addChild(child, hero, book);
-                    }
-                    j++;
-                }
-                i++;
-            }
-        }
-        return graph;
-    }
-
 }

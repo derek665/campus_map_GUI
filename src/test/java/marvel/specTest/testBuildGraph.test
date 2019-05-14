@@ -1,0 +1,8 @@
+# test the correct graph is being built
+
+LoadGraph testBuild soccer.tsv
+
+ListNodes testBuild
+
+ListChildren testBuild Barcelona
+ListChildren testBuild Arsenal

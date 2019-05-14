@@ -1,0 +1,5 @@
+# test same node on findPath
+
+LoadGraph testReflexive soccer.tsv
+
+FindPath testReflexive Arsenal Arsenal
