@@ -57,25 +57,18 @@ public class MarvelParser {
 
       for (String book : booksAndCharacters.keySet()) {
         List<String> heroes = new ArrayList<>(booksAndCharacters.get(book));
-        int i = 0;
-        while (i < heroes.size()) {
-          String parent = heroes.get(i);
+        for (String parent : heroes) {
           if (!graph.hasNode(parent)) {
             graph.addNode(parent);
           }
-          int j = i + 1;
-          while (j < heroes.size()) {
-            String child = heroes.get(j);
+          for (String child : heroes) {
             if (!graph.hasNode(child)) {
               graph.addNode(child);
             }
             if (!child.equals(parent) && !graph.hasLabel(parent, child, book)) {
               graph.addChild(parent, child, book);
-              graph.addChild(child, parent, book);
             }
-            j += 1;
           }
-          i += 1;
         }
       }
 
