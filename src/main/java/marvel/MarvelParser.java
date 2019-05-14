@@ -13,10 +13,11 @@ package marvel;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import graph.*;
+import graph.Graph;
 
-import java.io.*;
-import java.nio.Buffer;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -29,7 +30,7 @@ public class MarvelParser {
    *
    * @spec.requires filename is a valid file path
    * @param filename the file that will be read
-   * @return a map of book to all characters in the book
+   * @return a graph of characters' linked to the characters in the same books
    */
   public static Graph parseData(String filename) {
     // Hint: You might want to create a new class to use with the CSV Parser
