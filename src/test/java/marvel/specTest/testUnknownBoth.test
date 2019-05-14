@@ -1,0 +1,5 @@
+# test correct output when both characters are unknown
+
+LoadGraph testBoth soccer.tsv
+
+FindPath testBoth A B

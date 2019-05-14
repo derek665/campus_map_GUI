@@ -1,0 +1,5 @@
+# test correct output when second character is unknown
+
+LoadGraph testSecond soccer.tsv
+
+FindPath testSecond Liverpool Bilbao

@@ -1,0 +1,5 @@
+# test correct output when the start node is unknown
+
+loaded graph testFirst
+
+unknown character Chelsea

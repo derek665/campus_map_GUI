@@ -1,0 +1,6 @@
+# test correct output when both characters are unknown
+
+loaded graph testBoth
+
+unknown character A
+unknown character B

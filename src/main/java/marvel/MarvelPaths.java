@@ -14,33 +14,30 @@ public class MarvelPaths {
      */
     public static void main(String args[]) {
         Scanner input = new Scanner(System.in);
-//        Map<String, Set<String>> bookData =
-//                MarvelParser.parseData("src/test/resources/marvel/data/marvel.tsv");
         Graph graph = MarvelParser.parseData("src/test/resources/marvel/data/marvel.tsv");
         System.out.println("Search path between 2 characters");
         System.out.println("from: ");
         String start = input.nextLine();
-        while (!graph.hasNode(start)) {
-            System.out.println(start + " is not a character of marvel");
-            System.out.println("from: ");
-            start = input.nextLine();
-        }
         System.out.println("to: ");
         String end = input.nextLine();
-        while (!graph.hasNode(end)) {
-            System.out.println(end + " is not a character of marvel");
-            System.out.println("to: ");
-            end = input.nextLine();
-        }
-        List<Edge> result = findPath(start, end, graph);
-        System.out.println();
-        if (result.isEmpty() && !start.equals(end)) {
-            System.out.println(start + " has no connection to " + end + " at all");
+        if (graph.hasNode(start) && graph.hasNode(end)) {
+            List<Edge> result = findPath(start, end, graph);
+            System.out.println();
+            if (result.isEmpty() && !start.equals(end)) {
+                System.out.println(start + " has no connection to " + end + " at all");
+            } else {
+                System.out.println("the connections from " + start + " to " + end + " are:");
+                for (Edge e : result) {
+                    System.out.println(start + " is in " + e.getLabel() + " with " + e.getChild());
+                    start = e.getChild();
+                }
+            }
         } else {
-            System.out.println("the connections from " + start + " to " + end + " are:");
-            for (Edge e : result) {
-                System.out.println(start + " is in " + e.getLabel() + " with " + e.getChild());
-                start = e.getChild();
+            if (!graph.hasNode(start)) {
+                System.out.println("unknown character " + start);
+            }
+            if (!graph.hasNode(end)) {
+                System.out.println("unknown character " + end);
             }
         }
     }
