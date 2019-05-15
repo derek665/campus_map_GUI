@@ -6,7 +6,7 @@ Name:  <replace this with your name>
 Briefly describe any changes made to your Graph ADT from HW 3-4 and why
 those changes were made below.  (See the HW6 assignment for details.)
 
-I added a public method to graph that checks if specific label exists between parent node and child node
+I added a public method hasLabel to Graph that checks if specific label exists between parent node and child node
 
 I changed Edge class from private inner class to a public class, so it is easier when I am making the path to have
 an Edge class rather than a Map<child, Set<label>> which can get really messy, and it is easier to distinguish alphabetically.

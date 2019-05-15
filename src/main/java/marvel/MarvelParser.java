@@ -71,7 +71,6 @@ public class MarvelParser {
           }
         }
       }
-
     }
     catch (FileNotFoundException e) {
       e.printStackTrace();
