@@ -12,7 +12,7 @@ public class MarvelPaths {
      * get inputs from user and output the result
      * @param args command line
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Graph graph = MarvelParser.parseData("src/test/resources/marvel/data/marvel.tsv");
         System.out.println("Search path between 2 characters");
