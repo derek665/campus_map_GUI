@@ -49,7 +49,7 @@ public class MarvelPaths {
      * @param end the end of the character search
      * @param graph the graph that we are searching in
      * @spec.requires start != null ; end != null ; graph != null
-     * @return the path between the 2 characters
+     * @return the list of paths between the 2 characters
      */
     public static List<Edge> findPath(String start, String end, Graph graph) {
         Queue<String> q = new LinkedList<>(); // nodes to visit
