@@ -31,4 +31,9 @@ public class EdgeTest {
     public void testGetLabel() {
         assertEquals("e1", edge1.getLabel());
     }
+
+    @Test
+    public void testToString() {
+        assertEquals("n2(e1)", edge1.toString());
+    }
 }
