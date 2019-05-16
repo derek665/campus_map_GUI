@@ -42,6 +42,15 @@ public class Edge implements Comparable<Edge> {
 
 
     /**
+     * A string representation of this edge
+     * @return A string representation in the form of "child(label)"
+     */
+    @Override
+    public String toString() {
+        return child + "(" + label + ")";
+    }
+
+    /**
      * Standard comparable operations
      *
      * @param other the other edge that is being compared to this
