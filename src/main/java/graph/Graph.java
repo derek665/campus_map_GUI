@@ -254,8 +254,9 @@ public class Graph {
      * throws exception if representation invariant is violate
      */
     private void checkRep() {
+        assert (graph != null) : "graph cannot be null";
+
         if (RUN_CHECK_REP) {
-            assert (graph != null) : "graph cannot be null";
             Set<String> nodes = graph.keySet();
             for (String s : nodes) {
                 assert (nodes != null) : "nodes cannot be null";
