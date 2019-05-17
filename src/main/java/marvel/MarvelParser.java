@@ -47,6 +47,7 @@ public class MarvelParser {
       Iterator<MarvelData> csvMarvelIterator = csvToBean.iterator();
 
       Map<String, Set<String>> booksAndCharacters = new HashMap<>();
+      // {inv: booksAndCharacters.keySet = booksAndCharacters_pre.keySet + book || booksAndCharacters.value = booksAndCharacters.value_pre + hero}
       while (csvMarvelIterator.hasNext()) {
         MarvelData csvMarvel = csvMarvelIterator.next();
         if (!booksAndCharacters.containsKey(csvMarvel.getBook())) {
