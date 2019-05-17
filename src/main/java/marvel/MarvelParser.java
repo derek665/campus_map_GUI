@@ -55,13 +55,14 @@ public class MarvelParser {
         booksAndCharacters.get(csvMarvel.getBook()).add(csvMarvel.getHero());
       }
 
+      // {inv: graph.getNode = graph.getNode_pre + parent }
       for (String book : booksAndCharacters.keySet()) {
-        List<String> heroes = new ArrayList<>(booksAndCharacters.get(book));
-        for (String parent : heroes) {
+        for (String parent : booksAndCharacters.get(book)) {
           if (!graph.hasNode(parent)) {
             graph.addNode(parent);
           }
-          for (String child : heroes) {
+          // {inv : graph.getEdges(parent) = graph.getEdges(parent)_pre + Edge(booksAndCharacters.get(book)_(i-1), book)}
+          for (String child : booksAndCharacters.get(book)) {
             if (!graph.hasNode(child)) {
               graph.addNode(child);
             }

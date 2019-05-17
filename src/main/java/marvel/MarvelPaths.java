@@ -57,7 +57,7 @@ public class MarvelPaths {
         Map<String, List<Edge>> visited = new HashMap<>(); // each key in visited is a visited node, mapped to a path
         queue.add(start);
         visited.put(start, new ArrayList<>());
-        // {inv : (q = [] && no path found || q = [n_1, n_2, ... n_n]) && visited.get(n_i) = i steps from start}
+        // {inv : (q = [] && no path found || q = [n_1, n_2, ... n_n]) && visited.get(n_i) = i nodes away from start}
         while (!queue.isEmpty()) {
             String node = queue.remove();
             if (node.equals(end)) {
