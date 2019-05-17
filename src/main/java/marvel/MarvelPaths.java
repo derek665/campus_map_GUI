@@ -27,6 +27,7 @@ public class MarvelPaths {
                 System.out.println(start + " has no connection to " + end + " at all");
             } else {
                 System.out.println("the connections from " + start + " to " + end + " are:");
+                // {inv: start = result.get(i).getChild()}
                 for (Edge e : result) {
                     System.out.println(start + " is in " + e.getLabel() + " with " + e.getChild());
                     start = e.getChild();
@@ -52,26 +53,28 @@ public class MarvelPaths {
      * @return the list of paths between the 2 characters
      */
     public static List<Edge> findPath(String start, String end, Graph graph) {
-        Queue<String> q = new LinkedList<>(); // nodes to visit
-        Map<String, List<Edge>> m = new HashMap<>(); // each key in m is a visited node, mapped to a path
-        q.add(start);
-        m.put(start, new ArrayList<>());
-        while (!q.isEmpty()) {
-            String node = q.remove();
+        Queue<String> queue = new LinkedList<>(); // nodes to visit
+        Map<String, List<Edge>> visited = new HashMap<>(); // each key in visited is a visited node, mapped to a path
+        queue.add(start);
+        visited.put(start, new ArrayList<>());
+        // {inv : (q = [] && no path found || q = [n_1, n_2, ... n_n]) && visited.get(n_i) = i steps from start}
+        while (!queue.isEmpty()) {
+            String node = queue.remove();
             if (node.equals(end)) {
-                return new ArrayList<>(m.get(node));
+                return new ArrayList<>(visited.get(node));
             } else {
                 Set<Edge> edges = new TreeSet<>(graph.getEdges(node));
+                // {inv: queue = queue_pre + edges_(i-1) && visited.get(node) = visited.get(node)_pre + edges(i-1)}
                 for (Edge edge : edges) {
-                    if (!m.containsKey(edge.getChild())) {
-                        List<Edge> p = m.get(node);
+                    if (!visited.containsKey(edge.getChild())) {
+                        List<Edge> p = visited.get(node);
                         List<Edge> p2 = new ArrayList<>();
                         if (p != null) {
                             p2.addAll(p);
                         }
                         p2.add(edge);
-                        m.put(edge.getChild(), p2);
-                        q.add(edge.getChild());
+                        visited.put(edge.getChild(), p2);
+                        queue.add(edge.getChild());
                     }
                 }
             }
