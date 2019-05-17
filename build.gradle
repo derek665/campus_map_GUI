@@ -42,6 +42,7 @@ test {
   exclude 'poly/**'
   // exclude 'graph/**'
   // exclude 'marvel/**'
+  exclude 'pathfinder/**'
 }
 
 tasks.withType(Test) {
@@ -60,7 +61,7 @@ task copyMarvelTestScripts(type: Copy) {
   into "${buildDir}/classes/java/test/marvel/specTest"
 }
 
-task copyPathFinderTestScripts(type: Copy) {
+task copyPathfinderTestScripts(type: Copy) {
   from "src/test/java/pathfinder/specTest"
   include "*.test", "*.expected"
   into "${buildDir}/classes/java/test/pathfinder/specTest"
@@ -68,6 +69,7 @@ task copyPathFinderTestScripts(type: Copy) {
 
 test.dependsOn copyGraphTestScripts
 test.dependsOn copyMarvelTestScripts
+test.dependsOn copyPathfinderTestScripts
 
 ///
 /// Extra code quality checks
@@ -168,4 +170,31 @@ task implTests (type: Test) {
 specTests.dependsOn compileTestJava
 specTests.dependsOn copyGraphTestScripts
 specTests.dependsOn copyMarvelTestScripts
+specTests.dependsOn copyPathfinderTestScripts
 implTests.dependsOn compileTestJava
+
+///
+/// HW7 Configurations
+///
+
+task compileGraphOnly(type: JavaCompile) {
+ source = fileTree(dir: 'src/main/java', include: '**/*.java')
+ destinationDir = file('build/classes/main')
+ classpath = files('.')
+}
+
+compileGraphOnly {
+  exclude 'setup/**'
+  exclude 'poly/**'
+  exclude 'marvel/**'
+  exclude 'pathfinder/**'
+
+  options.encoding = 'UTF-8'
+  options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Werror"
+}
+
+task compileMarvelAndGraph(type: JavaCompile) {
+ source = fileTree(dir: 'src/main/java', include: '**/*.java')
+ destinationDir = file('build/classes/main')
+ classpath = files('.')
+}
