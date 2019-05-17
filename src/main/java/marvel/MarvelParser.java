@@ -58,6 +58,7 @@ public class MarvelParser {
 
       // {inv: graph.getNode = graph.getNode_pre + parent }
       for (String book : booksAndCharacters.keySet()) {
+        // {inv : graph.getNodes = graph.getNodes_pre + booksAndCharacters.get(book)_(i-1) }
         for (String parent : booksAndCharacters.get(book)) {
           if (!graph.hasNode(parent)) {
             graph.addNode(parent);
