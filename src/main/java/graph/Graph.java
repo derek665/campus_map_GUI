@@ -10,7 +10,7 @@ import java.util.*;
  *
  */
 
-public class Graph<E extends Comparable<E>, N extends Comparable<N>> {
+public class Graph<E, N> {
     private static final boolean RUN_CHECK_REP = false; // indicate whether checkRep() is enabled
 
     /**

@@ -202,10 +202,11 @@ public class GraphTestDriver {
 
     private void listChildren(String graphName, String parentName) {
         Set<Edge<String, String>> unsorted = graphs.get(graphName).getEdges(parentName);
-        Set<Edge> child = new TreeSet<>(unsorted);
+        List<Edge<String, String>> sorted = new ArrayList<>(unsorted);
+        sorted.sort(new EdgeSorter());
         StringBuilder result = new StringBuilder();
         result.append("the children of " + parentName + " in " + graphName + " are:");
-        for (Edge edge : child) {
+        for (Edge<String, String> edge : sorted) {
             result.append(" " + edge.getChild() + "(" + edge.getLabel() + ")");
         }
         output.println(result);
@@ -224,5 +225,18 @@ public class GraphTestDriver {
         }
 
         public static final long serialVersionUID = 3495;
+    }
+
+    private class EdgeSorter implements Comparator<Edge<String, String>> {
+        @Override
+        public int compare(Edge<String, String> e1, Edge<String, String> e2) {
+            if (e1.getChild().compareTo(e2.getChild()) > 0) {
+                return 1;
+            } else if (e1.getChild().compareTo(e2.getChild()) < 0) {
+                return -1;
+            } else {
+                return e1.getLabel().compareTo(e2.getLabel());
+            }
+        }
     }
 }

@@ -63,7 +63,8 @@ public class MarvelPaths {
             if (node.equals(end)) {
                 return new ArrayList<>(visited.get(node));
             } else {
-                Set<Edge<String, String>> edges = new TreeSet<>(graph.getEdges(node));
+                List<Edge<String, String>> edges = new ArrayList<>(graph.getEdges(node));
+                edges.sort(new EdgeSorter());
                 // {inv: queue = queue_pre + edges_(i-1) && visited.get(node) = visited.get(node)_pre + edges(i-1)}
                 for (Edge<String, String> edge : edges) {
                     if (!visited.containsKey(edge.getChild())) {
@@ -80,5 +81,18 @@ public class MarvelPaths {
             }
         }
         return new ArrayList<>();
+    }
+
+    private static class EdgeSorter implements Comparator<Edge<String, String>> {
+        @Override
+        public int compare(Edge<String, String> e1, Edge<String, String> e2) {
+            if (e1.getChild().compareTo(e2.getChild()) > 0) {
+                return 1;
+            } else if (e1.getChild().compareTo(e2.getChild()) < 0) {
+                return -1;
+            } else {
+                return e1.getLabel().compareTo(e2.getLabel());
+            }
+        }
     }
 }
