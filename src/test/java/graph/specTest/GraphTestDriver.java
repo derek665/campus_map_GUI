@@ -54,7 +54,7 @@ public class GraphTestDriver {
     }
 
     /** String -> Graph: maps the names of graphs to the actual graph **/
-    private final Map<String, Graph> graphs = new HashMap<>();
+    private final Map<String, Graph<String, String>> graphs = new HashMap<>();
     private final PrintWriter output;
     private final BufferedReader input;
 
@@ -132,7 +132,7 @@ public class GraphTestDriver {
     }
 
     private void createGraph(String graphName) {
-        graphs.put(graphName, new Graph());
+        graphs.put(graphName, new Graph<>());
         output.println("created graph " + graphName);
     }
 
@@ -201,7 +201,7 @@ public class GraphTestDriver {
     }
 
     private void listChildren(String graphName, String parentName) {
-        Set<Edge> unsorted = graphs.get(graphName).getEdges(parentName);
+        Set<Edge<String, String>> unsorted = graphs.get(graphName).getEdges(parentName);
         Set<Edge> child = new TreeSet<>(unsorted);
         StringBuilder result = new StringBuilder();
         result.append("the children of " + parentName + " in " + graphName + " are:");

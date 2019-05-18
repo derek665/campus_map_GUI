@@ -12,7 +12,7 @@
 package pathfinder.textInterface;
 
 import pathfinder.ModelConnector;
-import pathfinder.datastructures.Path;
+import pathfinder.datastructures.*;
 
 import java.util.Map;
 
@@ -128,7 +128,7 @@ public class TextInterfaceController implements InputHandler {
       view.basePrompt();
       return;
     }
-    Path path = model.findShortestPath(start, end);
+    Path<Point> path = model.findShortestPath(start, end);
     if(path == null) {
       // No path. This is guaranteed not to happen by the homework spec,
       // so let's fall on our face if it does.

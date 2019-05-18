@@ -15,7 +15,7 @@ import java.util.*;
 public class MarvelPathsTest {
 	@Rule public Timeout globalTimeout = Timeout.seconds(10); // 10 seconds max per method tested
 
-	private Graph graph;
+	private Graph<String, String> graph;
 
 	@Before
 	public void setUp() {
@@ -29,19 +29,19 @@ public class MarvelPathsTest {
 
 	@Test
 	public void testEdgeBuild() {
-		Set<Edge> set = graph.getEdges("Arsenal");
-		assertTrue(set.contains(new Edge("Liverpool", "EPL")));
-		assertTrue(set.contains(new Edge("Southampton", "EPL")));
-		assertTrue(set.contains(new Edge("Valencia", "European-League")));
+		Set<Edge<String, String>> set = graph.getEdges("Arsenal");
+		assertTrue(set.contains(new Edge<>("Liverpool", "EPL")));
+		assertTrue(set.contains(new Edge<>("Southampton", "EPL")));
+		assertTrue(set.contains(new Edge<>("Valencia", "European-League")));
 	}
 
 	@Test
 	public void testFindPath() {
-		List<Edge> result = MarvelPaths.findPath("Barcelona", "Southampton", graph);
+		List<Edge<String, String>> result = MarvelPaths.findPath("Barcelona", "Southampton", graph);
 		List<Edge> expected = new ArrayList<>();
-		expected.add(new Edge("Valencia", "La-Liga"));
-		expected.add(new Edge("Arsenal", "European-League"));
-		expected.add(new Edge("Southampton", "EPL"));
+		expected.add(new Edge<>("Valencia", "La-Liga"));
+		expected.add(new Edge<>("Arsenal", "European-League"));
+		expected.add(new Edge<>("Southampton", "EPL"));
 		assertEquals(expected, result);
 	}
 

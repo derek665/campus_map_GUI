@@ -3,9 +3,9 @@ package graph;
 /**
  * A class representing the edge, with child node and label
  */
-public class Edge implements Comparable<Edge> {
-    private String child;
-    private String label;
+public class Edge<E extends Comparable<E>, N extends Comparable<N>> implements Comparable<Edge<E, N>> {
+    private E child;
+    private N label;
 
     // Representation Invariant for every Edge e is child != null and label != null
     //
@@ -16,7 +16,7 @@ public class Edge implements Comparable<Edge> {
      * @param child the child node of the edge
      * @param label the label between the nodes
      */
-    public Edge(String child, String label) {
+    public Edge(E child, N label) {
         this.child = child;
         this.label = label;
         checkRep();
@@ -26,7 +26,7 @@ public class Edge implements Comparable<Edge> {
      * return the child node
      * @return the child node of this
      */
-    public String getChild() {
+    public E getChild() {
         checkRep();
         return child;
     }
@@ -35,7 +35,7 @@ public class Edge implements Comparable<Edge> {
      * return the label of this
      * @return the label of this
      */
-    public String getLabel() {
+    public N getLabel() {
         checkRep();
         return label;
     }
@@ -57,13 +57,13 @@ public class Edge implements Comparable<Edge> {
      * @return 1 if this is greater than other, -1 if this is smaller than other, 0 if equal
      */
     @Override
-    public int compareTo(Edge other) {
+    public int compareTo(Edge<E, N> other) {
         if (this.child.compareTo(other.child) > 0) {
             return 1;
         } else if (this.child.compareTo(other.child) < 0) {
             return -1;
         } else {
-            return this.label.compareTo(other.label);
+            return this.label.compareTo(other.getLabel());
         }
     }
 
@@ -80,7 +80,8 @@ public class Edge implements Comparable<Edge> {
             return false;
         } else {
             Edge e = (Edge) o;
-            return this.child.equals(e.child) && this.label.equals(e.label);
+            return this.child.hashCode() == e.getChild().hashCode()
+                    && this.label.hashCode() == e.getLabel().hashCode();
         }
     }
 

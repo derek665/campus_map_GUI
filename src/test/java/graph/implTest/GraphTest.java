@@ -15,17 +15,17 @@ import org.junit.rules.Timeout;
 public final class GraphTest {
     @Rule public Timeout globalTimeout = Timeout.seconds(10); // 10 seconds max per method tested
 
-    private Graph graph1;
-    private Graph graph2;
-    private Graph graph3;
+    private Graph<String, String> graph1;
+    private Graph<String, String> graph2;
+    private Graph<String, String> graph3;
 
     @Before
     public void setUp() {
-        graph1 = new Graph();
-        graph2 = new Graph();
+        graph1 = new Graph<>();
+        graph2 = new Graph<>();
         graph2.addNode("n1");
         graph2.addNode("n2");
-        graph3 = new Graph();
+        graph3 = new Graph<>();
         graph3.addNode("n1");
         graph3.addNode("n2");
         graph3.addNode("n3");
@@ -43,7 +43,7 @@ public final class GraphTest {
 
     @Test
     public void testAddOne() {
-        Graph g1 = new Graph();
+        Graph<String, String> g1 = new Graph<>();
         assertTrue(g1.addNode("n1"));
         Set<String> s = g1.getNodes();
         assertTrue(s.contains("n1"));
@@ -51,8 +51,14 @@ public final class GraphTest {
     }
 
     @Test
+    public void testAddChild2() {
+        Edge<String, String> e = new Edge<>("n2", "e1");
+        assertTrue(graph2.addChild("n1", e));
+    }
+
+    @Test
     public void testAddOneMore() {
-        Graph g1 = new Graph();
+        Graph<String, String> g1 = new Graph<>();
         assertTrue(g1.addNode("n1"));
         assertTrue(g1.addNode("n2"));
         Set<String> s = g1.getNodes();
@@ -63,14 +69,14 @@ public final class GraphTest {
     @Test
     public void testAddEdge() {
         graph2.addChild("n1", "n2", "e1");
-        Edge e = new Edge("n2", "e1");
+        Edge e = new Edge<>("n2", "e1");
         assertTrue(graph2.getEdges("n1").contains(e));
     }
 
     @Test
     public void testAddDuplicateNode() {
         assertFalse(graph3.addNode("n1"));
-        Set<Edge> s = graph3.getEdges("n1");
+        Set<Edge<String, String>> s = graph3.getEdges("n1");
         boolean found = false;
         for (Edge e : s) {
             if (e.getChild().equals("n2")) {
@@ -78,6 +84,12 @@ public final class GraphTest {
             }
         }
         assertTrue(found);
+    }
+
+    @Test
+    public void testHasEdge() {
+        Edge<String, String> e = new Edge<>("n2", "e1");
+        assertTrue(graph3.hasEdge("n1", e));
     }
 
     @Test
@@ -108,7 +120,7 @@ public final class GraphTest {
 
     @Test
     public void testGetEdgeSize() {
-        Set<Edge> s = graph3.getEdges("n1");
+        Set<Edge<String, String>> s = graph3.getEdges("n1");
         assertEquals(3, s.size());
     }
 
@@ -120,7 +132,7 @@ public final class GraphTest {
 
     @Test
     public void testRemoveNode() {
-        Graph g1 = new Graph();
+        Graph<String, String> g1 = new Graph<>();
         g1.addNode("n1");
         assertTrue(g1.hasNode("n1"));
         g1.removeNode("n1");
@@ -128,8 +140,18 @@ public final class GraphTest {
     }
 
     @Test
+    public void testRemoveEdge2() {
+        Graph<String, String> g1 = new Graph<>();
+        g1.addNode("n1");
+        g1.addNode("n2");
+        g1.addChild("n1", "n2", "e1");
+        g1.removeEdgeFrom("n1",new Edge<>("n2", "e1"));
+        assertTrue(g1.getLabels("n1", "n2").isEmpty());
+    }
+
+    @Test
     public void testRemoveNodeWithEdges() {
-        Graph g1 = new Graph();
+        Graph<String, String> g1 = new Graph<>();
         g1.addNode("n1");
         g1.addNode("n2");
         g1.addChild("n1", "n2", "e1");
@@ -138,13 +160,13 @@ public final class GraphTest {
         assertTrue(g1.getLabels("n2", "n1").contains("e2"));
         g1.removeNode("n1");
         assertFalse(g1.hasNode("n1"));
-        Set<Edge> s = g1.getEdges("n2");
+        Set<Edge<String, String>> s = g1.getEdges("n2");
         assertTrue(s.isEmpty());
     }
 
     @Test
     public void testRemoveEdgeFrom() {
-        Graph g1 = new Graph();
+        Graph<String, String> g1 = new Graph<>();
         g1.addNode("n1");
         g1.addNode("n2");
         g1.addChild("n1", "n2", "e1");
@@ -154,11 +176,11 @@ public final class GraphTest {
 
     @Test
     public void testCircularEdge() {
-        Graph g1 = new Graph();
+        Graph<String, String> g1 = new Graph<>();
         g1.addNode("n1");
         assertTrue(g1.addChild("n1", "n1", "e1"));
         assertTrue(g1.getLabels("n1", "n1").contains("e1"));
-        Edge e = new Edge("n1", "e1");
+        Edge e = new Edge<>("n1", "e1");
         assertTrue(g1.getEdges("n1").contains(e));
     }
 

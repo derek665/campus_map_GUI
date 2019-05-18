@@ -1,0 +1,9 @@
+CSE 331 Homework.  Answers to written questions.
+
+Name:  Derek Chan
+
+I added 3 public methods to Graph
+	1. hasEdge(String, Edge), this is to test if specific edge exists and has the parent node. It is pretty much same as hasLabel,
+   	   but since Edge class is now public, and being returned in some other methods. I think it is more convenient to have Edge parameter as well as Strings
+   	2. addChild(String, Edge), alternative to addChild(String, String, String), same reasons as above
+   	3. removeEdgeFrom(String, Edge), alternative to removeEdgeFrom(String, String, String), same reasons as #1

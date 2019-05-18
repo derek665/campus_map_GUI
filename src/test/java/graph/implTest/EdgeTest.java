@@ -15,11 +15,11 @@ import org.junit.rules.Timeout;
 public class EdgeTest {
     @Rule public Timeout globalTimeout = Timeout.seconds(10); // 10 seconds max per method tested
 
-    private Edge edge1;
+    private Edge<String, String> edge1;
 
     @Before
     public void setUp() {
-        edge1 = new Edge("n2", "e1");
+        edge1 = new Edge<>("n2", "e1");
     }
 
     @Test

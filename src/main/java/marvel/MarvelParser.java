@@ -13,7 +13,7 @@ package marvel;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import graph.Graph;
+import graph.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,9 +32,9 @@ public class MarvelParser {
    * @param filename the file that will be read
    * @return a graph of characters' linked to the characters in the same books
    */
-  public static Graph parseData(String filename) {
+  public static Graph<String, String> parseData(String filename) {
     // Hint: You might want to create a new class to use with the CSV Parser
-    Graph graph = new Graph();
+    Graph<String, String> graph = new Graph<>();
     try {
       Reader reader = Files.newBufferedReader(Paths.get(filename));
 

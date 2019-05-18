@@ -11,7 +11,7 @@
 
 package pathfinder;
 
-import pathfinder.datastructures.Path;
+import pathfinder.datastructures.*;
 
 import java.util.Map;
 
@@ -89,7 +89,7 @@ public class ModelConnector {
    *                                  {@literal null}, or not valid short names of buildings in
    *                                  this campus map.
    */
-  public Path findShortestPath(String startShortName, String endShortName) {
+  public Path<Point> findShortestPath(String startShortName, String endShortName) {
     // TODO: Implement this method to talk to your model, then remove the exception below.
 
     throw new RuntimeException("findShortestPath not implemented yet.");

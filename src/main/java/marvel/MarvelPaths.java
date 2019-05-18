@@ -14,21 +14,21 @@ public class MarvelPaths {
      */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        Graph graph = MarvelParser.parseData("src/test/resources/marvel/data/marvel.tsv");
+        Graph<String, String> graph = MarvelParser.parseData("src/test/resources/marvel/data/marvel.tsv");
         System.out.println("Search path between 2 characters");
         System.out.println("from: ");
         String start = input.nextLine();
         System.out.println("to: ");
         String end = input.nextLine();
         if (graph.hasNode(start) && graph.hasNode(end)) {
-            List<Edge> result = findPath(start, end, graph);
+            List<Edge<String, String>> result = findPath(start, end, graph);
             System.out.println();
             if (result.isEmpty() && !start.equals(end)) {
                 System.out.println(start + " has no connection to " + end + " at all");
             } else {
                 System.out.println("the connections from " + start + " to " + end + " are:");
                 // {inv: start = result.get(i).getChild()}
-                for (Edge e : result) {
+                for (Edge<String, String> e : result) {
                     System.out.println(start + " is in " + e.getLabel() + " with " + e.getChild());
                     start = e.getChild();
                 }
@@ -52,9 +52,9 @@ public class MarvelPaths {
      * @spec.requires start != null ; end != null ; graph != null
      * @return the list of paths between the 2 characters
      */
-    public static List<Edge> findPath(String start, String end, Graph graph) {
+    public static List<Edge<String, String>> findPath(String start, String end, Graph<String, String> graph) {
         Queue<String> queue = new LinkedList<>(); // nodes to visit
-        Map<String, List<Edge>> visited = new HashMap<>(); // each key in visited is a visited node, mapped to a path
+        Map<String, List<Edge<String, String>>> visited = new HashMap<>(); // each key in visited is a visited node, mapped to a path
         queue.add(start);
         visited.put(start, new ArrayList<>());
         // {inv : (q = [] && no path found || q = [n_1, n_2, ... n_n]) && visited.get(n_i) = i nodes away from start}
@@ -63,12 +63,12 @@ public class MarvelPaths {
             if (node.equals(end)) {
                 return new ArrayList<>(visited.get(node));
             } else {
-                Set<Edge> edges = new TreeSet<>(graph.getEdges(node));
+                Set<Edge<String, String>> edges = new TreeSet<>(graph.getEdges(node));
                 // {inv: queue = queue_pre + edges_(i-1) && visited.get(node) = visited.get(node)_pre + edges(i-1)}
-                for (Edge edge : edges) {
+                for (Edge<String, String> edge : edges) {
                     if (!visited.containsKey(edge.getChild())) {
-                        List<Edge> p = visited.get(node);
-                        List<Edge> p2 = new ArrayList<>();
+                        List<Edge<String, String>> p = visited.get(node);
+                        List<Edge<String, String>> p2 = new ArrayList<>();
                         if (p != null) {
                             p2.addAll(p);
                         }

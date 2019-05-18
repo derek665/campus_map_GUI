@@ -66,7 +66,7 @@ public class MarvelTestDriver {
   }
 
   /** String -> Graph: maps the names of graphs to the actual graph **/
-  private final Map<String, Graph> graphs = new HashMap<>();
+  private final Map<String, Graph<String, String>> graphs = new HashMap<>();
   private final PrintWriter output;
   private final BufferedReader input;
 
@@ -152,7 +152,7 @@ public class MarvelTestDriver {
     if (arguments.size() != 3) {
       throw new MarvelTestDriver.CommandException("Bad arguments to findPath: " + arguments);
     }
-    Graph graphName = graphs.get(arguments.get(0));
+    Graph<String, String> graphName = graphs.get(arguments.get(0));
     String start = arguments.get(1).replaceAll("_", " ");
     String end = arguments.get(2).replaceAll("_", " ");
     if (!graphName.hasNode(start)) {
@@ -162,12 +162,12 @@ public class MarvelTestDriver {
       output.println("unknown character " + end);
     }
     if (graphName.hasNode(start) && graphName.hasNode((end))) {
-      List<Edge> result = MarvelPaths.findPath(start, end, graphName);
+      List<Edge<String, String>> result = MarvelPaths.findPath(start, end, graphName);
       output.println("path from " + start + " to " + end + ":");
       if (result.isEmpty() && !start.equals(end)) {
         output.println("no path found");
       } else {
-        for (Edge e : result) {
+        for (Edge<String, String> e : result) {
           output.println(start + " to " + e.getChild() + " via " + e.getLabel());
           start = e.getChild();
         }
@@ -185,7 +185,7 @@ public class MarvelTestDriver {
   }
 
   private void createGraph(String graphName) {
-    graphs.put(graphName, new Graph());
+    graphs.put(graphName, new Graph<>());
     output.println("created graph " + graphName);
   }
 
@@ -254,8 +254,8 @@ public class MarvelTestDriver {
   }
 
   private void listChildren(String graphName, String parentName) {
-    Set<Edge> unsorted = graphs.get(graphName).getEdges(parentName);
-    Set<Edge> child = new TreeSet<>(unsorted);
+    Set<Edge<String, String>> unsorted = graphs.get(graphName).getEdges(parentName);
+    Set<Edge<String, String>> child = new TreeSet<>(unsorted);
     StringBuilder result = new StringBuilder();
     result.append("the children of " + parentName + " in " + graphName + " are:");
     for (Edge edge : child) {
