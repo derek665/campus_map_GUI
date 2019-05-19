@@ -19,9 +19,9 @@ import java.util.List;
  * This represents an immutable path between two objects, particularly
  * {@link Path#getStart()} and {@link Path#getEnd()}. Also contains a cached
  * version of the total cost along this path, for efficient repeated access.
- * @param <E> the type of Path
+ * @param <Node> the type of Path node
  */
-public class Path<E> implements Iterable<Path<E>.Segment> {
+public class Path<Node> implements Iterable<Path<Node>.Segment> {
 
   // AF(this) =
   //      first object in the path => start
@@ -46,7 +46,7 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
   /**
    * The beginning of this path.
    */
-  private E start;
+  private Node start;
 
   /**
    * The ordered sequence of segments representing a path between objects.
@@ -59,7 +59,7 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
    *
    * @param start The start of the path.
    */
-  public Path(E start) {
+  public Path(Node start) {
     this.start = start;
     this.cost = 0;
     this.path = new ArrayList<>();
@@ -77,10 +77,10 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
    * @param segmentCost The cost of the segment being added to the end of this path.
    * @return A new path representing the current path with the given segment appended to the end.
    */
-  public Path<E> extend(E newEnd, double segmentCost) {
+  public Path<Node> extend(Node newEnd, double segmentCost) {
     checkRep();
     //
-    Path<E> extendedPath = new Path<>(start);
+    Path<Node> extendedPath = new Path<>(start);
     extendedPath.path.addAll(this.path);
     extendedPath.path.add(new Segment(this.getEnd(), newEnd, segmentCost));
     extendedPath.cost = this.cost + segmentCost;
@@ -101,7 +101,7 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
   /**
    * @return The beginning of this path.
    */
-  public E getStart() {
+  public Node getStart() {
     return start;
   }
 
@@ -109,7 +109,7 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
    * @return The end of this path, which may be the start if this path
    * contains no segments (i.e. this path is from the start to itself).
    */
-  public E getEnd() {
+  public Node getEnd() {
     if(path.size() == 0) {
       return start;
     }
@@ -136,7 +136,7 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
       }
 
       @Override
-      public Path<E>.Segment next() {
+      public Path<Node>.Segment next() {
         return backingIterator.next();
       }
 
@@ -213,7 +213,7 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
   /**
    * Segment represents a single segment as part of a longer, more complex path between objects.
    * Segments are immutable parts of a larger path that cannot be instantiated directly, and
-   * are created as part of larger paths by calling {@link Path#extend(E, double)}.
+   * are created as part of larger paths by calling {@link Path#extend(Node, double)}.
    */
   public class Segment {
 
@@ -228,12 +228,12 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
     /**
      * The beginning of this segment.
      */
-    private final E start;
+    private final Node start;
 
     /**
      * The end of this segment.
      */
-    private final E end;
+    private final Node end;
 
     /**
      * The cost of travelling this segment.
@@ -249,7 +249,7 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
      * @throws NullPointerException     if either object is null.
      * @throws IllegalArgumentException if cost is infinite or NaN
      */
-    private Segment(E start, E end, double cost) {
+    private Segment(Node start, Node end, double cost) {
       if(start == null || end == null) {
         throw new NullPointerException("Segments cannot have null objects.");
       }
@@ -267,7 +267,7 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
     /**
      * @return The beginning of this segment.
      */
-    public E getStart() {
+    public Node getStart() {
       // Note: Since Points are immutable, this isn't rep exposure.
       return this.start;
     }
@@ -275,7 +275,7 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
     /**
      * @return The end of this segment.
      */
-    public E getEnd() {
+    public Node getEnd() {
       return this.end;
     }
 

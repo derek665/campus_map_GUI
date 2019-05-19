@@ -8,15 +8,17 @@ import java.util.*;
  * Graph is a collection of all the nodes mapped to its edges with labels to its neighbors
  * All edge labels from the same parent and child cannot be same
  *
+ * @param <Node> the type of the node
+ * @param <Label> the type of the edge label
  */
 
-public class Graph<E, N> {
+public class Graph<Node, Label> {
     private static final boolean RUN_CHECK_REP = false; // indicate whether checkRep() is enabled
 
     /**
      * A graph holding all the nodes
      */
-    private final Map<E, Set<Edge<E, N>>> graph;
+    private final Map<Node, Set<Edge<Node, Label>>> graph;
 
     // Representation Invariant for every Graph g:
     // g != null, all nodes, edges and labels of g != null
@@ -42,7 +44,7 @@ public class Graph<E, N> {
      * @return true iff this has a node in graph with the same name
      * @spec.requires name != null
      */
-    public boolean hasNode(E name) {
+    public boolean hasNode(Node name) {
         checkRep();
         boolean a = graph.containsKey(name);
         checkRep();
@@ -58,7 +60,7 @@ public class Graph<E, N> {
      * @return true iff parent and child has an edge with the label
      * @spec.requires parent and child are a node of the graph
      */
-    public boolean hasLabel(E parent, E child, N label) {
+    public boolean hasLabel(Node parent, Node child, Label label) {
         checkRep();
         boolean a = graph.get(parent).contains(new Edge<>(child, label));
         checkRep();
@@ -73,7 +75,7 @@ public class Graph<E, N> {
      * @return true iff parent has the outgoing edge
      * @spec.requires parent is a node of this
      */
-    public boolean hasEdge(E parent, Edge<E, N> edge) {
+    public boolean hasEdge(Node parent, Edge<Node, Label> edge) {
         checkRep();
         return hasLabel(parent, edge.getChild(), edge.getLabel());
     }
@@ -87,7 +89,7 @@ public class Graph<E, N> {
      * @spec.modifies this
      * @spec.effects new element of this, no change if 'name' already exists
      */
-    public boolean addNode(E name) {
+    public boolean addNode(Node name) {
         checkRep();
         boolean added = false;
         if (!graph.containsKey(name)) {
@@ -111,13 +113,13 @@ public class Graph<E, N> {
      * @spec.effects a new outgoing edge for 'parent' with a child node and a label
      * no change if same label already exists
      */
-    public boolean addChild(E parent, E child, N label) {
+    public boolean addChild(Node parent, Node child, Label label) {
         checkRep();
         if (!graph.containsKey(parent) || !graph.containsKey(child)) {
             throw new IllegalArgumentException("parent/child node does not exist");
         }
-        Set<Edge<E, N>> edges = graph.get(parent);
-        Edge<E, N> newEdge = new Edge<>(child, label);
+        Set<Edge<Node, Label>> edges = graph.get(parent);
+        Edge<Node, Label> newEdge = new Edge<>(child, label);
         boolean added = false;
         if (!edges.contains(newEdge)) {
             added = true;
@@ -138,7 +140,7 @@ public class Graph<E, N> {
      * @spec.modifies this
      * @spec.effects a new outgoing edge for parent
      */
-    public boolean addChild(E parent, Edge<E, N> edge) {
+    public boolean addChild(Node parent, Edge<Node, Label> edge) {
         checkRep();
         return addChild(parent, edge.getChild(), edge.getLabel());
     }
@@ -152,15 +154,15 @@ public class Graph<E, N> {
      * @spec.modifies this
      * @spec.effects this will not have a node with 'name', and all other nodes will remove their outgoing edges with 'name' as child
      */
-    public void removeNode(E name) {
+    public void removeNode(Node name) {
         checkRep();
         if (!graph.containsKey(name)) {
             throw new IllegalArgumentException("node does not exist");
         }
-        for (E node : graph.keySet()) {
+        for (Node node : graph.keySet()) {
             if (isChildOf(name, node)) {
-                Set<Edge<E, N>> s = graph.get(node);
-                Iterator<Edge<E, N>> it = s.iterator();
+                Set<Edge<Node, Label>> s = graph.get(node);
+                Iterator<Edge<Node, Label>> it = s.iterator();
                 while (it.hasNext()) {
                     Edge e = it.next();
                     if (e.getChild().equals(name)) {
@@ -184,7 +186,7 @@ public class Graph<E, N> {
      * @spec.modifies this
      * @spec.effects this.getLabels(' parent ', ' child ') = this.getLabels('parent', 'child') - label
      */
-    public void removeEdgeFrom(E parent, E child, N label) {
+    public void removeEdgeFrom(Node parent, Node child, Label label) {
         checkRep();
         if (!graph.containsKey(parent) || !graph.containsKey(child)) {
             throw new IllegalArgumentException("node does not exist");
@@ -207,7 +209,7 @@ public class Graph<E, N> {
      * @spec.modifies this
      * @spec.effects this.hasLabels(parent, edge) = false
      */
-    public void removeEdgeFrom(E parent, Edge<E, N> edge) {
+    public void removeEdgeFrom(Node parent, Edge<Node, Label> edge) {
         checkRep();
         removeEdgeFrom(parent, edge.getChild(), edge.getLabel());
     }
@@ -220,12 +222,12 @@ public class Graph<E, N> {
      * @throws IllegalArgumentException if this does not have key 'parent'
      * @spec.requires parent != null
      */
-    public Set<Edge<E, N>> getEdges(E parent) {
+    public Set<Edge<Node, Label>> getEdges(Node parent) {
         checkRep();
         if (!graph.containsKey(parent)) {
             throw new IllegalArgumentException("parent node does not exist");
         }
-        Set<Edge<E, N>> set = new HashSet<>(graph.get(parent));
+        Set<Edge<Node, Label>> set = new HashSet<>(graph.get(parent));
         checkRep();
         return set;
     }
@@ -240,14 +242,14 @@ public class Graph<E, N> {
      * @throws IllegalArgumentException if parent or child is not a key of this
      * @spec.requires parent != null ; child != null
      */
-    public Set<N> getLabels(E parent, E child) {
+    public Set<Label> getLabels(Node parent, Node child) {
         checkRep();
         if (!graph.containsKey(parent) || !graph.containsKey(child)) {
             throw new IllegalArgumentException("parent/child node does not exist");
         }
-        Set<Edge<E, N>> edges = graph.get(parent);
-        Set<N> result = new HashSet<>();
-        for (Edge<E, N> e : edges) {
+        Set<Edge<Node, Label>> edges = graph.get(parent);
+        Set<Label> result = new HashSet<>();
+        for (Edge<Node, Label> e : edges) {
             if (e.getChild().equals(child)) {
                 result.add((e.getLabel()));
             }
@@ -261,9 +263,9 @@ public class Graph<E, N> {
      *
      * @return a set of all nodes in this
      */
-    public Set<E> getNodes() {
+    public Set<Node> getNodes() {
         checkRep();
-        Set<E> s = new HashSet<>(graph.keySet());
+        Set<Node> s = new HashSet<>(graph.keySet());
         checkRep();
         return s;
     }
@@ -277,13 +279,13 @@ public class Graph<E, N> {
      * @throws IllegalArgumentException if this does not have key 'child' or 'parent'
      * @spec.requires child != null ; parent != null
      */
-    public boolean isChildOf(E child, E parent) {
+    public boolean isChildOf(Node child, Node parent) {
         checkRep();
         if (!graph.containsKey(child) || !graph.containsKey(parent)) {
             throw new IllegalArgumentException("node does not exist");
         }
         boolean found = false;
-        Set<Edge<E, N>> edges = graph.get(parent);
+        Set<Edge<Node, Label>> edges = graph.get(parent);
         for (Edge e : edges) {
             if (e.getChild().equals(child)) {
                 found = true;
@@ -300,11 +302,11 @@ public class Graph<E, N> {
         assert (graph != null) : "graph cannot be null";
 
         if (RUN_CHECK_REP) {
-            Set<E> nodes = graph.keySet();
-            for (E s : nodes) {
+            Set<Node> nodes = graph.keySet();
+            for (Node s : nodes) {
                 assert (nodes != null) : "nodes cannot be null";
-                Set<Edge<E, N>> edges = graph.get(s);
-                for (Edge<E, N> e : edges) {
+                Set<Edge<Node, Label>> edges = graph.get(s);
+                for (Edge<Node, Label> e : edges) {
                     assert (e.getChild() != null) : "child node cannot be null";
                     assert (nodes.contains(e.getChild())) : "child node must be a node of graph";
                     assert (e.getLabel() != null) : "edge label cannot be null";

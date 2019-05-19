@@ -178,24 +178,24 @@ public class ModelConnector {
    * @param start the start of the search
    * @param end the end of the search
    * @param graph the graph we are searching the path in
-   * @param <E> the type for Path
+   * @param <Node> the type for Path node
    * @spec.requires {@code start} and {@code end} are nodes of {@code graph}
    * @return a new shortest distance path from the {@code start} to the {@code end} in {@code graph}, {@literal null} if none exists
    */
-  public static <E> Path<E> findShortestPath(E start, E end, Graph<E, Double> graph) {
-    Queue<Path<E>> active = new PriorityQueue<>(new PathSorter<>());
-    Set<E> finished = new HashSet<>();
+  public static <Node> Path<Node> findShortestPath(Node start, Node end, Graph<Node, Double> graph) {
+    Queue<Path<Node>> active = new PriorityQueue<>(new PathSorter<>());
+    Set<Node> finished = new HashSet<>();
     active.add(new Path<>(start));
     while (!active.isEmpty()) {
-      Path<E> minPath = active.remove();
-      E minDest = minPath.getEnd();
+      Path<Node> minPath = active.remove();
+      Node minDest = minPath.getEnd();
       if (minDest.equals(end)) {
         return minPath;
       } else if (!finished.contains(minDest)) {
-        for (Edge<E, Double> edge: graph.getEdges(minDest)) {
-          E p = edge.getChild();
+        for (Edge<Node, Double> edge: graph.getEdges(minDest)) {
+          Node p = edge.getChild();
           if (!finished.contains(p)) {
-            Path<E> newPath = minPath.extend(p, edge.getLabel());
+            Path<Node> newPath = minPath.extend(p, edge.getLabel());
             active.add(newPath);
           }
           finished.add(minDest);
@@ -224,9 +224,9 @@ public class ModelConnector {
   /**
    * this class is for Path to be compatible with PriorityQueue
    */
-  private static class PathSorter<E> implements Comparator<Path<E>> {
+  private static class PathSorter<Node> implements Comparator<Path<Node>> {
     @Override
-    public int compare(Path<E> p1, Path<E> p2) {
+    public int compare(Path<Node> p1, Path<Node> p2) {
       return Double.compare(p1.getCost(), p2.getCost());
     }
 

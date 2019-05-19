@@ -1,11 +1,13 @@
 package graph;
 
 /**
- * A class representing the edge, with child node and label
+ * A class representing the edge, with child node and l
+ * @param <Node> the type of the child node
+ * @param <Label> the type of the label
  */
-public class Edge<E,N> {
-    private E child;
-    private N label;
+public class Edge<Node,Label> {
+    private Node child;
+    private Label label;
 
     // Representation Invariant for every Edge e is child != null and label != null
     //
@@ -16,7 +18,7 @@ public class Edge<E,N> {
      * @param child the child node of the edge
      * @param label the label between the nodes
      */
-    public Edge(E child, N label) {
+    public Edge(Node child, Label label) {
         this.child = child;
         this.label = label;
         checkRep();
@@ -26,7 +28,7 @@ public class Edge<E,N> {
      * return the child node
      * @return the child node of this
      */
-    public E getChild() {
+    public Node getChild() {
         checkRep();
         return child;
     }
@@ -35,7 +37,7 @@ public class Edge<E,N> {
      * return the label of this
      * @return the label of this
      */
-    public N getLabel() {
+    public Label getLabel() {
         checkRep();
         return label;
     }
