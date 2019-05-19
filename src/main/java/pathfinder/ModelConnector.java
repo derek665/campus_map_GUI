@@ -79,7 +79,7 @@ public class ModelConnector {
     checkRep();
   }
 
-  private Graph<Point, Double> buildGraph(List<CampusPath> coordinates) {
+  private static Graph<Point, Double> buildGraph(List<CampusPath> coordinates) {
     Graph<Point, Double> graph = new Graph<>();
     for (CampusPath campusPath : coordinates) {
       Point start = new Point(campusPath.getX1(), campusPath.getY1());
