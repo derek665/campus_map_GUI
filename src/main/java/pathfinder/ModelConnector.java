@@ -39,10 +39,11 @@ public class ModelConnector {
   // Rep Invariant: graph != null
   //                && every edge label in grpah >= 0
   //                && buildingCoordinates != null
+  //                && shortToLong != null
   //                && every child is a node of the graph
   //
   // AF(this) = each node in graph holds a coordinates on the campus, and connected to other coordinates with distance as label
-  //            Some coordinates are campus buildings which are stored in buildingsInfo
+  //            Some coordinates are campus buildings which are stored in buildingCoordinates
 
   private Graph<Point, Double> graph;
   private Map<String, Point> buildingCoordinates; // map the short name of the buildings to its coordinates
@@ -64,6 +65,7 @@ public class ModelConnector {
     buildingCoordinates = new HashMap<>();
     shortToLong = new HashMap<>();
     List<CampusBuilding> buildingsInfo = CampusPathsParser.parseCampusBuildings();
+
     for (CampusBuilding campusBuilding : buildingsInfo) {
       if (!buildingCoordinates.containsKey(campusBuilding.getShortName())) {
         buildingCoordinates.put(campusBuilding.getShortName(), new Point(campusBuilding.getX(), campusBuilding.getY()));
@@ -72,6 +74,7 @@ public class ModelConnector {
         shortToLong.put(campusBuilding.getShortName(), campusBuilding.getLongName());
       }
     }
+
     graph = buildGraph(CampusPathsParser.parseCampusPaths());
     checkRep();
   }
@@ -186,12 +189,15 @@ public class ModelConnector {
     Queue<Path<Node>> active = new PriorityQueue<>(new PathSorter<>());
     Set<Node> finished = new HashSet<>();
     active.add(new Path<>(start));
+
     while (!active.isEmpty()) {
       Path<Node> minPath = active.remove();
       Node minDest = minPath.getEnd();
+
       if (minDest.equals(end)) {
         return minPath;
       } else if (!finished.contains(minDest)) {
+
         for (Edge<Node, Double> edge: graph.getEdges(minDest)) {
           Node p = edge.getChild();
           if (!finished.contains(p)) {

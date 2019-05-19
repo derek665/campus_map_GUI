@@ -9,4 +9,4 @@ I added 3 public methods to Graph
    	3. removeEdgeFrom(String, Edge), alternative to removeEdgeFrom(String, String, String), same reasons as #1
 
 I took out "implements Comparable" in both the Graph and Edge since we can't compare generics,
-I added a private Comparator class to MarvelPaths in order for me to get my edges in a sorted order
+I added a private Comparator class to MarvelPaths, and the implTest for Graph and MarvelPaths in order for me to get my edges in a sorted order
