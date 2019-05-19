@@ -1,0 +1,8 @@
+# test correct output when the start node and end node are the same
+
+created graph testSameNode
+
+added node A to testSameNode
+
+path from A to A:
+total cost: 0.000

@@ -1,0 +1,9 @@
+# test correct output when start node and end node are the same, and it has a reflexive edge
+
+CreateGraph testReflexive
+
+AddNode testReflexive A
+
+AddEdge testReflexive A A 100.0
+
+FindPath testReflexive A A

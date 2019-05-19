@@ -1,0 +1,7 @@
+# test correct output when the start node and end node are the same
+
+CreateGraph testSameNode
+
+AddNode testSameNode A
+
+FindPath testSameNode A A

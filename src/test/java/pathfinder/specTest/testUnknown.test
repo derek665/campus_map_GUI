@@ -1,0 +1,5 @@
+# test correct ouput when nodes are not defined
+
+CreateGraph testNone
+
+FindPath testNone A B

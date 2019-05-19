@@ -1,0 +1,6 @@
+# test correct ouput when nodes are not defined
+
+created graph testNone
+
+unknown node A
+unknown node B

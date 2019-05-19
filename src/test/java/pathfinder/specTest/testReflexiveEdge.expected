@@ -1,0 +1,10 @@
+# test correct output when start node and end node are the same, and it has a reflexive edge
+
+created graph testReflexive
+
+added node A to testReflexive
+
+added edge 100.000 from A to A in testReflexive
+
+path from A to A:
+total cost: 0.000
