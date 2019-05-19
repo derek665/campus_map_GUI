@@ -14,6 +14,7 @@ package pathfinder;
 import pathfinder.datastructures.*;
 import pathfinder.parser.CampusBuilding;
 import graph.*;
+import pathfinder.parser.CampusPath;
 import pathfinder.parser.CampusPathsParser;
 
 import java.util.*;
@@ -34,8 +35,18 @@ different ways, without requiring a lot of work to change things over.
  * for the pathfinder and campus paths applications.
  */
 public class ModelConnector {
+
+  // Rep Invariant: graph != null
+  //                && every edge label in grpah >= 0
+  //                && buildingCoordinates != null
+  //                && every child is a node of the graph
+  //
+  // AF(this) = each node in graph holds a coordinates on the campus, and connected to other coordinates with distance as label
+  //            Some coordinates are campus buildings which are stored in buildingsInfo
+
   private Graph<Point, Double> graph;
-  private List<CampusBuilding> buildingsInfo;
+  private Map<String, Point> buildingCoordinates; // map the short name of the buildings to its coordinates
+  private Map<String, String> shortToLong; // map all the short name to its long name
 
   /**
    * Creates a new {@link ModelConnector} and initializes it to contain data about
@@ -44,14 +55,46 @@ public class ModelConnector {
    * and prepared, and any method may be called on this object to query the data.
    */
   public ModelConnector() {
-    // TODO: You'll want to do things like read in the campus data and assemble your graph.
     // Remember the tenets of design that you've learned. You shouldn't necessarily do everything
     // you need for the model in this one constructor, factor code out to helper methods or
     // classes to work with your design best. The only thing that needs to remain the
     // same is the name of this class and the four method signatures below, because the
     // Pathfinder application calls these methods in order to talk to your model.
     // Change and add anything else as you'd like.
-    buildingsInfo = CampusPathsParser.parseCampusBuildings();
+    buildingCoordinates = new HashMap<>();
+    shortToLong = new HashMap<>();
+    List<CampusBuilding> buildingsInfo = CampusPathsParser.parseCampusBuildings();
+    for (CampusBuilding campusBuilding : buildingsInfo) {
+      if (!buildingCoordinates.containsKey(campusBuilding.getShortName())) {
+        buildingCoordinates.put(campusBuilding.getShortName(), new Point(campusBuilding.getX(), campusBuilding.getY()));
+      }
+      if (!shortToLong.containsKey(campusBuilding.getShortName())) {
+        shortToLong.put(campusBuilding.getShortName(), campusBuilding.getLongName());
+      }
+    }
+    graph = buildGraph(CampusPathsParser.parseCampusPaths());
+    checkRep();
+  }
+
+  private Graph<Point, Double> buildGraph(List<CampusPath> coordinates) {
+    Graph<Point, Double> graph = new Graph<>();
+    for (CampusPath campusPath : coordinates) {
+      Point start = new Point(campusPath.getX1(), campusPath.getY1());
+      Point end = new Point(campusPath.getX2(), campusPath.getY2());
+
+      if (!graph.hasNode(start)) {
+        graph.addNode(start);
+      }
+
+      if (!graph.hasNode(end)) {
+        graph.addNode(end);
+      }
+
+      if (!graph.hasLabel(start, end, campusPath.getDistance())) {
+        graph.addChild(start, end, campusPath.getDistance());
+      }
+    }
+    return graph;
   }
 
   /**
@@ -59,9 +102,10 @@ public class ModelConnector {
    * @return {@literal true} iff the short name provided exists in this campus map.
    */
   public boolean shortNameExists(String shortName) {
-    // TODO: Implement this method to talk to your model, then remove the exception below.
-
-    throw new RuntimeException("shortNameExists not implemented yet.");
+    checkRep();
+    boolean a = shortToLong.containsKey(shortName);
+    checkRep();
+    return a;
   }
 
   /**
@@ -70,9 +114,13 @@ public class ModelConnector {
    * @throws IllegalArgumentException if the short name provided does not exist.
    */
   public String longNameForShort(String shortName) {
-    // TODO: Implement this method to talk to your model, then remove the exception below.
-
-    throw new RuntimeException("longNameForShort not implemented yet.");
+    checkRep();
+    String longName = shortToLong.get(shortName);
+    if (longName == null) {
+      throw new IllegalArgumentException("building does not exists");
+    }
+    checkRep();
+    return longName;
   }
 
   /**
@@ -83,24 +131,22 @@ public class ModelConnector {
    * @throws IllegalArgumentException if the short name does not exist
    */
   public Point getCoordinate(String shortName) {
-    if (!shortNameExists(shortName)) {
-      throw new IllegalArgumentException("short name does not exist");
+    checkRep();
+    if (!buildingCoordinates.containsKey(shortName)) {
+      throw new IllegalArgumentException("building does not exist");
     }
-    for (CampusBuilding cb : buildingsInfo) {
-      if (cb.getShortName().equals(shortName)) {
-        return new Point(cb.getX(), cb.getY());
-      }
-    }
-    return null;
+    Point p = buildingCoordinates.get(shortName);
+    return p;
   }
 
   /**
    * @return The mapping from all the buildings' short names to their long names in this campus map.
    */
   public Map<String, String> buildingNames() {
-    // TODO: Implement this method to talk to your model, then remove the exception below.
-
-    throw new RuntimeException("buildingNames not implemented yet.");
+    checkRep();
+    Map<String, String> map = new HashMap<>(shortToLong);
+    checkRep();
+    return map;
   }
 
   /**
@@ -115,17 +161,26 @@ public class ModelConnector {
    *                                  this campus map.
    */
   public Path<Point> findShortestPath(String startShortName, String endShortName) {
-    // TODO: Implement this method to talk to your model, then remove the exception below.
-    throw new RuntimeException();
+    checkRep();
+    if (!buildingCoordinates.containsKey(startShortName) || !buildingCoordinates.containsKey(endShortName)) {
+      throw new IllegalArgumentException("building does not exists");
+    }
+    Point start = buildingCoordinates.get(startShortName);
+    Point end = buildingCoordinates.get(endShortName);
+    Path<Point> result = findShortestPath(start, end, this.graph);
+    checkRep();
+    return result;
   }
 
   /**
-   * find the shortest path by distance from start to end
+   * find the shortest path by distance from {@code start} to {@code end} in {@code graph}
    *
    * @param start the start of the search
    * @param end the end of the search
    * @param graph the graph we are searching the path in
-   * @return a new shortest distance path from the start to the end
+   * @param <E> the type for Path
+   * @spec.requires {@code start} and {@code end} are nodes of {@code graph}
+   * @return a new shortest distance path from the {@code start} to the {@code end} in {@code graph}, {@literal null} if none exists
    */
   public static <E> Path<E> findShortestPath(E start, E end, Graph<E, Double> graph) {
     Queue<Path<E>> active = new PriorityQueue<>(new PathSorter<>());
@@ -150,19 +205,30 @@ public class ModelConnector {
     return null;
   }
 
-  private static class PathSorter<E> implements Comparator<Path<E>> {
-    @Override
-    public int compare(Path<E> p1, Path<E> p2) {
-      double p1C = p1.getCost();
-      double p2C = p2.getCost();
-      if (p1C > p2C) {
-        return 1;
-      } else if (p1C < p2C) {
-        return -1;
-      } else {
-        return 0;
+  /**
+   * exception will be thrown if rep invariant is violated
+   */
+  private void checkRep() {
+    assert graph != null;
+    assert buildingCoordinates != null;
+    assert shortToLong != null;
+    for (Point p : graph.getNodes()) {
+      assert p != null;
+      for (Edge<Point, Double> edge : graph.getEdges(p)) {
+        assert graph.hasNode(edge.getChild());
+        assert edge.getLabel() >= 0;
       }
     }
   }
 
+  /**
+   * this class is for Path to be compatible with PriorityQueue
+   */
+  private static class PathSorter<E> implements Comparator<Path<E>> {
+    @Override
+    public int compare(Path<E> p1, Path<E> p2) {
+      return Double.compare(p1.getCost(), p2.getCost());
+    }
+
+  }
 }

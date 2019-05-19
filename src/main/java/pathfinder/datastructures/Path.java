@@ -19,6 +19,7 @@ import java.util.List;
  * This represents an immutable path between two objects, particularly
  * {@link Path#getStart()} and {@link Path#getEnd()}. Also contains a cached
  * version of the total cost along this path, for efficient repeated access.
+ * @param <E> the type of Path
  */
 public class Path<E> implements Iterable<Path<E>.Segment> {
 
@@ -212,7 +213,7 @@ public class Path<E> implements Iterable<Path<E>.Segment> {
   /**
    * Segment represents a single segment as part of a longer, more complex path between objects.
    * Segments are immutable parts of a larger path that cannot be instantiated directly, and
-   * are created as part of larger paths by calling {@link Path<E>#extend(Point, double)}.
+   * are created as part of larger paths by calling {@link Path#extend(E, double)}.
    */
   public class Segment {
 
