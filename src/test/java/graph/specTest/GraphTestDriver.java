@@ -227,6 +227,9 @@ public class GraphTestDriver {
         public static final long serialVersionUID = 3495;
     }
 
+    /**
+     * This class is for the Edge to appear in sorted order
+     */
     private class EdgeSorter implements Comparator<Edge<String, String>> {
         @Override
         public int compare(Edge<String, String> e1, Edge<String, String> e2) {
