@@ -236,11 +236,15 @@ public class PathfinderTestDriver {
     }
     if (graphName.hasNode(start) && graphName.hasNode((end))) {
       Path<String> result = SearchPath.findShortestPath(start, end, graphName);
-      output.println("path from " + start + " to " + end + ":");
-      for (Path<String>.Segment seg : result) {
-        output.println(seg.getStart() + " to " + seg.getEnd() + " with weight " + String.format("%.3f", seg.getCost()));
+      if (result != null) {
+        output.println("path from " + start + " to " + end + ":");
+        for (Path<String>.Segment seg : result) {
+          output.println(seg.getStart() + " to " + seg.getEnd() + " with weight " + String.format("%.3f", seg.getCost()));
+        }
+        output.println("total cost: " + String.format("%.3f", result.getCost()));
+      } else {
+        output.println("no path found");
       }
-      output.println("total cost: " + String.format("%.3f", result.getCost()));
     }
   }
 
