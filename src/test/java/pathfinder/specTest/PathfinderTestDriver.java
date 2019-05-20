@@ -17,6 +17,7 @@ import java.io.*;
 import java.util.*;
 import graph.*;
 import pathfinder.ModelConnector;
+import pathfinder.SearchPath;
 import pathfinder.datastructures.*;
 
 /**
@@ -189,8 +190,7 @@ public class PathfinderTestDriver {
   }
 
   private void listNodes(String graphName) {
-    Set<String> node = new TreeSet<>();
-    node.addAll(graphs.get(graphName).getNodes());
+    Set<String> node = new TreeSet<>(graphs.get(graphName).getNodes());
     StringBuilder result = new StringBuilder();
     result.append(graphName + " contains:");
     for (String s : node) {
@@ -235,7 +235,7 @@ public class PathfinderTestDriver {
       output.println("unknown node " + end);
     }
     if (graphName.hasNode(start) && graphName.hasNode((end))) {
-      Path<String> result = ModelConnector.findShortestPath(start, end, graphName);
+      Path<String> result = SearchPath.findShortestPath(start, end, graphName);
       output.println("path from " + start + " to " + end + ":");
       for (Path<String>.Segment seg : result) {
         output.println(seg.getStart() + " to " + seg.getEnd() + " with weight " + String.format("%.3f", seg.getCost()));
