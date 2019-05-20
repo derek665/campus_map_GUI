@@ -27,7 +27,7 @@ public class SearchPath {
         Set<Node> finished = new HashSet<>();
         active.add(new Path<>(start));
 
-        // {inv: (active = [] && no path found) || active.remove() is the shortest path}
+        // {inv: (active = [] && no path found) || active.remove() is the current shortest path from start}
         while (!active.isEmpty()) {
             Path<Node> minPath = active.remove();
             Node minDest = minPath.getEnd();

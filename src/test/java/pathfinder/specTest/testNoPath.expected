@@ -1,0 +1,8 @@
+# test correct output when no path is found
+
+created graph noPath
+
+added node A to noPath
+added node B to noPath
+
+no path found

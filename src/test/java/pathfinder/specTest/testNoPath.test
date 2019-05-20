@@ -1,0 +1,8 @@
+# test correct output when no path is found
+
+CreateGraph noPath
+
+AddNode noPath A
+AddNode noPath B
+
+FindPath noPath A B
