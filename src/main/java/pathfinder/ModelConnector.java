@@ -81,6 +81,8 @@ public class ModelConnector {
 
   private static Graph<Point, Double> buildGraph(List<CampusPath> coordinates) {
     Graph<Point, Double> graph = new Graph<>();
+
+    // {inv: n from 0 to (i-1), coordinates.get(n) is a node of graph
     for (CampusPath campusPath : coordinates) {
       Point start = new Point(campusPath.getX1(), campusPath.getY1());
       Point end = new Point(campusPath.getX2(), campusPath.getY2());
@@ -190,6 +192,7 @@ public class ModelConnector {
     Set<Node> finished = new HashSet<>();
     active.add(new Path<>(start));
 
+    // {inv: (active = [] && no path found) || active.remove() is the shortest path}
     while (!active.isEmpty()) {
       Path<Node> minPath = active.remove();
       Node minDest = minPath.getEnd();
@@ -198,6 +201,7 @@ public class ModelConnector {
         return minPath;
       } else if (!finished.contains(minDest)) {
 
+        // {inv: n from 0 to (i-1), active = active_pre + (minPath + graph.getEdge(minDest)_n)}
         for (Edge<Node, Double> edge: graph.getEdges(minDest)) {
           Node p = edge.getChild();
           if (!finished.contains(p)) {

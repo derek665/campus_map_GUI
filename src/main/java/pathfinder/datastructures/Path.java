@@ -307,7 +307,7 @@ public class Path<Node> implements Iterable<Path<Node>.Segment> {
       if(!(obj instanceof Path.Segment)) {
         return false;
       } else {
-        Path.Segment other = (Path.Segment) obj;
+        Path<?>.Segment other = (Path<?>.Segment) obj;
         return other.getStart().equals(this.getStart())
                 && other.getEnd().equals(this.getEnd())
                 && (Double.compare(this.cost, other.cost) == 0);
