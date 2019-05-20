@@ -7,10 +7,9 @@ import pathfinder.datastructures.Path;
 import java.util.*;
 
 /**
- * A class for a graph to search for a path with the shortest distance
+ * A class for a graph to search for a path with the shortest distance between 2 node
  */
 public class SearchPath {
-
 
     /**
      * find the shortest path by distance from {@code start} to {@code end} in {@code graph}
@@ -60,5 +59,4 @@ public class SearchPath {
         }
 
     }
-
 }
