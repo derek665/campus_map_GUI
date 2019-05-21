@@ -9,6 +9,9 @@ import graph.*;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * this class test the implementation of the SearchPath class and its Dijkstra's Algorithm
+ */
 public class SearchPathTest {
     private Graph<String, Double> graph;
 
