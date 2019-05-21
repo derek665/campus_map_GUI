@@ -42,7 +42,7 @@ test {
   exclude 'poly/**'
   // exclude 'graph/**'
   // exclude 'marvel/**'
-  exclude 'pathfinder/**'
+  // exclude 'pathfinder/**'
 }
 
 tasks.withType(Test) {
@@ -82,7 +82,7 @@ compileJava {
 
 compileTestJava {
     options.encoding = 'UTF-8'
-    options.compilerArgs << "-Xlint:unchecked"
+    options.compilerArgs << "-Xlint:unchecked" << "-Werror"
 }
 
 

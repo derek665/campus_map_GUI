@@ -12,3 +12,6 @@ out/
 
 # npm dependencies
 node-modules/
+
+# dump files
+*.hprof
