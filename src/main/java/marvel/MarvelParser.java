@@ -78,11 +78,9 @@ public class MarvelParser {
     catch (FileNotFoundException e) {
       e.printStackTrace();
       System.out.println(filename + ": file not found");
-      System.exit(1);
     }
     catch (IOException e) {
       e.printStackTrace();
-      System.exit(1);
     }
     return graph;
   }
