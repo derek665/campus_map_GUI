@@ -1,0 +1,7 @@
+# test correct output when the first node is unknown
+
+CreateGraph testFirst
+
+AddNode testFirst B
+
+FindPath testFirst A B

@@ -1,0 +1,7 @@
+# test correct output when the second node is unknown
+
+created graph testSecond
+
+added node A to testSecond
+
+unknown node B

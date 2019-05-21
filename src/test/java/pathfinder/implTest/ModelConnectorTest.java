@@ -8,7 +8,7 @@ import pathfinder.datastructures.*;
 import static org.junit.Assert.assertEquals;
 
 /**
- * this class test the implementation for ModelConnector
+ * this class test the implementation of additional methods for ModelConnector
  */
 public class ModelConnectorTest {
 
