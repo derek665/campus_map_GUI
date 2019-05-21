@@ -45,9 +45,14 @@ public class ModelConnector {
   // AF(this) = each node in graph holds a coordinates on the campus, and connected to other coordinates with distance as label
   //            Some coordinates are campus buildings which are stored in buildingCoordinates
 
+  /** the graph of the campus with locations as node */
   private Graph<Point, Double> graph;
-  private Map<String, Point> buildingCoordinates; // map the short name of the buildings to its coordinates
-  private Map<String, String> shortToLong; // map all the short name to its long name
+
+  /** the short name of the buildings map to its coordinates */
+  private Map<String, Point> buildingCoordinates;
+
+  /** the short name of the building map to its full name */
+  private Map<String, String> shortToLong;
 
   /**
    * Creates a new {@link ModelConnector} and initializes it to contain data about
