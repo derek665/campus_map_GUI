@@ -79,6 +79,12 @@ public class ModelConnector {
     checkRep();
   }
 
+  /**
+   * build a graph of the campus from the list of coordinates
+   *
+   * @param coordinates the list of coordinates being used as graph data
+   * @return a new graph with all the coordinates connected appropriately
+   */
   private static Graph<Point, Double> buildGraph(List<CampusPath> coordinates) {
     Graph<Point, Double> graph = new Graph<>();
 
