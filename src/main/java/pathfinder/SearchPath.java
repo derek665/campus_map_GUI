@@ -51,6 +51,7 @@ public class SearchPath {
 
     /**
      * this class is for Path to be compatible with PriorityQueue
+     * @param <Node> the type of the node in the path
      */
     private static class PathSorter<Node> implements Comparator<Path<Node>> {
         @Override
