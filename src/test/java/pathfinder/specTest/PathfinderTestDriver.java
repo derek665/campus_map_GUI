@@ -242,6 +242,8 @@ public class PathfinderTestDriver {
           output.println(seg.getStart() + " to " + seg.getEnd() + " with weight " + String.format("%.3f", seg.getCost()));
         }
         output.println("total cost: " + String.format("%.3f", result.getCost()));
+      } else {
+        output.println("path not found");
       }
     }
   }
