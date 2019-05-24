@@ -13,6 +13,7 @@
 /* Most of the assignment involves changes to this class */
 
 import React, {Component} from 'react';
+import Button from './Button'
 
 class Grid extends Component {
   constructor(props) {
