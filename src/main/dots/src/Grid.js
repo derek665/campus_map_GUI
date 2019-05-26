@@ -14,6 +14,8 @@
 
 import React, {Component} from 'react';
 import Button from './Button'
+import GridSizePicker from "./GridSizePicker";
+import MainContainer from "./MainContainer";
 
 class Grid extends Component {
   constructor(props) {
@@ -34,21 +36,26 @@ class Grid extends Component {
     ctx.clearRect(0, 0, this.props.width, this.props.height);
     var background = new Image();
     background.onload = () => {
-      ctx.drawImage(background,0,0);
-      let coordinates = this.getCoordinates();
+      ctx.drawImage(background,3,3);
+      alert(this.props.size);
+      let coordinates = this.getCoordinates(this.props.size);
       coordinates.forEach(coordinate => {
         this.drawCircle(ctx, coordinate);
       });
     }
-    // background.src = "???"
+    background.src = "https://courses.cs.washington.edu/courses/cse331/19sp/hws/hw8/image.jpg";
   };
 
-  getCoordinates = () => {
-    return [
-      [100, 100], [100, 200], [100, 300],
-      [200, 100], [200, 200], [200, 300],
-      [300, 100], [300, 200], [300, 300]
-    ];
+  getCoordinates = (x) => {
+    let result = [];
+    var n;
+    for (n = 1; n <= x; n++) {
+      var j;
+      for (j = 1; j <= x; j++) {
+        result.push([n * 100, j * 100]);
+      }
+    }
+    return result;
   };
 
   drawCircle = (ctx, coordinate) => {
@@ -61,7 +68,7 @@ class Grid extends Component {
     return (
       <div id="canvas-div">
         <canvas ref={this.canvasReference} width={this.props.width} height={this.props.height} />
-        <div className="center-text">Current Grid Size: 3</div>
+        <div className="center-text">Current Grid Size: {this.props.size}</div>
         <Button color="primary" onClick={() => { console.log('onClick'); }} value="Draw" />
         <Button color="secondary" onClick={() => { console.log('onClick'); }} value="Clear" />
       </div>
