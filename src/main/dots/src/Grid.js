@@ -68,25 +68,28 @@ class Grid extends Component {
   drawHandler = () =>  {
     let ctx = this.canvasReference.current.getContext('2d');
     ctx.beginPath();
-    const lines = this.props.edges.split("\n");
-    var n;
-    const gap = 400 / (parseInt(this.props.size) + 1);
-    for (n = 0; n < lines.length; n++) {
-      const line = lines[0].split(" ");
-      var pair1 = line[0].split(",");
-      var pair2 = line[1].split(",");
-      pair1[0] = parseInt(pair1[0]) * gap;  // x1
-      pair1[1] = parseInt(pair1[1]) * gap;  // y1
-      pair2[0] = parseInt(pair2[0]) * gap;  // x2
-      pair2[1] = parseInt(pair2[1]) * gap;  // y2
-      console.log(pair1[0]);
-      console.log(pair1[1]);
-      console.log(pair2[0]);
-      ctx.moveTo(pair1[0], pair1[1]);
-      ctx.lineTo(pair2[0], pair2[1]);
-      ctx.strokeStyle = line[2];
-      ctx.stroke();
+    if (this.props.edges.length > 0) {
+      const lines = this.props.edges.split("\n");
+      var n;
+      const gap = 400 / (parseInt(this.props.size) + 1);
+      for (n = 0; n < lines.length; n++) {
+        const line = lines[0].split(" ");
+        var pair1 = line[0].split(",");
+        var pair2 = line[1].split(",");
+        pair1[0] = parseInt(pair1[0]) * gap;  // x1
+        pair1[1] = parseInt(pair1[1]) * gap;  // y1
+        pair2[0] = parseInt(pair2[0]) * gap;  // x2
+        pair2[1] = parseInt(pair2[1]) * gap;  // y2
+        ctx.moveTo(pair1[0], pair1[1]);
+        ctx.lineTo(pair2[0], pair2[1]);
+        ctx.strokeStyle = line[2];
+        ctx.stroke();
+      }
     }
+  }
+
+  clearHandler = () => {
+    this.redraw();
   }
 
   render() {
@@ -95,7 +98,7 @@ class Grid extends Component {
         <canvas ref={this.canvasReference} width={this.props.width} height={this.props.height} />
         <div className="center-text">Current Grid Size: {this.props.size}</div>
         <Button color="primary" onClick={this.drawHandler} value="Draw" />
-        <Button color="secondary" onClick={() => { console.log('onClick'); }} value="Clear" />
+        <Button color="secondary" onClick={this.clearHandler} value="Clear" />
       </div>
     );
   }
