@@ -33,6 +33,7 @@ class EdgeList extends Component {
       </div>
     );
   }
+
 }
 
 export default EdgeList;
