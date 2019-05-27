@@ -37,7 +37,6 @@ class Grid extends Component {
     var background = new Image();
     background.onload = () => {
       ctx.drawImage(background,3,3);
-      alert(this.props.size);
       let coordinates = this.getCoordinates(this.props.size);
       coordinates.forEach(coordinate => {
         this.drawCircle(ctx, coordinate);
@@ -47,12 +46,13 @@ class Grid extends Component {
   };
 
   getCoordinates = (x) => {
-    let result = [];
+    var result = [];
+    const gap = 400/(parseInt(x)+ 1);
     var n;
-    for (n = 1; n <= x; n++) {
+    for (n = gap; n < 400; n+=gap) {
       var j;
-      for (j = 1; j <= x; j++) {
-        result.push([n * 100, j * 100]);
+      for (j = gap; j < 400; j+=gap) {
+        result.push([n, j]);
       }
     }
     return result;
@@ -73,6 +73,10 @@ class Grid extends Component {
         <Button color="secondary" onClick={() => { console.log('onClick'); }} value="Clear" />
       </div>
     );
+  }
+
+  drawHandler() {
+
   }
 }
 

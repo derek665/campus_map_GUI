@@ -23,17 +23,33 @@ class MainContainer extends Component {
       size: 3,
       edges: ""
     }
+    this.sizeHandler = this.sizeHandler.bind(this);
+    this.edgeHandler = this.edgeHandler.bind(this);
   }
 
   render() {
     let gridSize = 400;
     return (
       <div>
-        <GridSizePicker value={3} onChange={() => { console.log('onChange'); }} />
+        <GridSizePicker value={this.state.size}  onChange={this.sizeHandler} />
         <Grid size={this.state.size} width={gridSize} height={gridSize} />
-        <EdgeList value={this.state.edges} rows={5} />
+        <EdgeList value={this.state.edges} rows={5}  onChange={this.edgeHandler}/>
       </div>
     );
+  }
+
+  sizeHandler(event) {
+      if (event.target.value > 200) {
+          alert("size cannot be greater than 200");
+      } else if (event.target.value < 0) {
+          alert("size cannot be negative");
+      } else {
+          this.setState({size: event.target.value});
+      }
+  }
+
+  edgeHandler(event) {
+      this.setState({edges: event.target.value});
   }
 }
 
