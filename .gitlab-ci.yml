@@ -1,29 +1,7 @@
 stages:
-  - build
-  - validation
   - submission
-
-compileJava:
-  stage: build
-  script: chmod +x gradlew && ./gradlew compileJava
-  only: ['tags']
-
-compileTestJava:
-  stage: build
-  script: chmod +x gradlew && ./gradlew compileTestJava
-  only: ['tags']
-
-test:
-  stage: validation
-  script: chmod +x gradlew && ./gradlew test --fail-fast
-  only: ['tags']
-
-javadoc:
-  stage: validation
-  script: chmod +x gradlew && ./gradlew javadoc
-  only: ['tags']
 
 submit-hw7:
   stage: submission
-  script: git checkout hw7-final
+  script: git checkout hw8-final
   only: ['tags']
