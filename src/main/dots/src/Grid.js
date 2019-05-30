@@ -97,13 +97,13 @@ class Grid extends Component {
               ctx.strokeStyle = line[2];
               ctx.stroke();
             } else {
-              alert("Coordinates out of bound");
+              alert("Coordinates out of bound in line " + (parseInt(n) + 1));
             }
           }
         }
 
         if (!(lineIsLength3 && lines[n].includes(" ") && pair)) {
-          alert("Incorrect format for Draw on line " + (parseInt(n) + 1));
+          alert("Incorrect format for Draw in line " + (parseInt(n) + 1));
         }
       }
     }
