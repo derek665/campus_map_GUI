@@ -42,9 +42,9 @@ class MainContainer extends Component {
       if (event.target.value > 200) {
           alert("size cannot be greater than 200");
     } else if (event.target.value < 0) {
-        alert("size cannot be negative");
+          alert("size cannot be negative");
     } else {
-        this.setState({size: event.target.value});
+          this.setState({size: event.target.value});
     }
   }
 
