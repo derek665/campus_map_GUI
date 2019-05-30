@@ -39,13 +39,15 @@ class MainContainer extends Component {
   }
 
   sizeHandler(event) {
-      if (event.target.value > 200) {
-          alert("size cannot be greater than 200");
-      } else if (event.target.value < 0) {
-          alert("size cannot be negative");
-      } else {
-          this.setState({size: event.target.value});
-      }
+    if (!Number.isInteger(event.target.value)) {
+        alert("size must be an integer");
+    } else if (event.target.value > 200) {
+        alert("size cannot be greater than 200");
+    } else if (event.target.value < 0) {
+        alert("size cannot be negative");
+    } else {
+        this.setState({size: event.target.value});
+    }
   }
 
   edgeHandler(event) {
