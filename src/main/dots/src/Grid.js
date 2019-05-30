@@ -47,11 +47,11 @@ class Grid extends Component {
   };
 
   getCoordinates = (x) => {
-    var result = [];
+    let result = [];
     const gap = 400/(parseInt(x)+ 1);
-    var n;
+    let n;
     for (n = gap; n < 400; n+=gap) {
-      var j;
+      let j;
       for (j = gap; j < 400; j+=gap) {
         result.push([n, j]);
       }
@@ -70,16 +70,16 @@ class Grid extends Component {
     ctx.beginPath();
     if (this.props.edges.length > 0) {
       const lines = this.props.edges.split("\n");
-      var n;
+      let n;
       const gap = 400 / (parseInt(this.props.size) + 1);
       for (n = 0; n < lines.length; n++) {
         const line = lines[0].split(" ");
-        var pair1 = line[0].split(",");
-        var pair2 = line[1].split(",");
-        pair1[0] = parseInt(pair1[0]) * gap;  // x1
-        pair1[1] = parseInt(pair1[1]) * gap;  // y1
-        pair2[0] = parseInt(pair2[0]) * gap;  // x2
-        pair2[1] = parseInt(pair2[1]) * gap;  // y2
+        let pair1 = line[0].split(",");
+        let pair2 = line[1].split(",");
+        pair1[0] = (parseInt(pair1[0]) + 1) * gap;  // x1
+        pair1[1] = (parseInt(pair1[1]) + 1) * gap;  // y1
+        pair2[0] = (parseInt(pair2[0]) + 1) * gap;  // x2
+        pair2[1] = (parseInt(pair2[1]) + 1) * gap;  // y2
         ctx.moveTo(pair1[0], pair1[1]);
         ctx.lineTo(pair2[0], pair2[1]);
         ctx.strokeStyle = line[2];
