@@ -44,7 +44,7 @@ class MainContainer extends Component {
     } else if (event.target.value < 0) {
           alert("size cannot be negative");
     } else {
-          this.setState({size: event.target.value});
+          this.setState({size: parseInt(event.target.value)});
     }
   }
 
