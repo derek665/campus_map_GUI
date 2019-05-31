@@ -1,4 +1,4 @@
-  // Students should not edit this file.
+// Students should not edit this file.
 
 plugins {
   // id 'pmd'
@@ -21,11 +21,14 @@ dependencies {
   testImplementation group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3'
   testImplementation group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
   implementation 'com.opencsv:opencsv:4.3.2'
+  implementation "com.google.code.gson:gson:2.8.5"
+  implementation "com.sparkjava:spark-core:2.8.0"
+  implementation "org.slf4j:slf4j-simple:1.7.21"
 }
 
 javadoc {
-    options.tags = [ "spec.modifies", "spec.effects", "spec.requires", "spec.specfield", "spec.derivedfield" ]
-    options.addBooleanOption "-no-module-directories", true
+  options.tags = ["spec.modifies", "spec.effects", "spec.requires", "spec.specfield", "spec.derivedfield"]
+  options.addBooleanOption "-no-module-directories", true
 }
 
 ///
@@ -41,7 +44,7 @@ test {
 }
 
 tasks.withType(Test) {
-    enableAssertions = true
+  enableAssertions = true
 }
 
 task copyGraphTestScripts(type: Copy) {
@@ -71,13 +74,13 @@ test.dependsOn copyPathfinderTestScripts
 ///
 
 compileJava {
-    options.encoding = 'UTF-8'
-    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Werror"
+  options.encoding = 'UTF-8'
+  options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Werror"
 }
 
 compileTestJava {
-    options.encoding = 'UTF-8'
-    options.compilerArgs << "-Xlint:unchecked" << "-Werror"
+  options.encoding = 'UTF-8'
+  options.compilerArgs << "-Xlint:unchecked" << "-Werror"
 }
 
 
@@ -86,7 +89,7 @@ compileTestJava {
 ///
 
 task validate {
-    description = 'Validate the working copy.  Ensures that the project builds, that required files exist and a Javadoc is generated.'
+  description = 'Validate the working copy.  Ensures that the project builds, that required files exist and a Javadoc is generated.'
 }
 
 validate.dependsOn clean
@@ -97,34 +100,39 @@ validate.dependsOn javadoc
 /// Run: running Java classes
 ///
 
-task runHolaWorld (type:JavaExec) {
-   main = "setup/HolaWorld"
-   standardInput = System.in
-   classpath = sourceSets.main.runtimeClasspath
+task runHolaWorld(type: JavaExec) {
+  main = "setup/HolaWorld"
+  standardInput = System.in
+  classpath = sourceSets.main.runtimeClasspath
 }
 
-task runRandomHello (type:JavaExec) {
-   main = "setup/RandomHello"
-   standardInput = System.in
-   classpath = sourceSets.main.runtimeClasspath
+task runRandomHello(type: JavaExec) {
+  main = "setup/RandomHello"
+  standardInput = System.in
+  classpath = sourceSets.main.runtimeClasspath
 }
 
-task runCalculator (type:JavaExec) {
-   main = "poly/CalculatorFrame"
-   standardInput = System.in
-   classpath = sourceSets.main.runtimeClasspath  
+task runCalculator(type: JavaExec) {
+  main = "poly/CalculatorFrame"
+  standardInput = System.in
+  classpath = sourceSets.main.runtimeClasspath
 }
 
-task runMarvel (type:JavaExec) {
-   main = "marvel/MarvelPaths"
-   standardInput = System.in
-   classpath = sourceSets.main.runtimeClasspath  
+task runMarvel(type: JavaExec) {
+  main = "marvel/MarvelPaths"
+  standardInput = System.in
+  classpath = sourceSets.main.runtimeClasspath
 }
 
-task runPathfinder (type:JavaExec) {
-   main = "pathfinder/textInterface/Pathfinder"
-   standardInput = System.in
-   classpath = sourceSets.main.runtimeClasspath
+task runPathfinder(type: JavaExec) {
+  main = "pathfinder/textInterface/Pathfinder"
+  standardInput = System.in
+  classpath = sourceSets.main.runtimeClasspath
+}
+
+task runSpark(type: JavaExec) {
+  main = "campuspaths/SparkServer"
+  classpath = sourceSets.main.runtimeClasspath
 }
 
 ///
@@ -144,22 +152,22 @@ task cleanByRenaming {
   }
 }
 
-task specTests (type: Test) {
-    description = 'Runs the specification tests.'
-    group = 'verification'
-    filter {
-      setExcludePatterns "*.implTest.*"
-      setIncludePatterns "*.specTest.*"
-    }
+task specTests(type: Test) {
+  description = 'Runs the specification tests.'
+  group = 'verification'
+  filter {
+    setExcludePatterns "*.implTest.*"
+    setIncludePatterns "*.specTest.*"
+  }
 }
 
-task implTests (type: Test) {
-    description = 'Runs the implementation tests.'
-    group = 'verification'
-    filter {
-      setExcludePatterns "*.specTest.*"
-      setIncludePatterns "*.implTest.*"
-    }
+task implTests(type: Test) {
+  description = 'Runs the implementation tests.'
+  group = 'verification'
+  filter {
+    setExcludePatterns "*.specTest.*"
+    setIncludePatterns "*.implTest.*"
+  }
 }
 
 specTests.dependsOn compileTestJava
@@ -173,9 +181,9 @@ implTests.dependsOn compileTestJava
 ///
 
 task compileGraphOnly(type: JavaCompile) {
- source = compileJava.source
- destinationDir = compileJava.destinationDir
- classpath = compileJava.classpath
+  source = compileJava.source
+  destinationDir = compileJava.destinationDir
+  classpath = compileJava.classpath
 }
 
 compileGraphOnly {
@@ -187,4 +195,3 @@ compileGraphOnly {
   options.encoding = 'UTF-8'
   options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Werror"
 }
-
