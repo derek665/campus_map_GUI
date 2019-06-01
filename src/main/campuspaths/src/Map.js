@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import "./Map.css";
 
 class Map extends Component {
-
   // NOTE:
   // This component is a suggestion for you to use, if you would like to.
   // It has some skeleton code that helps set up some of the more difficult parts
@@ -12,11 +11,12 @@ class Map extends Component {
 
   constructor(props) {
     super(props);
+    let ctx = this.canvasReference = React.createRef();
     this.backgroundImage = new Image();
     this.backgroundImage.onload = () => {
       // TODO: Do something when the image is ready?
     };
-    this.backgroundImage.src = ""; // TODO: Fill this in.
+    this.backgroundImage.src = "src/main/campuspaths/public/campus_map.jpg"; // TODO: Fill this in.
   }
 
   drawBackgroundImage() {
