@@ -6,13 +6,8 @@ import Button from '@material-ui/core/Button';
 
 
 class Map extends Component {
-  // NOTE:
-  // This component is a suggestion for you to use, if you would like to.
-  // It has some skeleton code that helps set up some of the more difficult parts
-  // of getting <canvas> elements to display nicely.
-  //
-  // If you don't want to use this component, you're free to delete it.
 
+  // construct 3 states that represent a start and an end point, and a path between the 2 points
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +23,7 @@ class Map extends Component {
     this.backgroundImage.src = "campus_map.jpg";
   }
 
+  // get the list for the drop down menu for user to select
   getBuildingList = () => {
       let lst = [];
       fetch("http://localhost:4567/buildings").then((res) => {
@@ -45,15 +41,17 @@ class Map extends Component {
       return lst;
   };
 
+  // modify the start point when user selected one from the list
   startChange = (event) => {
       this.setState({start: event.target.value});
   };
 
+  // modify the end point when user selected one from the list
   endChange = (event) => {
     this.setState({end: event.target.value});
   };
 
-
+  // draw the map on canvas as the background
   drawBackgroundImage() {
     let canvas = this.canvasReference.current;
     let ctx = canvas.getContext("2d");
@@ -64,6 +62,8 @@ class Map extends Component {
     }
   }
 
+  // this function if called when the user clicked on the "Go" button, and draw the path with the endpoints,
+  // if the endpoints are the same then it will alert the user and reset the endpoint
   getPath = () => {
       if (this.state.start !== "" && this.state.end !== "" && this.state.start !== this.state.end) {
           fetch("http://localhost:4567/findPath?start=" + this.state.start + "&end=" + this.state.end).then((res) => {
@@ -81,6 +81,7 @@ class Map extends Component {
       }
   };
 
+  // a helper function for getPath that draws the path accordingly
   drawPath = () => {
       let ctx = this.canvasReference.current.getContext('2d');
       ctx.beginPath();
@@ -95,13 +96,13 @@ class Map extends Component {
       }
   };
 
+  // redraw the background and clear the lines, resetting the endpoints and path to ""
   clearHandler = () => {
       this.drawBackgroundImage();
       this.setState({start: "" , end:"" , path:""});
   }
 
   render() {
-    // TODO: You should put a <canvas> inside the <div>. It has a className
     // that's set up to center the canvas for you. See Map.css for more details.
     // Make sure you set up the React references for the canvas correctly so you
     // can get the canvas object and call methods on it.
