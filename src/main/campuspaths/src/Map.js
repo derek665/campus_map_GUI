@@ -65,7 +65,7 @@ class Map extends Component {
   }
 
   getPath = () => {
-      if (this.state.start !== "" && this.state.end !== "") {
+      if (this.state.start !== "" && this.state.end !== "" && this.state.start !== this.state.end) {
           fetch("http://localhost:4567/findPath?start=" + this.state.start + "&end=" + this.state.end).then((res) => {
               if (res.status !== 200) {
                   throw Error("Building does not exist");
@@ -75,6 +75,9 @@ class Map extends Component {
               this.setState({path: resText.path});
               this.drawPath()
           });
+      } else {
+          alert("Both end points are the same");
+          this.clearHandler();
       }
   };
 
