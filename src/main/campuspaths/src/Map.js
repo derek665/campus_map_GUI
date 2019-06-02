@@ -18,7 +18,7 @@ class Map extends Component {
     this.state = {
         start: "",
         end: "",
-        buildings: "",
+        path: "",
       }
     this.canvasReference = React.createRef();
     this.backgroundImage = new Image();
@@ -64,9 +64,38 @@ class Map extends Component {
     }
   }
 
-  pathHandler = () => {
-
+  getPath = () => {
+      if (this.state.start !== "" && this.state.end !== "") {
+          fetch("http://localhost:4567/findPath?start=" + this.state.start + "&end=" + this.state.end).then((res) => {
+              if (res.status !== 200) {
+                  throw Error("Building does not exist");
+              }
+              return res.json();
+          }).then((resText) => {
+              this.setState({path: resText.path});
+              this.drawPath()
+          });
+      }
   };
+
+  drawPath = () => {
+      let ctx = this.canvasReference.current.getContext('2d');
+      ctx.beginPath();
+      for (let i = 0; i < this.state.path.length; i++) {
+          let seg = this.state.path[i];
+          let start = seg.start;
+          let end = seg.end;
+          ctx.moveTo(start.x, start.y);
+          ctx.lineTo(end.x, end.y);
+          ctx.strokeStyle = "red";
+          ctx.stroke();
+      }
+  };
+
+  clearHandler = () => {
+      this.drawBackgroundImage();
+      this.setState({start: "" , end:"" , path:""});
+  }
 
   render() {
     // TODO: You should put a <canvas> inside the <div>. It has a className
@@ -86,7 +115,10 @@ class Map extends Component {
           &nbsp; &nbsp; &nbsp;
           <Select onChange={this.endChange} value={this.state.end}>{menuItems} </Select>
           <div className="center-text button">
-              <Button variant="contained" color="primary" onClick={this.pathHandler}>Go </Button>
+              <Button variant="contained" color="primary" onClick={this.getPath}>Go </Button>
+          </div>
+          <div className="center-text button">
+              <Button variant="contained" color="secondary" onClick={this.clearHandler}>Clear Path </Button>
           </div>
       </div>
     )

@@ -1,6 +1,7 @@
 package campuspaths;
 
 import campuspaths.utils.CORSFilter;
+import com.google.gson.JsonArray;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -28,12 +29,12 @@ public class SparkServer {
     });
 
     // find the shortest path
-    // "findPath?from=BAG&to=CSE"
+    // "findPath?start=BAG&end=CSE"
     Spark.get("/findPath", new Route() {
       @Override
       public Object handle(Request request, Response response) throws Exception {
-        String start = request.queryParams("from");
-        String end = request.queryParams("to");
+        String start = request.queryParams("start");
+        String end = request.queryParams("end");
         if (!(mc.shortNameExists(start) && mc.shortNameExists(end))) {
           Spark.halt(400, "Must be valid short names");
         }
