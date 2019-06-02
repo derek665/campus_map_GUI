@@ -75,7 +75,7 @@ class Map extends Component {
               this.setState({path: resText.path});
               this.drawPath()
           });
-      } else {
+      } else if (this.state.start !== "" && this.state.end !== "") {
           alert("Both end points are the same");
           this.clearHandler();
       }
