@@ -22,20 +22,8 @@ public class SparkServer {
     Spark.get("/buildings", new Route() {
       @Override
       public Object handle(Request request, Response response) throws Exception {
-        return mc.buildingNames();
-      }
-    });
-
-    // get the long name corresponded the short name
-    // "shortToLong?short=BAG
-    Spark.get("/shortToLong", new Route() {
-      @Override
-      public Object handle(Request request, Response response) throws Exception {
-        String shortName = request.queryParams("short");
-        if (!mc.shortNameExists(shortName)) {
-          Spark.halt(400, "Must be a valid short name");
-        }
-        return mc.longNameForShort(shortName);
+        Gson gson = new Gson();
+        return gson.toJson(mc.buildingNames());
       }
     });
 

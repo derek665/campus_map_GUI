@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import "./Map.css";
+import {MenuItem, Select} from "@material-ui/core";
+import * as fetch from "node-fetch";
+import Button from '@material-ui/core/Button';
+
 
 class Map extends Component {
   // NOTE:
@@ -11,33 +15,79 @@ class Map extends Component {
 
   constructor(props) {
     super(props);
-    let ctx = this.canvasReference = React.createRef();
+    this.state = {
+        start: "",
+        end: "",
+        buildings: "",
+      }
+    this.canvasReference = React.createRef();
     this.backgroundImage = new Image();
     this.backgroundImage.onload = () => {
-      // TODO: Do something when the image is ready?
+      this.drawBackgroundImage();
     };
-    this.backgroundImage.src = "src/main/campuspaths/public/campus_map.jpg"; // TODO: Fill this in.
+    this.backgroundImage.src = "campus_map.jpg";
   }
 
+  getBuildingList = () => {
+      let lst = [];
+      fetch("http://localhost:4567/buildings").then((res) => {
+          if (res.status !== 200) {
+              throw Error("Fetch failed");
+          }
+          return res.json();
+      }).then((resText) => {
+          let keys = Object.keys(resText);
+          keys.forEach((key) => {
+              let menuComponent = (<MenuItem value={key}>{resText[key]} </MenuItem>);
+              lst.push(menuComponent);
+          })
+      });
+      return lst;
+  };
+
+  startChange = (event) => {
+      this.setState({start: event.target.value});
+  };
+
+  endChange = (event) => {
+    this.setState({end: event.target.value});
+  };
+
+
   drawBackgroundImage() {
-    let canvas = null; // TODO Fill this in with the canvas, not the context.
+    let canvas = this.canvasReference.current;
     let ctx = canvas.getContext("2d");
+    ctx.clearRect(0,0, this.props.width, this.props.height);
     //
     if (this.backgroundImage.complete) { // This means the image has been loaded.
-      canvas.width = this.backgroundImage.width;
-      canvas.height = this.backgroundImage.height;
       ctx.drawImage(this.backgroundImage, 0, 0);
     }
   }
+
+  pathHandler = () => {
+
+  };
 
   render() {
     // TODO: You should put a <canvas> inside the <div>. It has a className
     // that's set up to center the canvas for you. See Map.css for more details.
     // Make sure you set up the React references for the canvas correctly so you
     // can get the canvas object and call methods on it.
+      let menuItems = this.getBuildingList();
     return (
       <div className="canvasHolder">
-
+          <canvas ref={this.canvasReference} width={this.backgroundImage.width} height={this.backgroundImage.height} />
+          <p>
+              Start: {this.state.start}
+              &nbsp; &nbsp; &nbsp;
+              End: {this.state.end}
+          </p>
+          <Select onChange={this.startChange} value={this.state.start}>{menuItems} </Select>
+          &nbsp; &nbsp; &nbsp;
+          <Select onChange={this.endChange} value={this.state.end}>{menuItems} </Select>
+          <div className="center-text button">
+              <Button variant="contained" color="primary" onClick={this.pathHandler}>Go </Button>
+          </div>
       </div>
     )
   }
