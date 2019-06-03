@@ -304,7 +304,7 @@ public class Path<Node> implements Iterable<Path<Node>.Segment> {
       if(this == obj) {
         return true;
       }
-      if(!(obj instanceof Path.Segment)) {
+      if(!(obj instanceof Path<?>.Segment)) {
         return false;
       } else {
         Path<?>.Segment other = (Path<?>.Segment) obj;

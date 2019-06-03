@@ -78,10 +78,10 @@ public class Edge<Node,Label> {
      */
     @Override
     public boolean equals(Object o) {
-        if (! (o instanceof Edge)) {
+        if (! (o instanceof Edge<?,?>)) {
             return false;
         } else {
-            Edge e = (Edge) o;
+            Edge<?,?> e = (Edge<?,?>) o;
             return this.child.hashCode() == e.getChild().hashCode()
                     && this.label.hashCode() == e.getLabel().hashCode();
         }

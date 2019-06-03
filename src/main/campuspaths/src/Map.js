@@ -68,7 +68,7 @@ class Map extends Component {
       if (this.state.start !== "" && this.state.end !== "" && this.state.start !== this.state.end) {
           fetch("http://localhost:4567/findPath?start=" + this.state.start + "&end=" + this.state.end).then((res) => {
               if (res.status !== 200) {
-                  throw Error("Building does not exist");
+                  throw Error("Fetch failed");
               }
               return res.json();
           }).then((resText) => {
