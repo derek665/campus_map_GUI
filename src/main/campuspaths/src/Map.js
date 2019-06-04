@@ -21,7 +21,7 @@ class Map extends Component {
       this.drawBackgroundImage();
     };
     this.backgroundImage.src = "campus_map.jpg";
-  }
+  };
 
   // get the list for the drop down menu for user to select
   getBuildingList = () => {
@@ -60,7 +60,7 @@ class Map extends Component {
     if (this.backgroundImage.complete) { // This means the image has been loaded.
       ctx.drawImage(this.backgroundImage, 0, 0);
     }
-  }
+  };
 
   // this function if called when the user clicked on the "Go" button, and draw the path with the endpoints,
   // if the endpoints are the same then it will alert the user and reset the endpoint
@@ -100,7 +100,7 @@ class Map extends Component {
   clearHandler = () => {
       this.drawBackgroundImage();
       this.setState({start: "" , end:"" , path:""});
-  }
+  };
 
   render() {
     // that's set up to center the canvas for you. See Map.css for more details.
