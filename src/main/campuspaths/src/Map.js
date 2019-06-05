@@ -14,7 +14,7 @@ class Map extends Component {
         start: "",
         end: "",
         path: "",
-      }
+      };
     this.canvasReference = React.createRef();
     this.backgroundImage = new Image();
     this.backgroundImage.onload = () => {
