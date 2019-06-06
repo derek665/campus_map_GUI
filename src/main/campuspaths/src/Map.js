@@ -23,10 +23,10 @@ class Map extends Component {
   // draw the map on canvas as the background
   drawBackgroundImage = () => {
     let ctx = this.canvasReference.current.getContext('2d');
-    ctx.clearRect(0,0, this.props.width, this.props.height);
     //
     if (this.backgroundImage.complete) { // This means the image has been loaded.
-      ctx.drawImage(this.backgroundImage, 3, 3);
+        ctx.clearRect(0,0, this.backgroundImage.width, this.backgroundImage.height);
+        ctx.drawImage(this.backgroundImage, 0, 0);
     }
   };
 
