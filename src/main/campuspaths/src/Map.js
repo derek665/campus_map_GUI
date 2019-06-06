@@ -28,7 +28,7 @@ class Map extends Component {
       if (this.backgroundImage.complete) { // This means the image has been loaded.
           canvas.width = this.backgroundImage.width;
           canvas.height = this.backgroundImage.height;
-          ctx.clearRect(0,0, canvas.width, canvas.height);
+          ctx.clearRect(0,0, this.backgroundImage.width, this.backgroundImage.height);
           ctx.drawImage(this.backgroundImage, 0, 0);
       }
   };
