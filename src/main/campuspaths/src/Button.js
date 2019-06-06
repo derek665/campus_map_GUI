@@ -3,6 +3,7 @@
 import Button from '@material-ui/core/Button';
 import React, {Component} from 'react';
 
+/* A button class */
 class CustomButton extends Component {
     render() {
         return (

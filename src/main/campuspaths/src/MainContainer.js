@@ -42,6 +42,7 @@ class MainContainer extends Component {
         this.setState({end: event.target.value});
     };
 
+    // reset everything back to start state
     reset = () => {
         this.setState({start:"", end:""})
     }
