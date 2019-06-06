@@ -20,8 +20,16 @@ class Map extends Component {
     };
   };
 
+  componentDidMount() {
+      this.drawBackgroundImage();
+  }
+
+  componentDidUpdate() {
+      this.drawBackgroundImage();
+  }
+
   // draw the map on canvas as the background
-  drawBackgroundImage = () => {
+  drawBackgroundImage() {
       let canvas = this.canvasReference.current;
       let ctx = canvas.getContext('2d');
       //
