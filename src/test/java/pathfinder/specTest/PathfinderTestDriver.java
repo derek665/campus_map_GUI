@@ -243,7 +243,7 @@ public class PathfinderTestDriver {
         }
         output.println("total cost: " + String.format("%.3f", result.getCost()));
       } else {
-        output.println("path not found");
+        output.println("no path found");
       }
     }
   }
