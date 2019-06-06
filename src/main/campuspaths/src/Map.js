@@ -9,25 +9,28 @@ class Map extends Component {
   // construct 3 states that represent a start and an end point, and a path between the 2 points
   constructor(props) {
     super(props);
-    this.state = {
-        path:""
-    };
     this.canvasReference = React.createRef();
     this.backgroundImage = new Image();
     this.backgroundImage.onload = () => {
       this.drawBackgroundImage();
     };
-    this.backgroundImage.src = "./campus_map.jpg";
+    this.backgroundImage.src = "campus_map.jpg";
+    this.state = {
+        path:""
+    };
   };
 
   // draw the map on canvas as the background
   drawBackgroundImage = () => {
-    let ctx = this.canvasReference.current.getContext('2d');
-    //
-    if (this.backgroundImage.complete) { // This means the image has been loaded.
-        ctx.clearRect(0,0, this.backgroundImage.width, this.backgroundImage.height);
-        ctx.drawImage(this.backgroundImage, 0, 0);
-    }
+      let canvas = this.canvasReference.current;
+      let ctx = canvas.getContext('2d');
+      //
+      if (this.backgroundImage.complete) { // This means the image has been loaded.
+          canvas.width = this.backgroundImage.width;
+          canvas.height = this.backgroundImage.height;
+          ctx.clearRect(0,0, canvas.width, canvas.height);
+          ctx.drawImage(this.backgroundImage, 0, 0);
+      }
   };
 
   // this function if called when the user clicked on the "Go" button, and draw the path with the endpoints,
@@ -67,6 +70,7 @@ class Map extends Component {
   clearHandler = () => {
       this.drawBackgroundImage();
       this.props.reset();
+      this.setState({path: ""});
   };
 
   render() {
