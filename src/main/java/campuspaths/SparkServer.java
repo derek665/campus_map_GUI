@@ -1,7 +1,6 @@
 package campuspaths;
 
 import campuspaths.utils.CORSFilter;
-import com.google.gson.JsonArray;
 import spark.Request;
 import spark.Response;
 import spark.Route;
