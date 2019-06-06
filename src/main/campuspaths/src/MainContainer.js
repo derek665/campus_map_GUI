@@ -11,7 +11,6 @@ class MainContainer extends Component {
         this.state = {
             start: "",
             end: "",
-            path: ""
         };
     };
 
@@ -45,7 +44,7 @@ class MainContainer extends Component {
     // reset everything back to start state
     reset = () => {
         this.setState({start:"", end:""})
-    }
+    };
 
     render() {
         let menuItems = this.getBuildingList();
