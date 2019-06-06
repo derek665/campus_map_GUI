@@ -1,8 +1,8 @@
 CSE 331 HW Collaboration Report
 
-Your Name:
+Your Name: Derek Chan
 
-Did you collaborate with anyone on this project (yes/no)?
+Did you collaborate with anyone on this project (yes/no)? no
 
 If yes, list the names of who you collaborated with and briefly
 describe how you collaborated:
