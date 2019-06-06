@@ -14,9 +14,6 @@
 
 import React, {Component} from 'react';
 import Button from './Button'
-import GridSizePicker from "./GridSizePicker";
-import MainContainer from "./MainContainer";
-import EdgeList from "./EdgeList";
 
 class Grid extends Component {
   constructor(props) {
@@ -42,7 +39,7 @@ class Grid extends Component {
       coordinates.forEach(coordinate => {
         this.drawCircle(ctx, coordinate);
       });
-    }
+    };
     background.src = "https://courses.cs.washington.edu/courses/cse331/19sp/hws/hw8/image.jpg";
   };
 
@@ -107,11 +104,11 @@ class Grid extends Component {
         }
       }
     }
-  }
+  };
 
   clearHandler = () => {
     this.redraw();
-  }
+  };
 
   render() {
     return (
