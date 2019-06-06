@@ -1,6 +1,6 @@
 CSE 331 Homework Answers:
 
-Your Name:
+Your Name: Derek Chan
 
 List any additional features or functionality you implemented
 in your CampusPaths application below. Only things listed here
