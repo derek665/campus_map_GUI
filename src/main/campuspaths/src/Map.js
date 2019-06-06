@@ -46,7 +46,6 @@ class Map extends Component {
           });
       } else if (this.props.start !== "" && this.props.end !== "") {
           alert("Both end points are the same");
-          this.clearHandler();
       }
   };
 
