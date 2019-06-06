@@ -17,7 +17,7 @@ class Map extends Component {
     this.backgroundImage.onload = () => {
       this.drawBackgroundImage();
     };
-    this.backgroundImage.src = "campus_map.jpg";
+    this.backgroundImage.src = "./campus_map.jpg";
   };
 
   // draw the map on canvas as the background
