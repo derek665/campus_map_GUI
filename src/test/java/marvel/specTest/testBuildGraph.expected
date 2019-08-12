@@ -1,8 +1,0 @@
-# test the correct graph is being built
-
-loaded graph testBuild
-
-testBuild contains: Arsenal Barcelona Eibar Hanover96 Juventus Liverpool Marseille PSG Southampton Valencia
-
-the children of Barcelona in testBuild are: Eibar(La-Liga) Juventus(Champions-League) PSG(Champions-League) Valencia(La-Liga)
-the children of Arsenal in testBuild are: Liverpool(EPL) Southampton(EPL) Valencia(European-League)

@@ -1,5 +1,0 @@
-# test the correct output when 2 nodes have no connections
-
-LoadGraph testNo soccer.tsv
-
-FindPath testNo Hanover96 Valencia

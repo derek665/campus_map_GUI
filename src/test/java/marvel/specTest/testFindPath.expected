@@ -1,8 +1,0 @@
-# test the findPath method is correct
-
-loaded graph testPath
-
-path from Barcelona to Southampton:
-Barcelona to Valencia via La-Liga
-Valencia to Arsenal via European-League
-Arsenal to Southampton via EPL

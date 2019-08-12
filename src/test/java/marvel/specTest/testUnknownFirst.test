@@ -1,5 +1,0 @@
-# test correct output when the start node is unknown
-
-LoadGraph testFirst soccer.tsv
-
-FindPath testFirst Chelsea Liverpool

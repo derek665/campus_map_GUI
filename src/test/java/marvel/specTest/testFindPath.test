@@ -1,5 +1,0 @@
-# test the findPath method is correct
-
-LoadGraph testPath soccer.tsv
-
-FindPath testPath Barcelona Southampton

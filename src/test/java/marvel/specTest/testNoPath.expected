@@ -1,6 +1,0 @@
-# test the correct output when 2 nodes have no connections
-
-loaded graph testNo
-
-path from Hanover96 to Valencia:
-no path found
